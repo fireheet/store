@@ -1,0 +1,74 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "airbnb-base", 
+        "prettier",
+        "prettier/prettier",
+        "eslint:recommended",
+        "plugin:prettier/recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 13,
+        "sourceType": "module",
+        "project": "./tsconfig.json",
+        "tsconfigRootDir": "./"
+    },
+    "plugins": [
+        "@typescript-eslint",
+        "import"
+    ],
+    "settings": {
+        "import/extensions": [
+          ".js",
+          ".jsx",
+          ".tsx",
+          ".ts"
+        ],
+        "import/parsers": {
+          "@typescript-eslint/parser": [".ts", ".tsx"]
+        },
+        "import/resolver": {
+          "typescript": {}
+        }
+    },
+    "rules": {
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+              "js": "never",
+              "jsx": "never",
+              "ts": "never",
+              "tsx": "never"
+            }
+         ],
+         "import/prefer-default-export": "off",
+         
+        // Prettier conflict rules
+        "no-confusing-arrow": ["error", { "allowParens": false }],
+        "@typescript-eslint/no-unsafe-assignment": "warn",
+        "@typescript-eslint/no-unsafe-call": "warn",
+        "@typescript-eslint/no-unsafe-member-access": "warn",
+        "@typescript-eslint/no-unsafe-argument": "warn",
+        "@typescript-eslint/require-await": "warn",
+
+        // to enforce using type for object type definitions, can be type or interface 
+        "@typescript-eslint/no-shadow": "error",
+        "@typescript-eslint/no-unused-vars": ["off", {
+            "argsIgnorePattern": "_"
+        }],
+        "no-useless-constructor": "off", 
+        "no-empty-function": "off",
+        "no-param-reassign": ["error", { "props": false }],
+        "class-methods-use-this": "off",
+        "no-shadow": "off",
+        "camelcase": "off"
+    }
+}

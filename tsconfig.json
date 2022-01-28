@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "lib": ["es2016"],
+    "target": "es2016",
+    "module": "CommonJS",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "allowJs": true,
+    "sourceMap": true,
+    "baseUrl": "./src",
+    "incremental": true,
+    "paths": {
+      "@core/*": ["core/*"],
+      "@domain/*": ["core/domain/*"],
+      "@data/*": ["core/data/*"],
+      "@presentation/*": ["core/presentation/*"],
+      "@infra/*": ["core/infra/*"],
+      "@main/*": ["main/*"],
+    },
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noImplicitOverride": true,
+    "noEmitOnError": true
+  }
+}
