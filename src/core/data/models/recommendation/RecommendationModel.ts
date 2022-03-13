@@ -1,3 +1,3 @@
 import { Recommendation } from '@domain/entities';
 
-export type RecommendationModel = Recommendation;
+export class RecommendationModel extends Recommendation {}

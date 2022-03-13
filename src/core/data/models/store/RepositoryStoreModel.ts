@@ -11,6 +11,8 @@ export class RepositoryStoreModel
 
   updated_at!: Date | null;
 
+  deleted_at!: Date | null;
+
   enabled_at!: Date;
 
   disabled_at!: Date | null;
