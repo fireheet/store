@@ -1,3 +1,3 @@
-export interface DisableOwner {
+export interface DisableStore {
   disable: () => Promise<boolean>;
 }

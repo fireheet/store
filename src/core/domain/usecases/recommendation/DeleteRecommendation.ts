@@ -1,5 +1,3 @@
-import { Recommendation } from '../../entities';
-
 export interface DeleteRecommendation {
-  delete: () => Promise<Recommendation>;
+  delete: () => Promise<boolean>;
 }
