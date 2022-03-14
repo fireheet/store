@@ -30,4 +30,11 @@ export class Availability {
       throw new Error('Waiting time must be greater than zero!');
     }
   }
+
+  toString(): string {
+    return (
+      `Open: ${this.openHour}:00 - Closes:${this.closeHour}:00` +
+      ` Waiting time: ${this.waitingTime} minutes`
+    );
+  }
 }

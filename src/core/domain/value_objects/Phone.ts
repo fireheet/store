@@ -30,9 +30,12 @@ export class Phone {
     if (!/^[0-9]+$/.test(this.country_code)) {
       throw new Error('Invalid country code');
     }
+
+    this.country_code = `+${this.country_code}`;
   }
 
   validatePhoneByCountryCode(): void {
+    // TODO Search for country codes and redo this validation
     switch (this.country_code) {
       case '+55':
         this.validateBrazilPhone();
@@ -60,5 +63,9 @@ export class Phone {
     }
 
     return true;
+  }
+
+  toString(): string {
+    return `+${this.country_code} (${this.prefix}) ${this.number}`;
   }
 }

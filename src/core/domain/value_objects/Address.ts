@@ -69,4 +69,11 @@ export class Address {
       throw new Error('Number must be greater than 0!');
     }
   }
+
+  toBrazilString(): string {
+    return (
+      `${this.country}, ${this.state}, ${this.city}, ${this.street}` +
+      ` nº${this.number}, ${this.neighborhood} - CEP: ${this.zip_code}`
+    );
+  }
 }
