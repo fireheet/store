@@ -66,4 +66,8 @@ export class Document {
   public toString(): string {
     return `${this.type},${this.number}`;
   }
+
+  public isEqual(document: Document): boolean {
+    return this.toString() === document.toString();
+  }
 }

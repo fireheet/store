@@ -1,2 +1,1 @@
-export * from './RepositoryUserDTOMock';
-export * from './CreateUserDTOMock';
+export * from './OwnerModelMockFactory';

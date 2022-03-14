@@ -1,12 +1,9 @@
 import { Document } from '@domain/value_objects/Document';
-import { Store } from '@domain/entities/Store';
 
 export class Owner {
   name!: string;
 
   document!: Document;
-
-  ownedStore!: Store;
 
   isEnabled = true;
 
@@ -17,7 +14,7 @@ export class Owner {
   }
 
   validateOwner() {
-    if (!(this.name && this.document && this.ownedStore)) {
+    if (!(this.name && this.document)) {
       throw new Error('Owner values must not be null!');
     }
 
