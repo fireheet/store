@@ -1,2 +1,2 @@
 export * from './RepositoryFields';
-export * from './StatusRepositoryFields';
+export * from './RepositoryStatusFields';

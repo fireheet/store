@@ -1,9 +1,9 @@
 import { Store } from '@domain/entities';
-import { RepositoryFields, StatusRepositoryFields } from '../repository';
+import { RepositoryFields, RepositoryStatusFields } from '../repository';
 
 export class RepositoryStoreModel
   extends Store
-  implements RepositoryFields, StatusRepositoryFields
+  implements RepositoryFields, RepositoryStatusFields
 {
   id!: string;
 
