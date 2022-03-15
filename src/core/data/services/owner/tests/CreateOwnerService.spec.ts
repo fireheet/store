@@ -1,25 +1,19 @@
 import { DocumentType } from '@domain/value_objects/types';
 import { CreateOwner } from '@domain/usecases/owner';
-import {
-  OwnersReadRepository,
-  OwnersWriteRepository,
-} from '@data/contracts/repositories';
 import { DocumentModel } from '@data/models';
 import { OwnerModelMockFactory } from '@data/sources/data/mocks';
 import { DocumentAlreadyExistsException } from '@data/contracts/exceptions';
 
 let createOwnersService: CreateOwner;
-let usersWriteRepository: OwnersWriteRepository;
-let usersReadRepository: OwnersReadRepository;
 
 describe('CreateUserService', () => {
   beforeEach(() => {
-    usersReadRepository = new FakeOwnersReadRepository();
-    usersWriteRepository = new FakeOwnersWriteRepository();
-    createOwnersService = new CreateOwnerService(
-      usersReadRepository,
-      usersWriteRepository,
-    );
+    // usersReadRepository = new FakeOwnersReadRepository();
+    // usersWriteRepository = new FakeOwnersWriteRepository();
+    // createOwnersService = new CreateOwnerService(
+    //  usersReadRepository,
+    //  usersWriteRepository,
+    // );
   });
 
   it('Should not create an Owner with same Document', async () => {
