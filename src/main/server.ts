@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable no-void */
 import 'module-alias/register';
 import { join } from 'path';
@@ -9,25 +10,25 @@ export type AppOptions = { logger: true } & Partial<AutoloadPluginOptions>;
 
 const app: FastifyPluginAsync<AppOptions> = async (
   fastify: FastifyInstance,
-  opts: Partial<AutoloadPluginOptions>,
+  opts: Partial<AutoloadPluginOptions>
 ): Promise<void> => {
-  void fastify.register(cors);
+  fastify.register(cors);
 
   // Do not touch the following lines
 
   // This loads all plugins defined in plugins
   // those should be support plugins that are reused
   // through your application
-  void fastify.register(AutoLoad, {
+  fastify.register(AutoLoad, {
     dir: join(__dirname, 'infra/fastify/plugins'),
-    options: opts,
+    options: opts
   });
 
   // This loads all plugins defined in routes
   // define your routes in one of these
-  void fastify.register(AutoLoad, {
+  fastify.register(AutoLoad, {
     dir: join(__dirname, 'routes'),
-    options: opts,
+    options: opts
   });
 };
 

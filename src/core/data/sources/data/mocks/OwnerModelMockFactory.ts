@@ -13,8 +13,8 @@ export class OwnerModelMockFactory {
       document:
         new DocumentModel({
           number: '12345678901',
-          type: DocumentType.CPF,
-        }) || options.document,
+          type: DocumentType.CPF
+        }) || options.document
     });
   }
 }

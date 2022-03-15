@@ -1,5 +1,5 @@
 export enum StoreStatus {
   Open = 'Open',
   Halted = 'Halted',
-  Closed = 'Closed',
+  Closed = 'Closed'
 }

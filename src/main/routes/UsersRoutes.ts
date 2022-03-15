@@ -4,7 +4,7 @@ import { makeUsersControllerFactory } from '@main/factories';
 
 const UsersRoutes: FastifyPluginAsync = async (
   fastify,
-  _opts,
+  _opts
 ): Promise<void> => {
   fastify.post('/', FastifyRouteAdapter.create(makeUsersControllerFactory()));
 };

@@ -34,13 +34,13 @@ export class Document {
     }
   }
 
-  validateCPF(cpf: string): boolean {
+  validateCPF(_cpf: string): boolean {
     // TODO Implement CPF validation
 
     return true;
   }
 
-  validateCPNJ(cnpj: string): boolean {
+  validateCPNJ(_cnpj: string): boolean {
     // TODO Implement CNPJ validation
 
     return true;

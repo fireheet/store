@@ -40,19 +40,16 @@ export class Phone {
 
   validatePhoneByCountryCode(): void {
     // TODO Search for country codes and redo this validation
-    switch (this.country_code) {
-      case '+55':
-        this.validateBrazilPhone();
-        break;
-      default:
-        throw new Error('Country code not supported!');
+    if (this.country_code === '+55') {
+      this.validateBrazilPhone();
     }
   }
 
   validateBrazilPhone(): boolean {
     const phoneNumberLength = PhoneConstants.PHONE_NUMBER_LENGTH;
+    const prefixLength = PhoneConstants.PREFIX_LENGTH;
 
-    if (this.prefix.length !== 2) {
+    if (this.prefix.length !== prefixLength) {
       throw new Error('Invalid phone prefix');
     }
 

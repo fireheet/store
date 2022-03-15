@@ -38,17 +38,30 @@ export class Address {
   }
 
   validateAddress(): void {
-    if (
-      !(this.country && this.state && this.city && this.street && this.number)
-    ) {
-      throw new Error('Address values must not be null!');
-    }
-
+    this.isFieldsNull();
     this.validateZipCode();
-    this.checkFieldLenghts();
+    this.validateFieldLengths();
   }
 
-  checkFieldLenghts(): void {
+  isFieldsNull() {
+    if (!this.country) {
+      throw new Error('Country must not be null!');
+    }
+
+    if (!this.state) {
+      throw new Error('State must not be null!');
+    }
+
+    if (!this.city) {
+      throw new Error('City must not be null!');
+    }
+
+    if (!this.street) {
+      throw new Error('Street must not be null!');
+    }
+  }
+
+  validateFieldLengths(): void {
     const countryMaxLength = AddressConstants.COUNTRY_MAX_LENGTH;
     const stateMaxLength = AddressConstants.STATE_MAX_LENGTH;
     const cityMaxLength = AddressConstants.CITY_MAX_LENGTH;

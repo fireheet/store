@@ -5,7 +5,7 @@ export class FastifyRouteAdapter {
   static create(controller: HttpController) {
     return async (
       request: FastifyRequest,
-      reply: FastifyReply,
+      reply: FastifyReply
     ): Promise<FastifyReply> => {
       const response = await controller.create(request.body);
 
