@@ -1,4 +1,4 @@
-name: SonarCloud verification
+name: SonarCloud analysis
 on:
   push:
     branches:
