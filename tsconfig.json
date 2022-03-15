@@ -21,6 +21,7 @@
       "@presentation/*": ["core/presentation/*"],
       "@infra/*": ["core/infra/*"],
       "@main/*": ["main/*"],
+      "@constants/*": ["core/config/constants/*"],
     },
     "esModuleInterop": true,
     "resolveJsonModule": true,

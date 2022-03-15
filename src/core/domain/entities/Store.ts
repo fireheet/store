@@ -1,4 +1,5 @@
 import { Document, Address, Phone, Availability } from '@domain/value_objects';
+import { StoreConstants } from '@constants/domain';
 
 export class Store {
   name!: string;
@@ -26,12 +27,16 @@ export class Store {
   }
 
   validateStore() {
+    const nameMaxLength = StoreConstants.NAME_MAX_LENGTH;
+
     if (!(this.name && this.address && this.phone && this.document)) {
       throw new Error('Store values must not be null!');
     }
 
-    if (this.name.length > 100) {
-      throw new Error('Store name must be less than 100 characters!');
+    if (this.name.length > nameMaxLength) {
+      throw new Error(
+        `Store name must be less than ${nameMaxLength} characters!`
+      );
     }
   }
 }

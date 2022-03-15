@@ -19,7 +19,7 @@ describe('CreateUserService', () => {
   it('Should not create an Owner with same Document', async () => {
     const document = new DocumentModel({
       number: '12345678901',
-      type: DocumentType.CPF,
+      type: DocumentType.CPF
     });
 
     const ownerData = OwnerModelMockFactory.makeOwnerModel({ document });
@@ -27,7 +27,7 @@ describe('CreateUserService', () => {
     await createOwnersService.create(ownerData);
 
     await expect(createOwnersService.create(ownerData)).rejects.toBeInstanceOf(
-      DocumentAlreadyExistsException,
+      DocumentAlreadyExistsException
     );
   });
 });

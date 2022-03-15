@@ -1,3 +1,5 @@
+import { PhoneConstants } from '@constants/domain/value_objects';
+
 export class Phone {
   country_code!: string;
 
@@ -23,7 +25,9 @@ export class Phone {
   }
 
   validateCountryCode(): void {
-    if (this.country_code.length !== 2) {
+    const countryCodeLength = PhoneConstants.COUNTRY_CODE_LENGTH;
+
+    if (this.country_code.length !== countryCodeLength) {
       throw new Error('Invalid country code');
     }
 
@@ -46,6 +50,8 @@ export class Phone {
   }
 
   validateBrazilPhone(): boolean {
+    const phoneNumberLength = PhoneConstants.PHONE_NUMBER_LENGTH;
+
     if (this.prefix.length !== 2) {
       throw new Error('Invalid phone prefix');
     }
@@ -54,7 +60,7 @@ export class Phone {
       throw new Error('Invalid phone prefix');
     }
 
-    if (this.number.length <= 8 || this.number.length > 9) {
+    if (this.number.length !== phoneNumberLength) {
       throw new Error('Invalid phone number');
     }
 

@@ -1,5 +1,6 @@
 import { Image } from '@domain/value_objects/Image';
 import { Store } from '@domain/entities/Store';
+import { MealConstants } from '@constants/domain';
 
 export class Meal {
   name!: string;
@@ -19,16 +20,19 @@ export class Meal {
   }
 
   validateMeal(): void {
+    const nameMaxLength = MealConstants.NAME_MAX_LENGTH;
+    const minimumPrice = MealConstants.MINIMUM_PRICE;
+
     if (!(this.name && this.price && this.assignedStore)) {
       throw new Error('Meal values must not be null!');
     }
 
-    if (this.name.length > 100) {
-      throw new Error('Meal name must be less than 100 characters!');
+    if (this.name.length > nameMaxLength) {
+      throw new Error(`Name must be less than ${nameMaxLength} characters!`);
     }
 
-    if (this.price < 0) {
-      throw new Error('Meal price must be greater than 0!');
+    if (this.price < minimumPrice) {
+      throw new Error(`Price must be greater than ${minimumPrice}!`);
     }
   }
 }

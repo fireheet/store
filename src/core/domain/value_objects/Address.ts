@@ -1,3 +1,5 @@
+import { AddressConstants } from '@constants/domain/value_objects';
+
 export class Address {
   country!: string;
 
@@ -9,19 +11,24 @@ export class Address {
 
   number!: number;
 
-  neighborhood!: string;
+  neighborhood = '';
 
   zip_code!: string;
 
   constructor(data: Partial<Address>) {
     Object.assign(this, data);
 
-    this.validateZipCode();
     this.validateAddress();
   }
 
   validateZipCode(): void {
-    if (this.zip_code.length !== 8) {
+    const zipCodeLength = AddressConstants.ZIP_CODE_LENGTH;
+
+    if (!this.zip_code) {
+      throw new Error('Zip code must not be null!');
+    }
+
+    if (this.zip_code.length !== zipCodeLength) {
       throw new Error('Invalid zip code');
     }
 
@@ -32,45 +39,52 @@ export class Address {
 
   validateAddress(): void {
     if (
-      !(
-        this.country &&
-        this.state &&
-        this.city &&
-        this.street &&
-        this.number &&
-        this.neighborhood &&
-        this.zip_code
-      )
+      !(this.country && this.state && this.city && this.street && this.number)
     ) {
       throw new Error('Address values must not be null!');
     }
 
-    if (this.country.length > 150) {
-      throw new Error('Country must be less than 150 characters!');
+    this.validateZipCode();
+    this.checkFieldLenghts();
+  }
+
+  checkFieldLenghts(): void {
+    const countryMaxLength = AddressConstants.COUNTRY_MAX_LENGTH;
+    const stateMaxLength = AddressConstants.STATE_MAX_LENGTH;
+    const cityMaxLength = AddressConstants.CITY_MAX_LENGTH;
+    const streetMaxLength = AddressConstants.STREET_MAX_LENGTH;
+    const numberMaxValue = AddressConstants.NUMBER_MAX_VALUE;
+    const numberMinValue = AddressConstants.NUMBER_MIN_VALUE;
+
+    if (this.country.length > countryMaxLength) {
+      throw new Error(
+        `Country must be less than ${countryMaxLength} characters!`
+      );
     }
 
-    if (this.state.length > 150) {
-      throw new Error('State must be less than 150 characters!');
+    if (this.state.length > stateMaxLength) {
+      throw new Error(`State must be less than ${stateMaxLength} characters!`);
     }
 
-    if (this.city.length > 150) {
-      throw new Error('City must be less than 150 characters!');
+    if (this.city.length > cityMaxLength) {
+      throw new Error(`City must be less than ${cityMaxLength} characters!`);
     }
 
-    if (this.street.length > 150) {
-      throw new Error('Street must be less than 150 characters!');
+    if (this.street.length > streetMaxLength) {
+      throw new Error(
+        `Street must be less than ${streetMaxLength} characters!`
+      );
     }
 
-    if (this.neighborhood.length > 150) {
-      throw new Error('Neighborhood must be less than 150 characters!');
-    }
-
-    if (this.number < 0) {
-      throw new Error('Number must be greater than 0!');
+    if (this.number < numberMinValue && this.number > numberMaxValue) {
+      throw new Error(
+        `Number must be greater than ${numberMinValue}` +
+          ` and less than ${numberMaxValue}!`
+      );
     }
   }
 
-  toBrazilString(): string {
+  public toBrazilString(): string {
     return (
       `${this.country}, ${this.state}, ${this.city}, ${this.street}` +
       ` nº${this.number}, ${this.neighborhood} - CEP: ${this.zip_code}`

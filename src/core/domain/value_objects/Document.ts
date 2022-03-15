@@ -18,7 +18,7 @@ export class Document {
 
     if (this.validateNumberByType()) {
       throw new Error(
-        `Document number not valid with type "${this.getDocumentTypeString()}`,
+        `Document number not valid with type "${this.getDocumentTypeString()}`
       );
     }
   }
@@ -55,7 +55,7 @@ export class Document {
   getDocumentValues(): Partial<Document> {
     return {
       number: this.number,
-      type: this.type,
+      type: this.type
     };
   }
 

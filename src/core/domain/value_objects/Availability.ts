@@ -1,3 +1,4 @@
+import { AvailabilityConstants } from '@constants/domain/value_objects';
 import { StoreStatus } from './types/StoreStatus';
 
 export class Availability {
@@ -18,6 +19,8 @@ export class Availability {
   }
 
   validateAvailability(): void {
+    const minWaitingTime = AvailabilityConstants.MIN_WAITING_TIME;
+
     if (!(this.openHour && this.closeHour && this.waitingTime !== undefined)) {
       throw new Error('Availability values must not be null!');
     }
@@ -26,8 +29,8 @@ export class Availability {
       throw new Error('Open hour must be before close hour!');
     }
 
-    if (this.waitingTime < 0) {
-      throw new Error('Waiting time must be greater than zero!');
+    if (this.waitingTime < minWaitingTime) {
+      throw new Error(`Waiting time must be greater than ${minWaitingTime}!`);
     }
   }
 

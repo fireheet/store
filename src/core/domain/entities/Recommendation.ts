@@ -1,4 +1,5 @@
 import { Store } from '@domain/entities/Store';
+import { RecommendationConstants } from '@constants/domain';
 
 export class Recommendation {
   intendedStore!: Store;
@@ -16,19 +17,25 @@ export class Recommendation {
   }
 
   validateRecommendation(): void {
+    const minimumStars = RecommendationConstants.MINIMUM_STARS;
+    const maximumStars = RecommendationConstants.MAXIMUM_STARS;
+    const commentMaxLength = RecommendationConstants.COMMENT_MAX_LENGTH;
+
     if (
       !(this.intendedStore && this.comment && this.isPositive && this.stars)
     ) {
       throw new Error('Recommendation values must not be null!');
     }
 
-    if (this.stars < 0 || this.stars > 5) {
-      throw new Error('Recommendation stars must be between 0 and 5!');
+    if (this.stars < minimumStars || this.stars > maximumStars) {
+      throw new Error(
+        `Stars must be between ${minimumStars} and ${maximumStars}!`
+      );
     }
 
-    if (this.comment.length > 300) {
+    if (this.comment.length > commentMaxLength) {
       throw new Error(
-        'Recommendation comment must be less than 500 characters!',
+        `Comment must be less than ${commentMaxLength} characters!`
       );
     }
   }
