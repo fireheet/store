@@ -5,9 +5,10 @@ import {
   OwnersWriteRepository
 } from '@data/contracts/repositories';
 import { DocumentAlreadyExistsException } from '@data/contracts/exceptions';
-import { RepositoryOwnerModel } from '@data/models';
+import { DocumentModel, OwnerModel, RepositoryOwnerModel } from '@data/models';
 import { inject, injectable } from 'inversify';
 import { OwnerTypes } from '@config/container/types';
+import { DocumentType } from '@domain/value_objects/types';
 
 @injectable()
 export class CreateOwnerService implements CreateOwner {
@@ -19,9 +20,19 @@ export class CreateOwnerService implements CreateOwner {
     private readonly ownersWriteRepository: OwnersWriteRepository
   ) {}
 
-  async create(ownerDto: CreateOwnerDTO): Promise<RepositoryOwnerModel> {
+  async create({name, documentNumber, documentType}: CreateOwnerDTO): Promise<RepositoryOwnerModel> {
+    const document = new DocumentModel({
+      number: documentNumber,
+      type: documentType as DocumentType
+    })
+
+    const owner = new OwnerModel({
+      name,
+      document
+    });
+
     const foundOwner = await this.ownersReadRepository.findOwnerByDocument(
-      ownerDto.document
+      document
     );
 
     if (foundOwner) {
@@ -29,7 +40,7 @@ export class CreateOwnerService implements CreateOwner {
     }
 
     const repositoryWriteOwner = await this.ownersWriteRepository.create(
-      ownerDto
+      owner
     );
 
     await this.ownersReadRepository.create(repositoryWriteOwner);

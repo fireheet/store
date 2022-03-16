@@ -1,3 +1,4 @@
+import { InvalidDocumentException } from '@data/contracts/exceptions';
 import { DocumentType } from './types/DocumentType';
 
 export class Document {
@@ -12,12 +13,12 @@ export class Document {
   }
 
   validateDocument(): void {
-    if (!(this.number && this.type)) {
+    if (!this.number && !this.type) {
       throw new Error('Document values must not be null!');
     }
 
     if (!this.validateNumberByType()) {
-      throw new Error(
+      throw new InvalidDocumentException(
         `Document number not valid with type "${this.getDocumentTypeString()}`
       );
     }
@@ -34,8 +35,8 @@ export class Document {
     }
   }
 
-  validateCPF(_cpf: string): boolean {
-    // TODO Implement CPF validation
+  validateCPF(cpf: string): boolean {
+    if (cpf.length !== 11) return false;
 
     return true;
   }

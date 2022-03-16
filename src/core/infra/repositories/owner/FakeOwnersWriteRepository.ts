@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/require-await */
 import { OwnersWriteRepository } from '@data/contracts/repositories';
-import { RepositoryOwnerModel } from '@data/models';
+import { OwnerModel, RepositoryOwnerModel } from '@data/models';
 import {
-  CreateRepositoryOwnerDTO,
-  UpdateRepositoryOwnerDTO,
   EnableRepositoryOwnerDTO,
   DisableRepositoryOwnerDTO
 } from '@data/dtos';
@@ -12,7 +10,7 @@ import { OwnerModelMockFactory } from '@data/sources/data';
 export class FakeOwnersWriteRepository implements OwnersWriteRepository {
   owners: RepositoryOwnerModel[] = [];
 
-  async create(owner: CreateRepositoryOwnerDTO): Promise<RepositoryOwnerModel> {
+  async create(owner: OwnerModel): Promise<RepositoryOwnerModel> {
     const newOwner = OwnerModelMockFactory.makeRepositoryOwnerModel(owner);
 
     this.owners.push(newOwner);
@@ -20,13 +18,17 @@ export class FakeOwnersWriteRepository implements OwnersWriteRepository {
     return newOwner;
   }
 
-  async update(owner: UpdateRepositoryOwnerDTO): Promise<RepositoryOwnerModel> {
+  async update(owner: RepositoryOwnerModel): Promise<boolean> {
     const existingOwnerIndex = this.findOwnerIndex(owner.id);
+
+    if (!existingOwnerIndex) {
+      return false;
+    }
 
     this.owners[existingOwnerIndex] =
       OwnerModelMockFactory.makeRepositoryOwnerModel(owner);
 
-    return this.owners[existingOwnerIndex];
+    return true;
   }
 
   async enable(enableOwner: EnableRepositoryOwnerDTO): Promise<boolean> {

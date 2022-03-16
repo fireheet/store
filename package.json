@@ -6,9 +6,9 @@
   "scripts": {
     "start": "yarn build:ts && fastify start -l info dist/app.js",
     "build:ts": "tsc",
-    "test": "jest --colors --noStackTrace --no-cache --runInBand",
+    "test": "jest --colors --noStackTrace --no-cache --runInBand ",
     "test-coverage": "jest --colors --noStackTrace --no-cache --runInBand --coverage",
-    "test-watch": "jest --no-cache --coverage",
+    "test-watch": "jest --no-cache --runInBand --watch",
     "check-dependencies": "npm-check --strict -s -u",
     "lint": "eslint --ignore-path .eslintignore --ext .js,.ts .",
     "dev": "tsc && concurrently -k -p \"[{name}]\" -n \"TypeScript,App\" -c \"yellow.bold,cyan.bold\" \"tsc -w\" \"fastify start --ignore-watch=.ts$ -w -l info -P dist/main/server.js\""

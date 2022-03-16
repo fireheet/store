@@ -1,8 +1,10 @@
-import { DocumentType } from '@domain/value_objects/types';
 import { CreateOwner } from '@domain/usecases/owner';
 import { DocumentModel } from '@data/models';
 import { OwnerModelMockFactory } from '@data/sources/data/mocks';
-import { DocumentAlreadyExistsException } from '@data/contracts/exceptions';
+import {
+  DocumentAlreadyExistsException,
+  InvalidDocumentException
+} from '@data/contracts/exceptions';
 import {
   OwnersReadRepository,
   OwnersWriteRepository
@@ -12,12 +14,15 @@ import {
   FakeOwnersWriteRepository
 } from '@infra/repositories';
 import { CreateOwnerService } from '../CreateOwnerService';
+import { DocumentType } from '@domain/value_objects/types';
 
 let createOwner: CreateOwner;
 let ownersReadRepository: OwnersReadRepository;
 let ownersWriteRepository: OwnersWriteRepository;
 
-describe('Create User Service', () => {
+let document: DocumentModel;
+
+describe('CreateOwnerService', () => {
   beforeEach(() => {
     ownersReadRepository = new FakeOwnersReadRepository();
     ownersWriteRepository = new FakeOwnersWriteRepository();
@@ -27,18 +32,52 @@ describe('Create User Service', () => {
     );
   });
 
-  it('Should not create an Owner with same Document', async () => {
-    const document = new DocumentModel({
-      number: '12345678901',
-      type: DocumentType.CPF
+  it('should be possible to create an Owner with only name and Document', async () => {
+    const owner = await createOwner.create({
+      name: 'Teste',
+      documentNumber: '12345678901',
+      documentType: 'CPF'
     });
 
+    expect(owner).toBeTruthy();
+    expect(owner.name).toBe('Teste');
+    expect(owner.document.getDocumentValues().number).toBe('12345678901');
+    expect(owner.document.getDocumentValues().type).toBe(DocumentType.CPF);
+  });
+
+  it('should not be possible create an Owner with invalid Document', async () => {
+    await expect(
+      createOwner.create({
+        name: 'Teste',
+        documentNumber: '123',
+        documentType: 'CPF'
+      })
+    ).rejects.toBeInstanceOf(InvalidDocumentException);
+  });
+
+  it('should not be possible to create an Owner with same Document', async () => {
     const ownerData = OwnerModelMockFactory.makeCreateOwnerDTO({ document });
 
     await createOwner.create(ownerData);
 
-    await expect(createOwner.create(ownerData)).rejects.toBeInstanceOf(
+    const failOwner = createOwner.create(ownerData);
+
+    await expect(failOwner).rejects.toBeInstanceOf(
       DocumentAlreadyExistsException
     );
   });
+
+  // it('should be possible to assign an Owner to an existing Store', async () => {});
+
+  // it('should not be possible to assign an Owner to an non-existing Store', async () => {});
+
+  // it('should not be possible to assign an Owner to an Store if it already has one assigned', async () => {});
+
+  // it('should be possible to disable an Owner', async () => {});
+
+  // it('should be not possible to disable an Owner with an Assigned Store', async () => {});
+
+  // it('should be possible to enable an Owner with an Assigned Store', async () => {});
+
+  // it('should be not possible to enable an Owner without an Assigned Store', async () => {});
 });

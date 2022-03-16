@@ -15,12 +15,8 @@ export class OwnerModelMockFactory {
   static makeCreateOwnerDTO(options: FactoryOptions = {}) {
     const ownerDto: CreateOwnerDTO = {
       name: options.name || 'John Doe',
-      document:
-        options.document ||
-        new DocumentModel({
-          number: RandomInRange(minCPFValue, maxCPFValue).toString(),
-          type: DocumentType.CPF
-        })
+      documentNumber: RandomInRange(minCPFValue, maxCPFValue).toString(),
+      documentType: DocumentType.CPF
     };
 
     return ownerDto;
