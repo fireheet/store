@@ -1,1 +1,1 @@
-export * from './MockDataFunctions';
+export * from './mocks';

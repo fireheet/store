@@ -7,7 +7,7 @@ import {
 import { DocumentAlreadyExistsException } from '@data/contracts/exceptions';
 import { OwnerModel, RepositoryOwnerModel } from '@data/models';
 import { inject, injectable } from 'inversify';
-import { OwnerTypes } from '@core/types';
+import { OwnerTypes } from '@config/container/types';
 
 @injectable()
 export class CreateOwnerService implements CreateOwner {
