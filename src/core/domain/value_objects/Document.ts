@@ -16,7 +16,7 @@ export class Document {
       throw new Error('Document values must not be null!');
     }
 
-    if (this.validateNumberByType()) {
+    if (!this.validateNumberByType()) {
       throw new Error(
         `Document number not valid with type "${this.getDocumentTypeString()}`
       );

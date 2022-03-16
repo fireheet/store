@@ -1,7 +1,8 @@
-import { RepositoryOwnerModel, StoreModel, DocumentModel } from '@data/models';
+import { RepositoryOwnerModel, DocumentModel } from '@data/models';
 
 export interface OwnersReadRepository {
+  create(owner: RepositoryOwnerModel): Promise<boolean>;
+  update(owner: RepositoryOwnerModel): Promise<boolean>;
   findOwnerByID(id: string): Promise<RepositoryOwnerModel>;
   findOwnerByDocument(document: DocumentModel): Promise<RepositoryOwnerModel>;
-  findOwnerByStore(store: StoreModel): Promise<RepositoryOwnerModel>;
 }

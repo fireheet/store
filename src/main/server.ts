@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable no-void */
 import 'module-alias/register';
-import 'reflect-metadata';
 import { join } from 'path';
 import cors from 'fastify-cors';
 import AutoLoad, { AutoloadPluginOptions } from 'fastify-autoload';

@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { Container } from 'inversify';
 import { InversifyContainerFactory } from '@config/container';
 

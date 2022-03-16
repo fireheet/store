@@ -5,3 +5,4 @@
 3. The *Owner*'s document should be a valid *Document* of type **CPF**
 4. An disabled *Owner* should not have any *Store* associated with it
 5. It's not allowed to disable an *Owner* while an *Store* is associated to it
+6. It should be possible to create an *Owner* without an assigned *Store*

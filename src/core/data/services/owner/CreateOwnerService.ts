@@ -5,7 +5,7 @@ import {
   OwnersWriteRepository
 } from '@data/contracts/repositories';
 import { DocumentAlreadyExistsException } from '@data/contracts/exceptions';
-import { OwnerModel, RepositoryOwnerModel } from '@data/models';
+import { RepositoryOwnerModel } from '@data/models';
 import { inject, injectable } from 'inversify';
 import { OwnerTypes } from '@config/container/types';
 
@@ -28,8 +28,12 @@ export class CreateOwnerService implements CreateOwner {
       throw new DocumentAlreadyExistsException();
     }
 
-    const owner = new OwnerModel(ownerDto);
+    const repositoryWriteOwner = await this.ownersWriteRepository.create(
+      ownerDto
+    );
 
-    return this.ownersWriteRepository.save(owner);
+    await this.ownersReadRepository.create(repositoryWriteOwner);
+
+    return repositoryWriteOwner;
   }
 }
