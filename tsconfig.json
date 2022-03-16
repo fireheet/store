@@ -5,7 +5,7 @@
     "target": "es2016",
     "module": "CommonJS",
     "declaration": true,
-    "types": ["reflect-metadata"],
+    "types": ["reflect-metadata", "jest", "node"],
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,

@@ -4,11 +4,11 @@ import { DocumentModel } from '@data/models';
 import { OwnerModelMockFactory } from '@data/sources/data/mocks';
 import { DocumentAlreadyExistsException } from '@data/contracts/exceptions';
 
-let createOwnersService: CreateOwner;
+let createOwner: CreateOwner;
 
 describe('CreateUserService', () => {
   beforeEach(() => {
-    console.log('test');
+    // TODO Instantiate CreateOwnersService
   });
 
   it('Should not create an Owner with same Document', async () => {
@@ -19,9 +19,9 @@ describe('CreateUserService', () => {
 
     const ownerData = OwnerModelMockFactory.makeOwnerModel({ document });
 
-    await createOwnersService.create(ownerData);
+    await createOwner.create(ownerData);
 
-    await expect(createOwnersService.create(ownerData)).rejects.toBeInstanceOf(
+    await expect(createOwner.create(ownerData)).rejects.toBeInstanceOf(
       DocumentAlreadyExistsException
     );
   });
