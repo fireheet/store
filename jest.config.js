@@ -9,5 +9,7 @@ module.exports = {
     '^@presentation/(.*)$': '<rootDir>/src/core/presentation/$1',
     '^@infra/(.*)$': '<rootDir>/src/core/infra/$1',
     '^@main/(.*)$': '<rootDir>/src/main/$1',
-  },
+    '^@constants/(.*)$': '<rootDir>/src/core/config/constants/$1',
+    '^@config/(.*)$': '<rootDir>/src/core/config/$1'
+  }
 };

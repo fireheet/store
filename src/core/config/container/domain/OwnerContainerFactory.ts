@@ -9,6 +9,7 @@ import { FakeOwnersReadRepository } from '@infra/repositories';
 export class OwnerContainerFactory {
   static bind(container: Container): void {
     container.bind<CreateOwner>(OwnerTypes.CreateOwner).to(CreateOwnerService);
+
     container
       .bind<OwnersReadRepository>(OwnerTypes.OwnerReadRepository)
       .to(FakeOwnersReadRepository);
