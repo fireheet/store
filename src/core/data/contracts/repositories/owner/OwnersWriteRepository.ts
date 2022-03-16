@@ -1,9 +1,8 @@
-import { RepositoryOwnerModel } from '@data/models';
-import { CreateOwnerDTO, UpdateOwnerDTO } from '@data/dtos';
+import { OwnerModel, RepositoryOwnerModel } from '@data/models';
 
 export interface OwnersWriteRepository {
-  save(createOwner: CreateOwnerDTO): Promise<RepositoryOwnerModel>;
-  update(updateOwner: UpdateOwnerDTO): Promise<RepositoryOwnerModel>;
-  enable(id: string): Promise<RepositoryOwnerModel>;
-  disable(id: string): Promise<RepositoryOwnerModel>;
+  save(owner: OwnerModel): Promise<RepositoryOwnerModel>;
+  update(owner: OwnerModel): Promise<RepositoryOwnerModel>;
+  enable(id: string): Promise<boolean>;
+  disable(id: string): Promise<boolean>;
 }

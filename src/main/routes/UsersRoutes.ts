@@ -6,7 +6,11 @@ const UsersRoutes: FastifyPluginAsync = async (
   fastify,
   _opts
 ): Promise<void> => {
-  fastify.post('/', FastifyRouteAdapter.create(makeUsersControllerFactory()));
+  const controller = makeUsersControllerFactory();
+
+  const createRoute = FastifyRouteAdapter.create(controller);
+
+  fastify.post('/', createRoute);
 };
 
 export default UsersRoutes;

@@ -8,12 +8,7 @@ let createOwnersService: CreateOwner;
 
 describe('CreateUserService', () => {
   beforeEach(() => {
-    // usersReadRepository = new FakeOwnersReadRepository();
-    // usersWriteRepository = new FakeOwnersWriteRepository();
-    // createOwnersService = new CreateOwnerService(
-    //  usersReadRepository,
-    //  usersWriteRepository,
-    // );
+    console.log('test');
   });
 
   it('Should not create an Owner with same Document', async () => {

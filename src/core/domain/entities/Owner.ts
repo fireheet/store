@@ -14,7 +14,7 @@ export class Owner {
     this.validateOwner();
   }
 
-  validateOwner() {
+  private validateOwner() {
     const nameMaxLength = OwnerConstants.NAME_MAX_LENGTH;
 
     if (!(this.name && this.document)) {

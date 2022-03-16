@@ -55,7 +55,8 @@
     "@presentation": "dist/core/presentation",
     "@infra": "dist/core/infra",
     "@main": "dist/main",
-    "@constants": "dist/core/config/constants"
+    "@constants": "dist/core/config/constants",
+    "@config": "dist/core/config"
   },
   "dependencies": {
     "eslint-config-airbnb-base": "^15.0.0",
@@ -64,6 +65,7 @@
     "fastify-autoload": "^3.10.0",
     "fastify-cors": "^6.0.2",
     "fastify-plugin": "^3.0.0",
+    "inversify": "^6.0.1",
     "module-alias": "^2.2.2",
     "reflect-metadata": "^0.1.13"
   }

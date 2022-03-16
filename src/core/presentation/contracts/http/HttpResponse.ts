@@ -1,18 +1,20 @@
-export type HttpResponse<T = any> = {
+export type HttpResponse<T = unknown> = {
   statusCode: number;
   data: T;
 };
 
-export const HttpServerError = (error: Error): HttpResponse => {
+export const HttpServerError = (error: Error): HttpResponse<string> => {
   return {
     statusCode: 500,
-    data: error.message,
+    data: error.message
   };
 };
 
-export const HttpCreated = (data: unknown): HttpResponse => {
-  return {
-    statusCode: 201,
-    data,
-  };
-};
+export class HttpResponses<T> {
+  httpCreated(data: T): HttpResponse<T> {
+    return {
+      statusCode: 201,
+      data
+    };
+  }
+}
