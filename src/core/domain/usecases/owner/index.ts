@@ -3,3 +3,4 @@ export * from './DisableOwner';
 export * from './EnableOwner';
 export * from './ShowOwner';
 export * from './UpdateOwner';
+export * from './AssignOwnerToStore';

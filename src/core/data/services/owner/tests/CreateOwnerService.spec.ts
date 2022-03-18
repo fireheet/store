@@ -66,18 +66,4 @@ describe('CreateOwnerService', () => {
       DocumentAlreadyExistsException
     );
   });
-
-  // it('should be possible to assign an Owner to an existing Store', async () => {});
-
-  // it('should not be possible to assign an Owner to an non-existing Store', async () => {});
-
-  // it('should not be possible to assign an Owner to an Store if it already has one assigned', async () => {});
-
-  // it('should be possible to disable an Owner', async () => {});
-
-  // it('should be not possible to disable an Owner with an Assigned Store', async () => {});
-
-  // it('should be possible to enable an Owner with an Assigned Store', async () => {});
-
-  // it('should be not possible to enable an Owner without an Assigned Store', async () => {});
 });
