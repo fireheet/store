@@ -1,6 +1,5 @@
 import { CreateOwner } from '@domain/usecases/owner';
-import { DocumentModel } from '@data/models';
-import { OwnerModelMockFactory } from '@data/sources/data/mocks';
+import { OwnerMockFactory } from '@data/sources/data/mocks';
 import {
   DocumentAlreadyExistsException,
   InvalidDocumentException
@@ -13,14 +12,13 @@ import {
   FakeOwnersReadRepository,
   FakeOwnersWriteRepository
 } from '@infra/repositories';
-import { DocumentType } from '@domain/value_objects/types';
 import { CreateOwnerService } from '../CreateOwnerService';
 
 let createOwner: CreateOwner;
 let ownersReadRepository: OwnersReadRepository;
 let ownersWriteRepository: OwnersWriteRepository;
 
-let document: DocumentModel;
+const createOwnerDto = OwnerMockFactory.makeCreateOwnerDTO;
 
 describe('CreateOwnerService', () => {
   beforeEach(() => {
@@ -33,30 +31,25 @@ describe('CreateOwnerService', () => {
   });
 
   it('should be possible to create an Owner with only name and Document', async () => {
-    const owner = await createOwner.create({
-      name: 'Teste',
-      documentNumber: '12345678901',
-      documentType: 'CPF'
-    });
+    const dto = createOwnerDto();
+    const owner = await createOwner.create(dto);
+
+    const { number, type } = owner.document.getDocumentValues();
 
     expect(owner).toBeTruthy();
-    expect(owner.name).toBe('Teste');
-    expect(owner.document.getDocumentValues().number).toBe('12345678901');
-    expect(owner.document.getDocumentValues().type).toBe(DocumentType.CPF);
+    expect(owner.name).toBe(dto.name);
+    expect(number).toBe(dto.documentNumber);
+    expect(type).toBe(dto.documentType);
   });
 
-  it('should not be possible create an Owner with invalid Document', async () => {
+  it('should not be possible create an Owner with invalid document number', async () => {
     await expect(
-      createOwner.create({
-        name: 'Teste',
-        documentNumber: '123',
-        documentType: 'CPF'
-      })
+      createOwner.create(createOwnerDto({ documentNumber: '123' }))
     ).rejects.toBeInstanceOf(InvalidDocumentException);
   });
 
   it('should not be possible to create an Owner with same Document', async () => {
-    const ownerData = OwnerModelMockFactory.makeCreateOwnerDTO({ document });
+    const ownerData = createOwnerDto({ documentNumber: '12345678901' });
 
     await createOwner.create(ownerData);
 

@@ -6,23 +6,31 @@ import { RandomInRange } from '@data/sources/utils';
 export type FactoryOptions = {
   name?: string;
   document?: DocumentModel;
+  documentNumber?: string;
+  documentType?: string;
 };
 
 const minCPFValue = 10000000000;
 const maxCPFValue = 99999999999;
 
-export class OwnerModelMockFactory {
-  static makeCreateOwnerDTO(options: FactoryOptions = {}) {
+export class OwnerMockFactory {
+  static makeCreateOwnerDTO = (
+    options: FactoryOptions = {}
+  ): CreateOwnerDTO => {
     const ownerDto: CreateOwnerDTO = {
       name: options.name || 'John Doe',
-      documentNumber: RandomInRange(minCPFValue, maxCPFValue).toString(),
-      documentType: DocumentType.CPF
+      documentNumber:
+        options.documentNumber ||
+        RandomInRange(minCPFValue, maxCPFValue).toString(),
+      documentType: options.documentType || DocumentType.CPF
     };
 
     return ownerDto;
-  }
+  };
 
-  static makeRepositoryOwnerModel(options: FactoryOptions = {}) {
+  static makeRepositoryOwnerModel = (
+    options: FactoryOptions = {}
+  ): RepositoryOwnerModel => {
     return new RepositoryOwnerModel({
       name: options.name || 'John Doe',
       document:
@@ -32,5 +40,5 @@ export class OwnerModelMockFactory {
           type: DocumentType.CPF
         })
     });
-  }
+  };
 }
