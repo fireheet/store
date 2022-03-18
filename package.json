@@ -10,8 +10,9 @@
     "test-coverage": "jest --colors --noStackTrace --no-cache --runInBand --coverage",
     "test-watch": "jest --no-cache --runInBand --watch",
     "check-dependencies": "npm-check --strict -s -u",
-    "lint": "eslint --ignore-path .eslintignore --ext .js,.ts .",
-    "dev": "tsc && concurrently -k -p \"[{name}]\" -n \"TypeScript,App\" -c \"yellow.bold,cyan.bold\" \"tsc -w\" \"fastify start --ignore-watch=.ts$ -w -l info -P dist/main/server.js\""
+    "lint": "eslint --fix --ignore-path .eslintignore --ext .js,.ts .",
+    "dev": "tsc && concurrently -k -p \"[{name}]\" -n \"TypeScript,App\" -c \"yellow.bold,cyan.bold\" \"tsc -w\" \"fastify start --ignore-watch=.ts$ -w -l info -P dist/main/server.js\"",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "",
@@ -28,7 +29,7 @@
     "eslint-import-resolver-typescript": "^2.5.0",
     "eslint-plugin-prettier": "^4.0.0",
     "fastify-tsconfig": "^1.0.1",
-    "husky": "^7.0.4",
+    "husky": "^7.0.0",
     "jest": "^27.4.7",
     "nodemon": "^2.0.15",
     "prettier": "^2.5.1",

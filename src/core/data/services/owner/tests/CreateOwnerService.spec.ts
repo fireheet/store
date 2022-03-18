@@ -33,6 +33,7 @@ describe('CreateOwnerService', () => {
   });
 
   it('should be possible to create an Owner with only name and Document', async () => {
+    // Test
     const owner = await createOwner.create({
       name: 'Teste',
       documentNumber: '12345678901',
