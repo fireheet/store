@@ -31,6 +31,7 @@
     "fastify-tsconfig": "^1.0.1",
     "husky": "^7.0.0",
     "jest": "^27.4.7",
+    "lint-staged": "^12.3.7",
     "nodemon": "^2.0.15",
     "prettier": "^2.5.1",
     "ts-jest": "^27.1.3",

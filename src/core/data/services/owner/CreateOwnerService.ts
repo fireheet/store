@@ -20,11 +20,15 @@ export class CreateOwnerService implements CreateOwner {
     private readonly ownersWriteRepository: OwnersWriteRepository
   ) {}
 
-  async create({name, documentNumber, documentType}: CreateOwnerDTO): Promise<RepositoryOwnerModel> {
+  async create({
+    name,
+    documentNumber,
+    documentType
+  }: CreateOwnerDTO): Promise<RepositoryOwnerModel> {
     const document = new DocumentModel({
       number: documentNumber,
       type: documentType as DocumentType
-    })
+    });
 
     const owner = new OwnerModel({
       name,
@@ -39,9 +43,7 @@ export class CreateOwnerService implements CreateOwner {
       throw new DocumentAlreadyExistsException();
     }
 
-    const repositoryWriteOwner = await this.ownersWriteRepository.create(
-      owner
-    );
+    const repositoryWriteOwner = await this.ownersWriteRepository.create(owner);
 
     await this.ownersReadRepository.create(repositoryWriteOwner);
 
