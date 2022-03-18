@@ -1,4 +1,7 @@
-import { InvalidDocumentException } from '@data/contracts/exceptions';
+import {
+  InvalidDocumentException,
+  NullValuesException
+} from '@data/contracts/exceptions';
 import { DocumentType } from './types/DocumentType';
 
 export class Document {
@@ -13,8 +16,8 @@ export class Document {
   }
 
   validateDocument(): void {
-    if (!this.number && !this.type) {
-      throw new Error('Document values must not be null!');
+    if (!this.number || !this.type) {
+      throw new NullValuesException();
     }
 
     if (!this.validateNumberByType()) {

@@ -1,5 +1,9 @@
 import { Document } from '@domain/value_objects/Document';
 import { OwnerConstants } from '@constants/domain';
+import {
+  InvalidNameException,
+  NullValuesException
+} from '@data/contracts/exceptions';
 
 export class Owner {
   name!: string;
@@ -17,12 +21,12 @@ export class Owner {
   private validateOwner() {
     const nameMaxLength = OwnerConstants.NAME_MAX_LENGTH;
 
-    if (!(this.name && this.document)) {
-      throw new Error('Owner values must not be null!');
+    if (!this.name || !this.document) {
+      throw new NullValuesException();
     }
 
     if (this.name.length > nameMaxLength) {
-      throw new Error(
+      throw new InvalidNameException(
         `Owner name must be less than ${nameMaxLength} characters!`
       );
     }

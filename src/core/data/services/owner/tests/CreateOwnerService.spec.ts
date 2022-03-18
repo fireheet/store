@@ -2,7 +2,9 @@ import { CreateOwner } from '@domain/usecases/owner';
 import { OwnerMockFactory } from '@data/sources/data/mocks';
 import {
   DocumentAlreadyExistsException,
-  InvalidDocumentException
+  InvalidDocumentException,
+  NullValuesException,
+  InvalidNameException
 } from '@data/contracts/exceptions';
 import {
   OwnersReadRepository,
@@ -42,9 +44,41 @@ describe('CreateOwnerService', () => {
     expect(type).toBe(dto.documentType);
   });
 
+  it('should not be possible create an Owner with null values', async () => {
+    const owner1 = createOwner.create({
+      name: null,
+      documentNumber: '12345678901',
+      documentType: 'CPF'
+    });
+
+    const owner2 = createOwner.create({
+      name: 'Test',
+      documentNumber: null,
+      documentType: null
+    });
+
+    await expect(owner1).rejects.toBeInstanceOf(NullValuesException);
+
+    await expect(owner2).rejects.toBeInstanceOf(NullValuesException);
+  });
+
+  it('should not be possible create an Owner with name that has more than 150 character', async () => {
+    const ownerDto = createOwnerDto({ name: 'a'.repeat(151) });
+
+    await expect(createOwner.create(ownerDto)).rejects.toBeInstanceOf(
+      InvalidNameException
+    );
+  });
+
   it('should not be possible create an Owner with invalid document number', async () => {
     await expect(
       createOwner.create(createOwnerDto({ documentNumber: '123' }))
+    ).rejects.toBeInstanceOf(InvalidDocumentException);
+  });
+
+  it('should not be possible create an Owner with invalid document type', async () => {
+    await expect(
+      createOwner.create(createOwnerDto({ documentType: 'invalid' }))
     ).rejects.toBeInstanceOf(InvalidDocumentException);
   });
 
