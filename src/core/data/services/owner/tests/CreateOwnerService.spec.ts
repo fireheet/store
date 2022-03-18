@@ -13,8 +13,8 @@ import {
   FakeOwnersReadRepository,
   FakeOwnersWriteRepository
 } from '@infra/repositories';
-import { CreateOwnerService } from '../CreateOwnerService';
 import { DocumentType } from '@domain/value_objects/types';
+import { CreateOwnerService } from '../CreateOwnerService';
 
 let createOwner: CreateOwner;
 let ownersReadRepository: OwnersReadRepository;
