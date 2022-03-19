@@ -1,3 +1,3 @@
-import { Image } from '@domain/value_objects';
+import { Image } from '@domain/shared';
 
 export class ImageModel extends Image {}

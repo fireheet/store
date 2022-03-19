@@ -1,4 +1,4 @@
-import { Store } from '@domain/entities';
+import { Store } from '@domain/store';
 import { RepositoryFields, RepositoryStatusFields } from '../repository';
 
 export class RepositoryStoreModel

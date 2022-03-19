@@ -1,3 +1,3 @@
-import { Owner } from '@domain/entities';
+import { Owner } from '@domain/owner';
 
 export class OwnerModel extends Owner {}

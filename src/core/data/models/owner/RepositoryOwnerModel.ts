@@ -1,4 +1,4 @@
-import { Owner } from '@domain/entities';
+import { Owner } from '@domain/owner';
 import { RepositoryFields, RepositoryStatusFields } from '../repository';
 
 export class RepositoryOwnerModel

@@ -1,3 +1,3 @@
-import { Meal } from '@domain/entities';
+import { Meal } from '@domain/meal';
 
 export class MealModel extends Meal {}
