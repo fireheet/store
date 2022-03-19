@@ -5,7 +5,7 @@ import {
   EnableRepositoryOwnerDTO,
   DisableRepositoryOwnerDTO
 } from '@data/dtos';
-import { OwnerMockFactory } from '@data/sources/data';
+import { OwnerMockFactory } from '@data/sources/owner';
 
 const repositoryOwnerModelFactory = OwnerMockFactory.makeRepositoryOwnerModel;
 

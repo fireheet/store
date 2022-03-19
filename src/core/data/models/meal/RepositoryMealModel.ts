@@ -1,5 +1,5 @@
-import { Meal } from '@domain/entities';
-import { RepositoryFields } from '../repository';
+import { Meal } from '@domain/meal';
+import { RepositoryFields } from '@data/models/repository';
 
 export class RepositoryMealModel extends Meal implements RepositoryFields {
   id!: string;

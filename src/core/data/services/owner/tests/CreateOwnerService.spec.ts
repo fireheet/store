@@ -1,5 +1,4 @@
-import { CreateOwner } from '@domain/usecases/owner';
-import { OwnerMockFactory } from '@data/sources/data/mocks';
+import { CreateOwner } from '@domain/owner';
 import {
   DocumentAlreadyExistsException,
   InvalidDocumentException,
@@ -14,6 +13,7 @@ import {
   FakeOwnersReadRepository,
   FakeOwnersWriteRepository
 } from '@infra/repositories';
+import { OwnerMockFactory } from '@data/sources/owner';
 import { CreateOwnerService } from '../CreateOwnerService';
 
 let createOwner: CreateOwner;

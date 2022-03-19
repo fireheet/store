@@ -1,3 +1,3 @@
-import { Document } from '@domain/value_objects';
+import { Document } from '@domain/shared';
 
 export class DocumentModel extends Document {}

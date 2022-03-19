@@ -1,4 +1,4 @@
-import { CreateOwner } from '@domain/usecases/owner';
+import { CreateOwner } from '@domain/owner';
 import { CreateOwnerDTO } from '@data/dtos';
 import {
   OwnersReadRepository,
@@ -8,7 +8,7 @@ import { DocumentAlreadyExistsException } from '@data/contracts/exceptions';
 import { DocumentModel, OwnerModel, RepositoryOwnerModel } from '@data/models';
 import { inject, injectable } from 'inversify';
 import { OwnerTypes } from '@config/container/types';
-import { DocumentType } from '@domain/value_objects/types';
+import { DocumentType } from '@domain/shared';
 
 @injectable()
 export class CreateOwnerService implements CreateOwner {

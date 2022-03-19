@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/require-await */
 import { OwnersReadRepository } from '@data/contracts/repositories';
 import { DocumentModel, RepositoryOwnerModel } from '@data/models';
-import { OwnerMockFactory } from '@data/sources/data';
+import { OwnerMockFactory } from '@data/sources/owner';
 
 const repositoryOwnerModelFactory = OwnerMockFactory.makeRepositoryOwnerModel;
 
