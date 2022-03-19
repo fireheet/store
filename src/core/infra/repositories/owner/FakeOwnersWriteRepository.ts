@@ -5,13 +5,15 @@ import {
   EnableRepositoryOwnerDTO,
   DisableRepositoryOwnerDTO
 } from '@data/dtos';
-import { OwnerModelMockFactory } from '@data/sources/data';
+import { OwnerMockFactory } from '@data/sources/owner';
+
+const repositoryOwnerModelFactory = OwnerMockFactory.makeRepositoryOwnerModel;
 
 export class FakeOwnersWriteRepository implements OwnersWriteRepository {
   owners: RepositoryOwnerModel[] = [];
 
   async create(owner: OwnerModel): Promise<RepositoryOwnerModel> {
-    const newOwner = OwnerModelMockFactory.makeRepositoryOwnerModel(owner);
+    const newOwner = repositoryOwnerModelFactory(owner);
 
     this.owners.push(newOwner);
 
@@ -25,8 +27,7 @@ export class FakeOwnersWriteRepository implements OwnersWriteRepository {
       return false;
     }
 
-    this.owners[existingOwnerIndex] =
-      OwnerModelMockFactory.makeRepositoryOwnerModel(owner);
+    this.owners[existingOwnerIndex] = repositoryOwnerModelFactory(owner);
 
     return true;
   }

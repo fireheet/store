@@ -1,4 +1,4 @@
-import { Recommendation } from '@domain/entities';
+import { Recommendation } from '@domain/store';
 import { RepositoryFields } from '../repository';
 
 export class RepositoryRecommendationModel

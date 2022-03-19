@@ -1,13 +1,15 @@
 /* eslint-disable @typescript-eslint/require-await */
 import { OwnersReadRepository } from '@data/contracts/repositories';
 import { DocumentModel, RepositoryOwnerModel } from '@data/models';
-import { OwnerModelMockFactory } from '@data/sources/data';
+import { OwnerMockFactory } from '@data/sources/owner';
+
+const repositoryOwnerModelFactory = OwnerMockFactory.makeRepositoryOwnerModel;
 
 export class FakeOwnersReadRepository implements OwnersReadRepository {
   owners: RepositoryOwnerModel[] = [];
 
   async create(owner: RepositoryOwnerModel): Promise<boolean> {
-    const newOwner = OwnerModelMockFactory.makeRepositoryOwnerModel(owner);
+    const newOwner = repositoryOwnerModelFactory(owner);
 
     this.owners.push(newOwner);
 
@@ -17,8 +19,7 @@ export class FakeOwnersReadRepository implements OwnersReadRepository {
   async update(owner: RepositoryOwnerModel): Promise<boolean> {
     const existingOwnerIndex = this.findOwnerIndex(owner.id);
 
-    this.owners[existingOwnerIndex] =
-      OwnerModelMockFactory.makeRepositoryOwnerModel(owner);
+    this.owners[existingOwnerIndex] = repositoryOwnerModelFactory(owner);
 
     return true;
   }

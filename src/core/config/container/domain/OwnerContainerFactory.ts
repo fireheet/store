@@ -1,7 +1,7 @@
 import { Container } from 'inversify';
 
 import { CreateOwnerService } from '@data/services/owner';
-import { CreateOwner } from '@domain/usecases/owner';
+import { CreateOwner } from '@domain/owner/usecases';
 import { OwnerTypes } from '@config/container/types';
 import { OwnersReadRepository } from '@data/contracts/repositories';
 import { FakeOwnersReadRepository } from '@infra/repositories';

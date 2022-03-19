@@ -1,3 +1,3 @@
-import { Availability } from '@domain/value_objects';
+import { Availability } from '@domain/store';
 
 export class AvailabilityModel extends Availability {}
