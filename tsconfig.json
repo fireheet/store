@@ -17,12 +17,7 @@
     "incremental": true,
     "paths": {
       "@core/*": ["core/*"],
-      "@domain/*": ["core/domain/*"],
-      "@data/*": ["core/data/*"],
-      "@presentation/*": ["core/presentation/*"],
-      "@infra/*": ["core/infra/*"],
       "@main/*": ["main/*"],
-      "@constants/*": ["core/config/constants/*"],
       "@config/*": ["core/config/*"],
     },
     "esModuleInterop": true,

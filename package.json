@@ -54,12 +54,7 @@
   },
   "_moduleAliases": {
     "@core": "dist/core",
-    "@domain": "dist/core/domain",
-    "@data": "dist/core/data",
-    "@presentation": "dist/core/presentation",
-    "@infra": "dist/core/infra",
     "@main": "dist/main",
-    "@constants": "dist/core/config/constants",
     "@config": "dist/core/config"
   },
   "dependencies": {
