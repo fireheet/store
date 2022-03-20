@@ -4,10 +4,15 @@ import {
   HttpResponse
 } from '@core/shared/presentation';
 import { CreateOwner } from '@core/owner/domain';
+import { inject, injectable } from 'inversify';
+import { OwnerTypes } from '@core/owner/config/types';
 import { OwnerViewModel } from '../views';
 
-export class UsersController implements HttpController {
-  constructor(private readonly createOwner: CreateOwner) {}
+@injectable()
+export class OwnerController implements HttpController {
+  constructor(
+    @inject(OwnerTypes.CreateOwner) private readonly createOwner: CreateOwner
+  ) {}
 
   async create(body: any): Promise<HttpResponse<OwnerViewModel>> {
     const createdOwner = await this.createOwner.create(body);

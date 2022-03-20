@@ -8,7 +8,7 @@ import {
   OwnersReadRepository,
   OwnersWriteRepository
 } from '@core/owner/data/contracts';
-import { OwnerTypes } from '@core/owner/config/container/types';
+import { OwnerTypes } from '@core/owner/config/types';
 import { CreateOwnerDTO } from '../dtos';
 
 @injectable()

@@ -1,5 +1,5 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { HttpController } from '@core/presentation/contracts';
+import { HttpController } from '@core/shared/presentation/contracts';
 
 export class FastifyRouteAdapter {
   static create(controller: HttpController) {

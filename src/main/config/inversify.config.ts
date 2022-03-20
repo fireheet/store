@@ -1,9 +1,9 @@
 import 'reflect-metadata';
 import { Container } from 'inversify';
-import { InversifyContainerFactory } from './container/InversifyContainerFactory';
+import { OwnerContainer } from '@main/modules/owner/container';
 
 const AppContainer = new Container();
 
-InversifyContainerFactory(AppContainer);
+OwnerContainer.bindTo(AppContainer);
 
 export { AppContainer };
