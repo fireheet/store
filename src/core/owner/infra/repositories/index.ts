@@ -1,2 +1,2 @@
-export * from './FakeOwnersReadRepository';
-export * from './FakeOwnersWriteRepository';
+export * from './FakeOwnerReadRepository';
+export * from './FakeOwnerWriteRepository';

@@ -5,8 +5,8 @@ import { DocumentType } from '@core/shared/domain/value_objects';
 import { CreateOwner } from '@core/owner/domain/usecases';
 import { DocumentModel } from '@core/shared/data/models/value_objects';
 import {
-  OwnersReadRepository,
-  OwnersWriteRepository
+  OwnerReadRepository,
+  OwnerWriteRepository
 } from '@core/owner/data/contracts';
 import { OwnerTypes } from '@core/owner/config/types';
 import { CreateOwnerDTO } from '../dtos';
@@ -15,10 +15,10 @@ import { CreateOwnerDTO } from '../dtos';
 export class CreateOwnerService implements CreateOwner {
   constructor(
     @inject(OwnerTypes.OwnerReadRepository)
-    private readonly ownersReadRepository: OwnersReadRepository,
+    private readonly ownerReadRepository: OwnerReadRepository,
 
     @inject(OwnerTypes.OwnerWriteRepository)
-    private readonly ownersWriteRepository: OwnersWriteRepository
+    private readonly ownerWriteRepository: OwnerWriteRepository
   ) {}
 
   async create({
@@ -36,17 +36,15 @@ export class CreateOwnerService implements CreateOwner {
       document
     });
 
-    const foundOwner = await this.ownersReadRepository.findOwnerByDocument(
-      document
-    );
+    const foundOwner = await this.ownerReadRepository.findByDocument(document);
 
     if (foundOwner) {
       throw new DocumentAlreadyExistsException();
     }
 
-    const repositoryWriteOwner = await this.ownersWriteRepository.create(owner);
+    const repositoryWriteOwner = await this.ownerWriteRepository.create(owner);
 
-    await this.ownersReadRepository.create(repositoryWriteOwner);
+    await this.ownerReadRepository.create(repositoryWriteOwner);
 
     return repositoryWriteOwner;
   }

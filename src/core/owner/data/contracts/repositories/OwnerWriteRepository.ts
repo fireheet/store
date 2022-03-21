@@ -4,7 +4,7 @@ import {
   EnableRepositoryOwnerDTO
 } from '@core/owner/data/dtos';
 
-export interface OwnersWriteRepository {
+export interface OwnerWriteRepository {
   create(owner: OwnerModel): Promise<RepositoryOwnerModel>;
   update(owner: RepositoryOwnerModel): Promise<boolean>;
   enable(enableOwner: EnableRepositoryOwnerDTO): Promise<boolean>;

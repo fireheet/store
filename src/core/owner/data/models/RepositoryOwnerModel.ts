@@ -19,4 +19,8 @@ export class RepositoryOwnerModel
   enabled_at!: Date;
 
   disabled_at!: Date | null;
+
+  constructor(data: Partial<RepositoryOwnerModel>) {
+    super(data);
+  }
 }

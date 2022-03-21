@@ -6,26 +6,22 @@ import {
   InvalidNameException
 } from '@core/shared/data/contracts';
 import {
-  OwnersReadRepository,
-  OwnersWriteRepository
-} from '@core/owner/data/contracts';
-import {
-  FakeOwnersReadRepository,
-  FakeOwnersWriteRepository
+  FakeOwnerReadRepository,
+  FakeOwnerWriteRepository
 } from '@core/owner/infra';
 import { OwnerMockFactory } from '@core/owner/data/sources';
 import { CreateOwnerService } from '../CreateOwnerService';
 
 let createOwner: CreateOwner;
-let ownersReadRepository: OwnersReadRepository;
-let ownersWriteRepository: OwnersWriteRepository;
+let ownersReadRepository: FakeOwnerReadRepository;
+let ownersWriteRepository: FakeOwnerWriteRepository;
 
 const createOwnerDto = OwnerMockFactory.makeCreateOwnerDTO;
 
 describe('CreateOwnerService', () => {
   beforeEach(() => {
-    ownersReadRepository = new FakeOwnersReadRepository();
-    ownersWriteRepository = new FakeOwnersWriteRepository();
+    ownersReadRepository = new FakeOwnerReadRepository();
+    ownersWriteRepository = new FakeOwnerWriteRepository();
     createOwner = new CreateOwnerService(
       ownersReadRepository,
       ownersWriteRepository

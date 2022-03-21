@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/require-await */
 import { RepositoryOwnerModel } from '@core/owner/data/models';
 import { OwnerMockFactory } from '@core/owner/data';
-import { OwnersReadRepository } from '@core/owner/data/contracts';
+import { OwnerReadRepository } from '@core/owner/data/contracts';
 import { DocumentModel } from '@core/shared/data/models/value_objects';
 
 const repositoryOwnerModelFactory = OwnerMockFactory.makeRepositoryOwnerModel;
 
-export class FakeOwnersReadRepository implements OwnersReadRepository {
+export class FakeOwnerReadRepository implements OwnerReadRepository {
   owners: RepositoryOwnerModel[] = [];
 
   async create(owner: RepositoryOwnerModel): Promise<boolean> {
@@ -17,23 +17,21 @@ export class FakeOwnersReadRepository implements OwnersReadRepository {
     return true;
   }
 
-  async update(owner: RepositoryOwnerModel): Promise<boolean> {
+  async replace(owner: RepositoryOwnerModel): Promise<boolean> {
     const existingOwnerIndex = this.findOwnerIndex(owner.id);
 
-    this.owners[existingOwnerIndex] = repositoryOwnerModelFactory(owner);
+    this.owners[existingOwnerIndex] = owner;
 
     return true;
   }
 
-  async findOwnerByID(id: string): Promise<RepositoryOwnerModel> {
+  async findByID(id: string): Promise<RepositoryOwnerModel> {
     const existingOwnerIndex = this.findOwnerIndex(id);
 
     return this.owners[existingOwnerIndex];
   }
 
-  async findOwnerByDocument(
-    document: DocumentModel
-  ): Promise<RepositoryOwnerModel> {
+  async findByDocument(document: DocumentModel): Promise<RepositoryOwnerModel> {
     const existingOwnerIndex = this.owners.findIndex(foundOwner =>
       foundOwner.document.isEqual(document)
     );
