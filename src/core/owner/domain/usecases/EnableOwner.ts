@@ -1,3 +1,3 @@
 export interface EnableOwner {
-  enable: () => Promise<boolean>;
+  enable: (enableOwnerDTO: unknown) => Promise<boolean>;
 }
