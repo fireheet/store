@@ -1,6 +1,11 @@
-export class NullValuesException extends Error {
+import { Exception } from './Exception';
+
+export class NullValuesException extends Exception {
   constructor() {
-    super('Values must not be null!');
-    this.name = 'NullValuesException';
+    super({
+      name: 'NullValuesException',
+      message: 'Null values are not allowed!',
+      statusCode: 400
+    });
   }
 }

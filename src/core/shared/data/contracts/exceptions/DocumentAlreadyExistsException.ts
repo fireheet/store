@@ -1,6 +1,11 @@
-export class DocumentAlreadyExistsException extends Error {
+import { Exception } from './Exception';
+
+export class DocumentAlreadyExistsException extends Exception {
   constructor() {
-    super('Document already exits!');
-    this.name = 'DocumentAlreadyExistsException';
+    super({
+      name: 'DocumentAlreadyExistsException',
+      message: 'Document already exits!',
+      statusCode: 400
+    });
   }
 }

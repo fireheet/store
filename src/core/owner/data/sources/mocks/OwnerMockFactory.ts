@@ -50,6 +50,7 @@ export class OwnerMockFactory {
     options: FactoryOptions = {}
   ): UpdateOwnerDTO => {
     const ownerDto: UpdateOwnerDTO = {
+      id: options.id || '1234',
       name: options.name || 'John Doe'
     };
 

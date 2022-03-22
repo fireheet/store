@@ -1,6 +1,7 @@
-export class InvalidNameException extends Error {
+import { Exception } from './Exception';
+
+export class InvalidNameException extends Exception {
   constructor(message: string) {
-    super(message);
-    this.name = 'InvalidNameException';
+    super({ name: 'InvalidNameException', message, statusCode: 400 });
   }
 }
