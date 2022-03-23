@@ -33,25 +33,22 @@ describe('CreateOwnerService', () => {
     const dto = createOwnerDto();
     const owner = await createOwner.create(dto);
 
-    const { number, type } = owner.document.getDocumentValues();
+    const { number } = owner.document.getDocumentValues();
 
     expect(owner).toBeTruthy();
     expect(owner.name).toBe(dto.name);
     expect(number).toBe(dto.documentNumber);
-    expect(type).toBe(dto.documentType);
   });
 
   it('should not be possible create an Owner with null values', async () => {
     const owner1 = createOwner.create({
       name: null,
-      documentNumber: '12345678901',
-      documentType: 'CPF'
+      documentNumber: '12345678901'
     });
 
     const owner2 = createOwner.create({
       name: 'Test',
-      documentNumber: null,
-      documentType: null
+      documentNumber: null
     });
 
     await expect(owner1).rejects.toBeInstanceOf(NullValuesException);
@@ -76,12 +73,6 @@ describe('CreateOwnerService', () => {
   it('should not be possible create an Owner with invalid document number', async () => {
     await expect(
       createOwner.create(createOwnerDto({ documentNumber: '123' }))
-    ).rejects.toBeInstanceOf(InvalidDocumentException);
-  });
-
-  it('should not be possible create an Owner with invalid document type', async () => {
-    await expect(
-      createOwner.create(createOwnerDto({ documentType: 'invalid' }))
     ).rejects.toBeInstanceOf(InvalidDocumentException);
   });
 

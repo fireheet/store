@@ -39,8 +39,7 @@ export class OwnerMockFactory {
       name: options.name || 'John Doe',
       documentNumber:
         options.documentNumber ||
-        RandomInRange(minCPFValue, maxCPFValue).toString(),
-      documentType: options.documentType || DocumentType.CPF
+        RandomInRange(minCPFValue, maxCPFValue).toString()
     };
 
     return ownerDto;

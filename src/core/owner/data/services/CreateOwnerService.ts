@@ -23,12 +23,11 @@ export class CreateOwnerService implements CreateOwner {
 
   async create({
     name,
-    documentNumber,
-    documentType
+    documentNumber
   }: CreateOwnerDTO): Promise<RepositoryOwnerModel> {
     const document = new DocumentModel({
       number: documentNumber,
-      type: documentType as DocumentType
+      type: DocumentType.CPF
     });
 
     const owner = new OwnerModel({
