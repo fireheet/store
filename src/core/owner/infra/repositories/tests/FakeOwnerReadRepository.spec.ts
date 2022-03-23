@@ -70,4 +70,6 @@ describe('FakeOwnerReadRepository', () => {
     expect(owner.name).toBe(model.name);
     expect(owner.document.toString()).toBe(model.document.toString());
   });
+
+  // TODO Write exception cases
 });

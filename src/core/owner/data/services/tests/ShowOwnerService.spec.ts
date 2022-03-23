@@ -17,22 +17,26 @@ describe('ShowOwnerService', () => {
     await ownerReadRepository.create(createRepositoryOwner());
   });
 
-  it('should be possible to show an Owner with an valid ID', async () => {
-    const owner = ownerReadRepository.owners[0];
+  describe('Success Cases', () => {
+    it('should be possible to show an Owner with an valid ID', async () => {
+      const owner = ownerReadRepository.owners[0];
 
-    const dto = { id: owner.id };
-    const result = await showOwner.show(dto);
+      const dto = { id: owner.id };
+      const result = await showOwner.show(dto);
 
-    expect(result).toBeTruthy();
-    expect(result.document.toString()).toBe(owner.document.toString());
-    expect(result.name).toBe(owner.name);
+      expect(result).toBeTruthy();
+      expect(result.document.toString()).toBe(owner.document.toString());
+      expect(result.name).toBe(owner.name);
+    });
   });
 
-  it('should not be possible to show an Owner with an invalid ID', async () => {
-    const dto = { id: 'invalid' };
+  describe('Exception Cases', () => {
+    it('should not be possible to show an Owner with an invalid ID', async () => {
+      const dto = { id: 'invalid' };
 
-    await expect(showOwner.show(dto)).rejects.toBeInstanceOf(
-      IDDoesNotExistException
-    );
+      await expect(showOwner.show(dto)).rejects.toBeInstanceOf(
+        IDDoesNotExistException
+      );
+    });
   });
 });

@@ -39,40 +39,44 @@ describe('UpdateOwnerService', () => {
     );
   });
 
-  it("should be possible update an Owner's name", async () => {
-    const createdOwner = ownersWriteRepository.owners[0];
-
-    const dto = updateOwnerDTO({ id: createdOwner.id, name: 'New' });
-    const owner = await updateOwner.update(dto);
-
-    const updatedOwner = ownersWriteRepository.owners[0];
-
-    expect(owner).toBeTruthy();
-    expect(updatedOwner.name).toBe(dto.name);
-  });
-
-  it('should not be possible to update an non-existing Owner', async () => {
-    const dto = updateOwnerDTO({ id: 'non-existing-id' });
-
-    await expect(updateOwner.update(dto)).rejects.toBeInstanceOf(
-      IDDoesNotExistException
-    );
-  });
-
-  it(
-    `should not be possible to update an Owner's with more than ` +
-      `${OwnerConstants.NAME_MAX_LENGTH} characters`,
-    async () => {
+  describe('Success Cases', () => {
+    it("should be possible update an Owner's name", async () => {
       const createdOwner = ownersWriteRepository.owners[0];
 
-      const dto = updateOwnerDTO({
-        id: createdOwner.id,
-        name: 'a'.repeat(OwnerConstants.NAME_MAX_LENGTH + 1)
-      });
+      const dto = updateOwnerDTO({ id: createdOwner.id, name: 'New' });
+      const owner = await updateOwner.update(dto);
+
+      const updatedOwner = ownersWriteRepository.owners[0];
+
+      expect(owner).toBeTruthy();
+      expect(updatedOwner.name).toBe(dto.name);
+    });
+  });
+
+  describe('Exception Cases', () => {
+    it('should not be possible to update an non-existing Owner', async () => {
+      const dto = updateOwnerDTO({ id: 'non-existing-id' });
 
       await expect(updateOwner.update(dto)).rejects.toBeInstanceOf(
-        InvalidNameException
+        IDDoesNotExistException
       );
-    }
-  );
+    });
+
+    it(
+      `should not be possible to update an Owner's with more than ` +
+        `${OwnerConstants.NAME_MAX_LENGTH} characters`,
+      async () => {
+        const createdOwner = ownersWriteRepository.owners[0];
+
+        const dto = updateOwnerDTO({
+          id: createdOwner.id,
+          name: 'a'.repeat(OwnerConstants.NAME_MAX_LENGTH + 1)
+        });
+
+        await expect(updateOwner.update(dto)).rejects.toBeInstanceOf(
+          InvalidNameException
+        );
+      }
+    );
+  });
 });

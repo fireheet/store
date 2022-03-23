@@ -29,62 +29,66 @@ describe('CreateOwnerService', () => {
     );
   });
 
-  it('should be possible to create an Owner with only name and Document', async () => {
-    const dto = createOwnerDto();
-    const owner = await createOwner.create(dto);
+  describe('Success Cases', () => {
+    it('should be possible to create an Owner with only name and Document', async () => {
+      const dto = createOwnerDto();
+      const owner = await createOwner.create(dto);
 
-    const { number } = owner.document.getDocumentValues();
+      const { number } = owner.document.getDocumentValues();
 
-    expect(owner).toBeTruthy();
-    expect(owner.name).toBe(dto.name);
-    expect(number).toBe(dto.documentNumber);
+      expect(owner).toBeTruthy();
+      expect(owner.name).toBe(dto.name);
+      expect(number).toBe(dto.documentNumber);
+    });
   });
 
-  it('should not be possible create an Owner with null values', async () => {
-    const owner1 = createOwner.create({
-      name: null,
-      documentNumber: '12345678901'
-    });
-
-    const owner2 = createOwner.create({
-      name: 'Test',
-      documentNumber: null
-    });
-
-    await expect(owner1).rejects.toBeInstanceOf(NullValuesException);
-
-    await expect(owner2).rejects.toBeInstanceOf(NullValuesException);
-  });
-
-  it(
-    `should not be possible create an Owner with name that has more than ` +
-      `${OwnerConstants.NAME_MAX_LENGTH} character`,
-    async () => {
-      const ownerDto = createOwnerDto({
-        name: 'a'.repeat(OwnerConstants.NAME_MAX_LENGTH + 1)
+  describe('Exception Cases', () => {
+    it('should not be possible create an Owner with null values', async () => {
+      const owner1 = createOwner.create({
+        name: null,
+        documentNumber: '12345678901'
       });
 
-      await expect(createOwner.create(ownerDto)).rejects.toBeInstanceOf(
-        InvalidNameException
-      );
-    }
-  );
+      const owner2 = createOwner.create({
+        name: 'Test',
+        documentNumber: null
+      });
 
-  it('should not be possible create an Owner with invalid document number', async () => {
-    await expect(
-      createOwner.create(createOwnerDto({ documentNumber: '123' }))
-    ).rejects.toBeInstanceOf(InvalidDocumentException);
-  });
+      await expect(owner1).rejects.toBeInstanceOf(NullValuesException);
 
-  it('should not be possible to create an Owner with same Document', async () => {
-    const ownerData = createOwnerDto({ documentNumber: '12345678901' });
+      await expect(owner2).rejects.toBeInstanceOf(NullValuesException);
+    });
 
-    await createOwner.create(ownerData);
+    it(
+      `should not be possible create an Owner with name that has more than ` +
+        `${OwnerConstants.NAME_MAX_LENGTH} character`,
+      async () => {
+        const ownerDto = createOwnerDto({
+          name: 'a'.repeat(OwnerConstants.NAME_MAX_LENGTH + 1)
+        });
 
-    const failOwner = createOwner.create(ownerData);
-
-    await expect(failOwner).rejects.toBeInstanceOf(
-      DocumentAlreadyExistsException
+        await expect(createOwner.create(ownerDto)).rejects.toBeInstanceOf(
+          InvalidNameException
+        );
+      }
     );
+
+    it('should not be possible create an Owner with invalid document number', async () => {
+      await expect(
+        createOwner.create(createOwnerDto({ documentNumber: '123' }))
+      ).rejects.toBeInstanceOf(InvalidDocumentException);
+    });
+
+    it('should not be possible to create an Owner with same Document', async () => {
+      const ownerData = createOwnerDto({ documentNumber: '12345678901' });
+
+      await createOwner.create(ownerData);
+
+      const failOwner = createOwner.create(ownerData);
+
+      await expect(failOwner).rejects.toBeInstanceOf(
+        DocumentAlreadyExistsException
+      );
+    });
   });
 });

@@ -76,4 +76,6 @@ describe('FakeOwnerWriteRepository', () => {
     expect(storedOwner.isEnabled).toBe(false);
     expect(storedOwner.disabled_at).toBeDefined();
   });
+
+  // TODO Write exception cases
 });
