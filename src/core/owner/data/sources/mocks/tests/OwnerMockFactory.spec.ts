@@ -17,7 +17,6 @@ describe('OwnerMockFactory', () => {
     expect(ownerDto).toBeDefined();
     expect(ownerDto.name).toBeDefined();
     expect(ownerDto.documentNumber).toBeDefined();
-    expect(ownerDto.documentType).toBeDefined();
   });
 
   it('should return an Update Owner DTO if given no parameters', () => {
@@ -63,8 +62,6 @@ describe('OwnerMockFactory', () => {
     expect(ownerDto.name).toBe('New');
     expect(ownerDto.documentNumber).toBeDefined();
     expect(ownerDto.documentNumber).toBe('12345678901');
-    expect(ownerDto.documentType).toBeDefined();
-    expect(ownerDto.documentType).toBe('cpf');
   });
 
   it('should return an Update Owner DTO with values from parameter', () => {

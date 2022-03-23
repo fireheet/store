@@ -4,6 +4,7 @@ import { inject } from 'inversify';
 import { OwnerReadRepository } from '@core/owner/data/contracts';
 import { RepositoryOwnerModel } from '@core/owner/data/models';
 import { ShowOwnerDTO } from '@core/owner/data/dtos/ShowOwnerDTO';
+import { IDDoesNotExistException } from '../../../shared/data';
 
 export class ShowOwnerService implements ShowOwner {
   constructor(
@@ -19,7 +20,7 @@ export class ShowOwnerService implements ShowOwner {
     }
 
     if (!owner) {
-      throw new Error('Owner not found!');
+      throw new IDDoesNotExistException();
     }
 
     return owner;
