@@ -1,8 +1,8 @@
 import { FakeOwnerReadRepository } from '@core/owner/infra';
 import { ShowOwner } from '@core/owner/domain';
+import { IDDoesNotExistException } from '@core/shared/data';
 import { ShowOwnerService } from '../ShowOwnerService';
 import { OwnerMockFactory } from '../../sources';
-import { IDDoesNotExistException } from '../../../../shared/data';
 
 let showOwner: ShowOwner;
 let ownerReadRepository: FakeOwnerReadRepository;

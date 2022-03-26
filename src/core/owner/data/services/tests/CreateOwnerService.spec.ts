@@ -10,7 +10,6 @@ import {
   FakeOwnerWriteRepository
 } from '@core/owner/infra';
 import { OwnerMockFactory } from '@core/owner/data/sources';
-import { OwnerConstants } from '@core/owner/config';
 import { CreateOwnerService } from '../CreateOwnerService';
 
 let createOwner: CreateOwner;
@@ -59,19 +58,15 @@ describe('CreateOwnerService', () => {
       await expect(owner2).rejects.toBeInstanceOf(NullValuesException);
     });
 
-    it(
-      `should not be possible create an Owner with name that has more than ` +
-        `${OwnerConstants.NAME_MAX_LENGTH} character`,
-      async () => {
-        const ownerDto = createOwnerDto({
-          name: 'a'.repeat(OwnerConstants.NAME_MAX_LENGTH + 1)
-        });
+    it(`should not be possible create an Owner with name that has more than 150 character`, async () => {
+      const ownerDto = createOwnerDto({
+        name: 'a'.repeat(151)
+      });
 
-        await expect(createOwner.create(ownerDto)).rejects.toBeInstanceOf(
-          InvalidNameException
-        );
-      }
-    );
+      await expect(createOwner.create(ownerDto)).rejects.toBeInstanceOf(
+        InvalidNameException
+      );
+    });
 
     it('should not be possible create an Owner with invalid document number', async () => {
       await expect(

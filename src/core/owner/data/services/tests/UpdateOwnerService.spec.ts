@@ -8,7 +8,6 @@ import {
   IDDoesNotExistException,
   InvalidNameException
 } from '@core/shared/data';
-import { OwnerConstants } from '@core/owner/config';
 import { UpdateOwnerService } from '../UpdateOwnerService';
 import { CreateOwnerService } from '../CreateOwnerService';
 
@@ -62,21 +61,17 @@ describe('UpdateOwnerService', () => {
       );
     });
 
-    it(
-      `should not be possible to update an Owner's with more than ` +
-        `${OwnerConstants.NAME_MAX_LENGTH} characters`,
-      async () => {
-        const createdOwner = ownersWriteRepository.owners[0];
+    it(`should not be possible to update an Owner's with more than 150 characters`, async () => {
+      const createdOwner = ownersWriteRepository.owners[0];
 
-        const dto = updateOwnerDTO({
-          id: createdOwner.id,
-          name: 'a'.repeat(OwnerConstants.NAME_MAX_LENGTH + 1)
-        });
+      const dto = updateOwnerDTO({
+        id: createdOwner.id,
+        name: 'a'.repeat(151)
+      });
 
-        await expect(updateOwner.update(dto)).rejects.toBeInstanceOf(
-          InvalidNameException
-        );
-      }
-    );
+      await expect(updateOwner.update(dto)).rejects.toBeInstanceOf(
+        InvalidNameException
+      );
+    });
   });
 });
