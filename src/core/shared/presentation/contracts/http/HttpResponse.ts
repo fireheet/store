@@ -5,16 +5,6 @@ export type HttpResponse<T = unknown> = {
   data: T;
 };
 
-export const HttpError = (
-  error: Exception,
-  statusCode: number
-): HttpResponse => {
-  return {
-    statusCode,
-    data: error.message
-  };
-};
-
 export class HttpResponses<T> {
   created(data: T): HttpResponse<T> {
     return {
