@@ -1,3 +1,4 @@
+import { HttpConstants } from '@core/shared/config';
 import { Exception } from './Exception';
 
 export class DocumentAlreadyExistsException extends Exception {
@@ -5,7 +6,7 @@ export class DocumentAlreadyExistsException extends Exception {
     super({
       name: 'DocumentAlreadyExistsException',
       message: 'Document already exits!',
-      statusCode: 400
+      statusCode: HttpConstants.BAD_REQUEST
     });
   }
 }

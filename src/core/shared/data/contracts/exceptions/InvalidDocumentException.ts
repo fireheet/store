@@ -1,3 +1,4 @@
+import { HttpConstants } from '@core/shared/config';
 import { Exception } from './Exception';
 
 export class InvalidDocumentException extends Exception {
@@ -5,7 +6,7 @@ export class InvalidDocumentException extends Exception {
     super({
       name: 'InvalidDocumentException',
       message,
-      statusCode: 400
+      statusCode: HttpConstants.BAD_REQUEST
     });
   }
 }

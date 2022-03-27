@@ -7,7 +7,6 @@ import {
 import { CreateOwner } from '@core/owner/domain';
 import { inject, injectable } from 'inversify';
 import { OwnerTypes } from '@core/owner/config/types';
-import { HttpConstants } from '@core/shared/config';
 import { Exception } from '@core/shared/data/contracts/exceptions';
 import { OwnerViewModel } from '../views';
 
@@ -29,7 +28,7 @@ export class OwnerController implements HttpController {
     } catch (err) {
       const error = err as Exception;
       const errorResponse = new HttpResponses<Exception>();
-      return errorResponse.error(error, HttpConstants.BAD_REQUEST);
+      return errorResponse.error(error);
     }
   }
 }

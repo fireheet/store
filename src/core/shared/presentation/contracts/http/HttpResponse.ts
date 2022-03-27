@@ -21,9 +21,9 @@ export class HttpResponses<T> {
     };
   }
 
-  error(error: Exception, statusCode: number): HttpResponse<Exception> {
+  error(error: Exception): HttpResponse<Exception> {
     return {
-      statusCode,
+      statusCode: error.statusCode,
       data: error
     };
   }
