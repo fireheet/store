@@ -5,6 +5,14 @@ export type HttpResponse<T = unknown> = {
   data: T;
 };
 
+export const InternalServerError: HttpResponse = {
+  statusCode: 500,
+  data: new Exception({
+    message: 'An internal error occurred, please try again!!',
+    name: 'Internal Server Error'
+  })
+};
+
 export class HttpResponses<T> {
   created(data: T): HttpResponse<T> {
     return {
