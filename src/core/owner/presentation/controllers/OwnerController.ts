@@ -6,14 +6,14 @@ import {
 } from '@core/shared/presentation';
 import { CreateOwner } from '@core/owner/domain';
 import { inject, injectable } from 'inversify';
-import { OwnerTypes } from '@core/owner/config/types';
 import { Exception } from '@core/shared/data/contracts/exceptions';
 import { OwnerViewModel } from '../views';
+import { CREATE_OWNER } from '../../config/types';
 
 @injectable()
 export class OwnerController implements HttpController {
   constructor(
-    @inject(OwnerTypes.CreateOwner) private readonly createOwner: CreateOwner
+    @inject(CREATE_OWNER) private readonly createOwner: CreateOwner
   ) {}
 
   async create(request: HttpRequest): Promise<HttpResponse> {

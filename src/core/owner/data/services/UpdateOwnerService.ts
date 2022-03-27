@@ -4,18 +4,21 @@ import {
   OwnerReadRepository,
   OwnerWriteRepository
 } from '@core/owner/data/contracts';
-import { OwnerTypes } from '@core/owner/config/types';
 import { IDDoesNotExistException } from '@core/shared/data';
 import { UpdateOwnerDTO } from '../dtos';
 import { RepositoryOwnerModel } from '../models';
+import {
+  OWNER_READ_REPOSITORY,
+  OWNER_WRITE_REPOSITORY
+} from '../../config/types';
 
 @injectable()
 export class UpdateOwnerService implements UpdateOwner {
   constructor(
-    @inject(OwnerTypes.OwnerReadRepository)
+    @inject(OWNER_READ_REPOSITORY)
     private readonly ownerReadRepository: OwnerReadRepository,
 
-    @inject(OwnerTypes.OwnerWriteRepository)
+    @inject(OWNER_WRITE_REPOSITORY)
     private readonly ownerWriteRepository: OwnerWriteRepository
   ) {}
 

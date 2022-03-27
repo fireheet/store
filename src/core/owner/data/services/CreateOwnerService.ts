@@ -8,16 +8,19 @@ import {
   OwnerReadRepository,
   OwnerWriteRepository
 } from '@core/owner/data/contracts';
-import { OwnerTypes } from '@core/owner/config/types';
 import { CreateOwnerDTO } from '../dtos';
+import {
+  OWNER_READ_REPOSITORY,
+  OWNER_WRITE_REPOSITORY
+} from '../../config/types';
 
 @injectable()
 export class CreateOwnerService implements CreateOwner {
   constructor(
-    @inject(OwnerTypes.OwnerReadRepository)
+    @inject(OWNER_READ_REPOSITORY)
     private readonly ownerReadRepository: OwnerReadRepository,
 
-    @inject(OwnerTypes.OwnerWriteRepository)
+    @inject(OWNER_WRITE_REPOSITORY)
     private readonly ownerWriteRepository: OwnerWriteRepository
   ) {}
 
