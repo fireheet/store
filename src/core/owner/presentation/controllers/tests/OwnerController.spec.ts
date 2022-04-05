@@ -12,7 +12,7 @@ let createOwner: CreateOwner;
 let fakeOwnerReadRepository: FakeOwnerReadRepository;
 let fakeOwnerWriteRepository: FakeOwnerWriteRepository;
 
-const ownerDtoFactory = OwnerMockFactory.makeCreateOwnerDTO;
+const ownerDtoFactory = OwnerMockFactory.makeInputCreateOwnerDTO;
 
 describe('OwnerController', () => {
   beforeEach(() => {
@@ -71,6 +71,10 @@ describe('OwnerController', () => {
       expect(response.statusCode).toBe(400);
       expect(response.data).toHaveProperty('message');
       expect(createFunction).toThrowError();
+    });
+
+    it('should return an Http Response with status code 400 if any of the fields are empty', async () => {
+      // TODO implement this test
     });
   });
 });

@@ -2,6 +2,8 @@ import { Store } from '@core/store/domain/entities/Store';
 import { RecommendationConstants } from '@core/store/config';
 
 export class Recommendation {
+  id!: string;
+
   intendedStore!: Store;
 
   isPositive!: boolean;

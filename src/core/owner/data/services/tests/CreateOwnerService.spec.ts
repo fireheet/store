@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { CreateOwner } from '@core/owner/domain/usecases';
 import {
   DocumentAlreadyExistsException,
@@ -16,7 +17,7 @@ let createOwner: CreateOwner;
 let ownersReadRepository: FakeOwnerReadRepository;
 let ownersWriteRepository: FakeOwnerWriteRepository;
 
-const createOwnerDto = OwnerMockFactory.makeCreateOwnerDTO;
+const createOwnerDto = OwnerMockFactory.makeInputCreateOwnerDTO;
 
 describe('CreateOwnerService', () => {
   beforeEach(() => {
@@ -42,20 +43,38 @@ describe('CreateOwnerService', () => {
   });
 
   describe('Exception Cases', () => {
-    it('should not be possible create an Owner with null values', async () => {
-      const owner1 = createOwner.create({
-        name: null,
-        documentNumber: '12345678901'
-      });
+    it('should not be possible create an Owner with null or undefined values', async () => {
+      await expect(
+        createOwner.create({
+          // @ts-ignore
+          name: null,
+          documentNumber: '12345678901'
+        })
+      ).rejects.toBeInstanceOf(NullValuesException);
 
-      const owner2 = createOwner.create({
-        name: 'Test',
-        documentNumber: null
-      });
+      await expect(
+        createOwner.create({
+          // @ts-ignore
+          name: undefined,
+          documentNumber: '12345678901'
+        })
+      ).rejects.toBeInstanceOf(NullValuesException);
 
-      await expect(owner1).rejects.toBeInstanceOf(NullValuesException);
+      await expect(
+        createOwner.create({
+          name: 'Test',
+          // @ts-ignore
+          documentNumber: null
+        })
+      ).rejects.toBeInstanceOf(NullValuesException);
 
-      await expect(owner2).rejects.toBeInstanceOf(NullValuesException);
+      await expect(
+        createOwner.create({
+          name: 'Test',
+          // @ts-ignore
+          documentNumber: undefined
+        })
+      ).rejects.toBeInstanceOf(NullValuesException);
     });
 
     it(`should not be possible create an Owner with name that has more than 150 character`, async () => {

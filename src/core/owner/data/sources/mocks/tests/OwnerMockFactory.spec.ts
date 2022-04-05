@@ -3,7 +3,7 @@ import { OwnerMockFactory } from '@core/owner/data';
 describe('OwnerMockFactory', () => {
   describe('RepositoryOwnerModel', () => {
     it('should return an Repository Owner Model if given no parameters', () => {
-      const owner = OwnerMockFactory.makeRepositoryOwnerModel();
+      const owner = OwnerMockFactory.makeRepositoryOwnerDTO();
 
       expect(owner).toBeDefined();
       expect(owner.id).toBeDefined();
@@ -13,7 +13,7 @@ describe('OwnerMockFactory', () => {
     });
 
     it('should return an Repository Owner Model with values from parameter', () => {
-      const owner = OwnerMockFactory.makeRepositoryOwnerModel({
+      const owner = OwnerMockFactory.makeRepositoryOwnerDTO({
         id: '1',
         name: 'New'
       });
@@ -30,7 +30,7 @@ describe('OwnerMockFactory', () => {
 
   describe('CreateOwnerDTO', () => {
     it('should return an Create Owner DTO if given no parameters', () => {
-      const ownerDto = OwnerMockFactory.makeCreateOwnerDTO();
+      const ownerDto = OwnerMockFactory.makeInputCreateOwnerDTO();
 
       expect(ownerDto).toBeDefined();
       expect(ownerDto.name).toBeDefined();
@@ -38,7 +38,7 @@ describe('OwnerMockFactory', () => {
     });
 
     it('should return an Create Owner DTO with values from parameter', () => {
-      const ownerDto = OwnerMockFactory.makeCreateOwnerDTO({
+      const ownerDto = OwnerMockFactory.makeInputCreateOwnerDTO({
         name: 'New',
         documentNumber: '12345678901',
         documentType: 'cpf'
@@ -54,14 +54,14 @@ describe('OwnerMockFactory', () => {
 
   describe('UpdateOwnerDTO', () => {
     it('should return an Update Owner DTO if given no parameters', () => {
-      const ownerDto = OwnerMockFactory.makeUpdateOwnerDTO();
+      const ownerDto = OwnerMockFactory.makeInputUpdateOwnerDTO();
 
       expect(ownerDto).toBeDefined();
       expect(ownerDto.name).toBeDefined();
     });
 
     it('should return an Update Owner DTO with values from parameter', () => {
-      const ownerDto = OwnerMockFactory.makeUpdateOwnerDTO({
+      const ownerDto = OwnerMockFactory.makeInputUpdateOwnerDTO({
         name: 'New'
       });
 

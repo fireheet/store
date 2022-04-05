@@ -7,7 +7,7 @@ import { OwnerMockFactory } from '../../sources';
 let showOwner: ShowOwner;
 let ownerReadRepository: FakeOwnerReadRepository;
 
-const createRepositoryOwner = OwnerMockFactory.makeRepositoryOwnerModel;
+const createRepositoryOwner = OwnerMockFactory.makeRepositoryOwnerDTO;
 
 describe('ShowOwnerService', () => {
   beforeEach(async () => {

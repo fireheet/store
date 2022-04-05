@@ -3,6 +3,8 @@ import { Image } from '@core/shared/domain/value_objects';
 import { MealConstants } from '../../config';
 
 export class Meal {
+  id!: string;
+
   name!: string;
 
   price!: number;

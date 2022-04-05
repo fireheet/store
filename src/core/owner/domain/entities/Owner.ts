@@ -6,6 +6,8 @@ import {
 import { OwnerConstants } from '@core/owner/config';
 
 export class Owner {
+  id!: string;
+
   name!: string;
 
   document!: Document;

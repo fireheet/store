@@ -1,8 +1,12 @@
-import { OwnerModel, RepositoryOwnerModel } from '@core/owner/data/models';
-import { CreateOwnerDTO, UpdateOwnerDTO } from '@core/owner/data/dtos';
+import { OwnerModel } from '@core/owner/data/models';
 import { RandomInRange } from '@core/shared/data/sources';
 import { DocumentType } from '@core/shared/domain/value_objects';
 import { DocumentModel } from '@core/shared/data/models/value_objects';
+import {
+  InputCreateOwnerDTO,
+  InputUpdateOwnerDTO
+} from '@core/owner/domain/dtos';
+import { RepositoryOwnerDTO } from '../../dtos';
 
 export type FactoryOptions = {
   id?: string;
@@ -32,34 +36,30 @@ export class OwnerMockFactory {
     return ownerModel;
   };
 
-  static makeCreateOwnerDTO = (
+  static makeInputCreateOwnerDTO = (
     options: FactoryOptions = {}
-  ): CreateOwnerDTO => {
-    const ownerDto: CreateOwnerDTO = {
+  ): InputCreateOwnerDTO => {
+    return {
       name: options.name || 'John Doe',
       documentNumber:
         options.documentNumber ||
         RandomInRange(minCPFValue, maxCPFValue).toString()
     };
-
-    return ownerDto;
   };
 
-  static makeUpdateOwnerDTO = (
+  static makeInputUpdateOwnerDTO = (
     options: FactoryOptions = {}
-  ): UpdateOwnerDTO => {
-    const ownerDto: UpdateOwnerDTO = {
+  ): InputUpdateOwnerDTO => {
+    return {
       id: options.id || '1234',
       name: options.name || 'John Doe'
     };
-
-    return ownerDto;
   };
 
-  static makeRepositoryOwnerModel = (
+  static makeRepositoryOwnerDTO = (
     options: FactoryOptions = {}
-  ): RepositoryOwnerModel => {
-    return new RepositoryOwnerModel({
+  ): RepositoryOwnerDTO => {
+    return {
       id: options.id || RandomInRange(1, 100).toString(),
       name: options.name || 'John Doe',
       document:
@@ -68,11 +68,12 @@ export class OwnerMockFactory {
           number: RandomInRange(minCPFValue, maxCPFValue).toString(),
           type: DocumentType.CPF
         }),
+      isEnabled: true,
       created_at: new Date(),
       updated_at: null,
       deleted_at: null,
       enabled_at: new Date(),
       disabled_at: null
-    });
+    };
   };
 }

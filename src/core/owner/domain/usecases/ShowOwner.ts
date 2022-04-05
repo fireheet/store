@@ -1,5 +1,5 @@
-import { Owner } from '@core/owner/domain/entities';
+import { InputShowOwnerDTO, OutputShowOwnerDTO } from '../dtos';
 
 export interface ShowOwner {
-  show(showOwnerDTO: unknown): Promise<Owner>;
+  show(inputDto: InputShowOwnerDTO): Promise<OutputShowOwnerDTO>;
 }

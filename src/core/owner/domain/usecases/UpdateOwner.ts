@@ -1,3 +1,5 @@
+import { InputUpdateOwnerDTO } from '../dtos/update-owner';
+
 export interface UpdateOwner {
-  update(updateOwnerDTO: unknown): Promise<boolean>;
+  update(inputDto: InputUpdateOwnerDTO): Promise<boolean>;
 }

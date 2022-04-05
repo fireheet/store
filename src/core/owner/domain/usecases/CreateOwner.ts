@@ -1,5 +1,5 @@
-import { Owner } from '@core/owner/domain/entities';
+import { InputCreateOwnerDTO, OutputCreateOwnerDTO } from '../dtos';
 
 export interface CreateOwner {
-  create(createOwnerDTO: unknown): Promise<Owner>;
+  create(inputDto: InputCreateOwnerDTO): Promise<OutputCreateOwnerDTO>;
 }

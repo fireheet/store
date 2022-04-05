@@ -16,8 +16,8 @@ let updateOwner: UpdateOwner;
 let ownersReadRepository: FakeOwnerReadRepository;
 let ownersWriteRepository: FakeOwnerWriteRepository;
 
-const createOwnerDto = OwnerMockFactory.makeCreateOwnerDTO;
-const updateOwnerDTO = OwnerMockFactory.makeUpdateOwnerDTO;
+const createOwnerDto = OwnerMockFactory.makeInputCreateOwnerDTO;
+const updateOwnerDTO = OwnerMockFactory.makeInputUpdateOwnerDTO;
 
 describe('UpdateOwnerService', () => {
   beforeEach(async () => {

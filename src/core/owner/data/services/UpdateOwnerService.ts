@@ -5,12 +5,12 @@ import {
   OwnerWriteRepository
 } from '@core/owner/data/contracts';
 import { IDDoesNotExistException } from '@core/shared/data';
-import { UpdateOwnerDTO } from '../dtos';
-import { RepositoryOwnerModel } from '../models';
 import {
   OWNER_READ_REPOSITORY,
   OWNER_WRITE_REPOSITORY
 } from '../../config/types';
+import { InputUpdateOwnerDTO } from '../../domain/dtos';
+import { OwnerModel } from '../models';
 
 @injectable()
 export class UpdateOwnerService implements UpdateOwner {
@@ -22,17 +22,23 @@ export class UpdateOwnerService implements UpdateOwner {
     private readonly ownerWriteRepository: OwnerWriteRepository
   ) {}
 
-  async update({ id, name }: UpdateOwnerDTO): Promise<boolean> {
+  async update({ id, name }: InputUpdateOwnerDTO): Promise<boolean> {
     const owner = await this.ownerReadRepository.findByID(id);
 
     if (!owner) {
       throw new IDDoesNotExistException();
     }
 
-    const newOwner = new RepositoryOwnerModel({ ...owner, name });
+    const newOwner = new OwnerModel({
+      name,
+      document: owner.document,
+      id: owner.id
+    });
+
+    const output = { ...owner, ...newOwner };
 
     await this.ownerWriteRepository.update(newOwner);
 
-    return this.ownerReadRepository.replace(newOwner);
+    return this.ownerReadRepository.replace(output);
   }
 }

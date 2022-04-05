@@ -1,3 +1,3 @@
-export interface AssignOwnerToStore {
-  assign(owner: unknown, targetStore: unknown): Promise<boolean>;
+export interface AssignOwnerToStore<T> {
+  assign(inputDto: unknown): Promise<T>;
 }

@@ -4,27 +4,27 @@ import {
   HttpResponse,
   HttpRequest
 } from '@core/shared/presentation';
-import { CreateOwner } from '@core/owner/domain';
+import { CreateOwner, InputCreateOwnerDTO } from '@core/owner/domain';
 import { inject, injectable } from 'inversify';
 import { Exception } from '@core/shared/data/contracts/exceptions';
-import { OwnerViewModel } from '../views';
+
 import { CREATE_OWNER } from '../../config/types';
+import { OwnerPresenter } from '../presenters/OwnerPresenter';
 
 @injectable()
 export class OwnerController implements HttpController {
   constructor(
-    @inject(CREATE_OWNER) private readonly createOwner: CreateOwner
+    @inject(CREATE_OWNER)
+    private readonly createOwner: CreateOwner
   ) {}
 
   async create(request: HttpRequest): Promise<HttpResponse> {
     try {
-      const createdOwner = await this.createOwner.create(request.body);
+      const inputDto = request.body as InputCreateOwnerDTO;
 
-      const viewModel = new OwnerViewModel(createdOwner);
+      const outputDto = await this.createOwner.create(inputDto);
 
-      const response = new HttpResponses<OwnerViewModel>();
-
-      return response.created(viewModel);
+      return OwnerPresenter.OwnerCreatedResponse(outputDto);
     } catch (err) {
       const error = err as Exception;
       const errorResponse = new HttpResponses<Exception>();

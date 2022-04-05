@@ -27,7 +27,7 @@ describe('FakeOwnerWriteRepository', () => {
 
     const repositoryOwner = await ownersWriteRepository.create(model);
 
-    const updateModel = OwnerMockFactory.makeRepositoryOwnerModel({
+    const updateModel = OwnerMockFactory.makeRepositoryOwnerDTO({
       ...repositoryOwner,
       name: 'New'
     });

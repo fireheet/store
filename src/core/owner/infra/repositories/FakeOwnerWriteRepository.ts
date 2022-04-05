@@ -1,18 +1,19 @@
 /* eslint-disable @typescript-eslint/require-await */
 import { OwnerWriteRepository } from '@core/owner/data/contracts';
-import { OwnerModel, RepositoryOwnerModel } from '@core/owner/data/models';
+import { OwnerModel } from '@core/owner/data/models';
 import {
-  EnableRepositoryOwnerDTO,
-  DisableRepositoryOwnerDTO,
-  OwnerMockFactory
+  DisableOwnerDTO,
+  EnableOwnerDTO,
+  OwnerMockFactory,
+  RepositoryOwnerDTO
 } from '@core/owner/data';
 
-const repositoryOwnerModelFactory = OwnerMockFactory.makeRepositoryOwnerModel;
+const repositoryOwnerModelFactory = OwnerMockFactory.makeRepositoryOwnerDTO;
 
 export class FakeOwnerWriteRepository implements OwnerWriteRepository {
-  owners: RepositoryOwnerModel[] = [];
+  owners: RepositoryOwnerDTO[] = [];
 
-  async create(owner: OwnerModel): Promise<RepositoryOwnerModel> {
+  async create(owner: OwnerModel): Promise<RepositoryOwnerDTO> {
     const newOwner = repositoryOwnerModelFactory(owner);
 
     this.owners.push(newOwner);
@@ -20,7 +21,7 @@ export class FakeOwnerWriteRepository implements OwnerWriteRepository {
     return newOwner;
   }
 
-  async update(owner: RepositoryOwnerModel): Promise<boolean> {
+  async update(owner: RepositoryOwnerDTO): Promise<boolean> {
     const existingOwnerIndex = this.findOwnerIndex(owner.id);
 
     if (existingOwnerIndex < 0) {
@@ -32,7 +33,7 @@ export class FakeOwnerWriteRepository implements OwnerWriteRepository {
     return true;
   }
 
-  async enable(enableOwner: EnableRepositoryOwnerDTO): Promise<boolean> {
+  async enable(enableOwner: EnableOwnerDTO): Promise<boolean> {
     const existingOwnerIndex = this.findOwnerIndex(enableOwner.id);
 
     if (existingOwnerIndex < 0) {
@@ -46,7 +47,7 @@ export class FakeOwnerWriteRepository implements OwnerWriteRepository {
     return true;
   }
 
-  async disable(disableOwner: DisableRepositoryOwnerDTO): Promise<boolean> {
+  async disable(disableOwner: DisableOwnerDTO): Promise<boolean> {
     const existingOwnerIndex = this.findOwnerIndex(disableOwner.id);
 
     if (existingOwnerIndex < 0) {

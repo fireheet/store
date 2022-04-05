@@ -3,7 +3,7 @@ import { OwnerMockFactory } from '@core/owner/data';
 
 let ownersReadRepository: FakeOwnerReadRepository;
 
-const repositoryOwnerModelFactory = OwnerMockFactory.makeRepositoryOwnerModel;
+const repositoryOwnerModelFactory = OwnerMockFactory.makeRepositoryOwnerDTO;
 
 describe('FakeOwnerReadRepository', () => {
   beforeEach(() => {

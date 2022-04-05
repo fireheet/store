@@ -1,5 +1,5 @@
 import { DocumentAlreadyExistsException } from '@core/shared/data/contracts';
-import { OwnerModel, RepositoryOwnerModel } from '@core/owner/data/models';
+import { OwnerModel } from '@core/owner/data/models';
 import { inject, injectable } from 'inversify';
 import { DocumentType } from '@core/shared/domain/value_objects';
 import { CreateOwner } from '@core/owner/domain/usecases';
@@ -8,11 +8,14 @@ import {
   OwnerReadRepository,
   OwnerWriteRepository
 } from '@core/owner/data/contracts';
-import { CreateOwnerDTO } from '../dtos';
 import {
   OWNER_READ_REPOSITORY,
   OWNER_WRITE_REPOSITORY
-} from '../../config/types';
+} from '@core/owner/config/types';
+import {
+  InputCreateOwnerDTO,
+  OutputCreateOwnerDTO
+} from '@core/owner/domain/dtos';
 
 @injectable()
 export class CreateOwnerService implements CreateOwner {
@@ -27,7 +30,7 @@ export class CreateOwnerService implements CreateOwner {
   async create({
     name,
     documentNumber
-  }: CreateOwnerDTO): Promise<RepositoryOwnerModel> {
+  }: InputCreateOwnerDTO): Promise<OutputCreateOwnerDTO> {
     const document = new DocumentModel({
       number: documentNumber,
       type: DocumentType.CPF
@@ -38,16 +41,18 @@ export class CreateOwnerService implements CreateOwner {
       document
     });
 
-    const foundOwner = await this.ownerReadRepository.findByDocument(document);
+    const foundDocument = await this.ownerReadRepository.findByDocument(
+      document
+    );
 
-    if (foundOwner) {
+    if (foundDocument) {
       throw new DocumentAlreadyExistsException();
     }
 
-    const repositoryWriteOwner = await this.ownerWriteRepository.create(owner);
+    const repositoryOwnerDto = await this.ownerWriteRepository.create(owner);
 
-    await this.ownerReadRepository.create(repositoryWriteOwner);
+    await this.ownerReadRepository.create(repositoryOwnerDto);
 
-    return repositoryWriteOwner;
+    return repositoryOwnerDto;
   }
 }

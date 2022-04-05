@@ -3,6 +3,8 @@ import { StoreConstants } from '@core/store/config';
 import { Availability } from '../value_objects/Availability';
 
 export class Store {
+  id!: string;
+
   name!: string;
 
   logo?: string;
