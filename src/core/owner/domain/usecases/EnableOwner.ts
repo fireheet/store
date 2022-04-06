@@ -1,3 +1,5 @@
+import { InputEnableOwnerDTO } from '../dtos/enable-owner';
+
 export interface EnableOwner {
-  enable(enableOwnerDTO: unknown): Promise<boolean>;
+  enable(enableOwnerDTO: InputEnableOwnerDTO): Promise<boolean>;
 }
