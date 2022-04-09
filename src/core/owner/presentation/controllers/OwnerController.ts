@@ -1,14 +1,14 @@
 import {
   HttpController,
-  HttpResponses,
   HttpResponse,
-  HttpRequest
+  HttpRequest,
+  ErrorResponse
 } from '@core/shared/presentation';
 import { CreateOwner, InputCreateOwnerDTO } from '@core/owner/domain';
 import { inject, injectable } from 'inversify';
 import { Exception } from '@core/shared/data/contracts/exceptions';
 
-import { CREATE_OWNER } from '../../config/types';
+import { CREATE_OWNER } from '@core/owner/config/types';
 import { OwnerPresenter } from '../presenters/OwnerPresenter';
 
 @injectable()
@@ -24,11 +24,10 @@ export class OwnerController implements HttpController {
 
       const outputDto = await this.createOwner.create(inputDto);
 
-      return OwnerPresenter.OwnerCreatedResponse(outputDto);
+      return OwnerPresenter.ownerCreatedResponse(outputDto);
     } catch (err) {
       const error = err as Exception;
-      const errorResponse = new HttpResponses<Exception>();
-      return errorResponse.error(error);
+      return ErrorResponse(error);
     }
   }
 }

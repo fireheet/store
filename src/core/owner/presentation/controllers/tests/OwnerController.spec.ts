@@ -35,7 +35,7 @@ describe('OwnerController', () => {
 
       expect(owner.name).toEqual(createOwnerDto.name);
       expect(owner.isEnabled).toBeTruthy();
-      expect(owner).toBeInstanceOf(OwnerViewModel);
+      expect(owner).not.toHaveProperty('document');
     });
 
     it('should return an Http Response with status code 201', async () => {

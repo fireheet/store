@@ -3,13 +3,17 @@ import { OutputCreateOwnerDTO } from '@core/owner/domain/dtos';
 import { OwnerViewModel } from '../views';
 
 export class OwnerPresenter {
-  static OwnerCreatedResponse(
+  private static ownerHttpResponses = new HttpResponses<OwnerViewModel>();
+
+  static ownerCreatedResponse(
     outputDTO: OutputCreateOwnerDTO
   ): HttpResponse<OwnerViewModel> {
-    const viewModel = new OwnerViewModel(outputDTO);
+    const viewModel: OwnerViewModel = {
+      id: outputDTO.id,
+      name: outputDTO.name,
+      isEnabled: outputDTO.isEnabled
+    };
 
-    const response = new HttpResponses<OwnerViewModel>();
-
-    return response.created(viewModel);
+    return this.ownerHttpResponses.created(viewModel);
   }
 }

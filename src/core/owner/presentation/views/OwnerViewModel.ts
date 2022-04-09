@@ -1,11 +1,4 @@
-export class OwnerViewModel {
-  id!: string;
+import { OwnerModel } from '@core/owner/data';
+import { UnallowedViewFields } from '../../config';
 
-  name!: string;
-
-  isEnabled!: boolean;
-
-  constructor(dto: unknown) {
-    Object.assign(this, dto);
-  }
-}
+export type OwnerViewModel = Omit<OwnerModel, UnallowedViewFields>;

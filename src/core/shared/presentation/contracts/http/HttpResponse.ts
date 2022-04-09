@@ -20,11 +20,11 @@ export class HttpResponses<T> {
       data
     };
   }
-
-  error(error: Exception): HttpResponse<Exception> {
-    return {
-      statusCode: error.statusCode,
-      data: error
-    };
-  }
 }
+
+export const ErrorResponse = (error: Exception): HttpResponse<Exception> => {
+  return {
+    statusCode: error.statusCode,
+    data: error
+  };
+};

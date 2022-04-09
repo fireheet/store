@@ -1,3 +1,5 @@
+import { InputDisableOwnerDTO } from '../dtos/disable-owner';
+
 export interface DisableOwner {
-  disable(disableOwnerDTO: unknown): Promise<boolean>;
+  disable(disableOwnerDTO: InputDisableOwnerDTO): Promise<boolean>;
 }
