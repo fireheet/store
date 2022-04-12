@@ -10,7 +10,7 @@ import {
   OWNER_WRITE_REPOSITORY
 } from '../../config/types';
 import { InputUpdateOwnerDTO } from '../../domain/dtos';
-import { OwnerModel } from '../models';
+import { RepositoryOwnerModel } from '../models';
 
 @injectable()
 export class UpdateOwnerService implements UpdateOwner {
@@ -29,16 +29,13 @@ export class UpdateOwnerService implements UpdateOwner {
       throw new IDDoesNotExistException();
     }
 
-    const newOwner = new OwnerModel({
-      name,
-      document: owner.document,
-      id: owner.id
+    const updatedOwner = new RepositoryOwnerModel({
+      ...owner,
+      name
     });
 
-    const output = { ...owner, ...newOwner };
+    await this.ownerWriteRepository.update(updatedOwner);
 
-    await this.ownerWriteRepository.update(newOwner);
-
-    return this.ownerReadRepository.replace(output);
+    return this.ownerReadRepository.replace(updatedOwner);
   }
 }

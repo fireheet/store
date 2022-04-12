@@ -10,15 +10,20 @@ import { Exception } from '@core/shared/data/contracts/exceptions';
 
 import { CREATE_OWNER } from '@core/owner/config/types';
 import { OwnerPresenter } from '../presenters/OwnerPresenter';
+import { OwnerViewModel } from '../views';
 
 @injectable()
-export class OwnerController implements HttpController {
+export class OwnerController
+  implements HttpController<OwnerViewModel | Exception>
+{
   constructor(
     @inject(CREATE_OWNER)
     private readonly createOwner: CreateOwner
   ) {}
 
-  async create(request: HttpRequest): Promise<HttpResponse> {
+  async create(
+    request: HttpRequest
+  ): Promise<HttpResponse<OwnerViewModel | Exception>> {
     try {
       const inputDto = request.body as InputCreateOwnerDTO;
 
@@ -27,6 +32,7 @@ export class OwnerController implements HttpController {
       return OwnerPresenter.ownerCreatedResponse(outputDto);
     } catch (err) {
       const error = err as Exception;
+
       return ErrorResponse(error);
     }
   }

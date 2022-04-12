@@ -1,9 +1,7 @@
 import { FakeOwnerReadRepository } from '@core/owner/infra';
-import { OwnerMockFactory } from '@core/owner/data';
+import { RepositoryOwnerModelMock } from '../../../data/sources/mocks/RepositoryOwnerModelMock';
 
 let ownersReadRepository: FakeOwnerReadRepository;
-
-const repositoryOwnerModelFactory = OwnerMockFactory.makeRepositoryOwnerDTO;
 
 describe('FakeOwnerReadRepository', () => {
   beforeEach(() => {
@@ -11,28 +9,23 @@ describe('FakeOwnerReadRepository', () => {
   });
 
   it('should be possible to create an Repository Owner', async () => {
-    const model = repositoryOwnerModelFactory();
-
-    const owner = await ownersReadRepository.create(model);
+    const mock = RepositoryOwnerModelMock();
+    const owner = await ownersReadRepository.create(mock);
     const storedOwner = ownersReadRepository.owners[0];
 
     expect(owner).toBeTruthy();
     expect(ownersReadRepository.owners).toHaveLength(1);
     expect(storedOwner.id).toBeDefined();
-    expect(storedOwner.id).toBe(model.id);
-    expect(storedOwner.name).toBe(model.name);
-    expect(storedOwner.document.toString()).toBe(model.document.toString());
-    expect(storedOwner.isEnabled).toBe(true);
+    expect(storedOwner.id).toBe(mock.id);
+    expect(storedOwner.name).toBe(mock.name);
+    expect(storedOwner.document.toString()).toBe(mock.document.toString());
   });
 
   it('should be possible to replace an Repository Owner', async () => {
-    const model = repositoryOwnerModelFactory({ name: 'John' });
-    const updateModel = repositoryOwnerModelFactory({
-      ...model,
-      name: 'New'
-    });
+    const updateModel = RepositoryOwnerModelMock();
+    updateModel.name = 'Test 2';
 
-    await ownersReadRepository.create(model);
+    await ownersReadRepository.create(RepositoryOwnerModelMock());
 
     const updateOwner = await ownersReadRepository.replace(updateModel);
     const storedOwner = ownersReadRepository.owners[0];
@@ -42,33 +35,32 @@ describe('FakeOwnerReadRepository', () => {
     expect(storedOwner.id).toBeDefined();
     expect(storedOwner.id).toBe(updateModel.id);
     expect(storedOwner.name).toBe(updateModel.name);
-    expect(storedOwner.name).not.toBe(model.name);
+    expect(storedOwner.name).not.toBe(RepositoryOwnerModelMock.name);
   });
 
   it('should be possible to find an Owner by ID', async () => {
-    const model = repositoryOwnerModelFactory();
+    const mock = RepositoryOwnerModelMock();
+    await ownersReadRepository.create(RepositoryOwnerModelMock());
 
-    await ownersReadRepository.create(model);
-
-    const owner = await ownersReadRepository.findByID(model.id);
+    const owner = await ownersReadRepository.findByID('1');
 
     expect(owner).toBeTruthy();
-    expect(owner.id).toBe(model.id);
-    expect(owner.name).toBe(model.name);
-    expect(owner.document.toString()).toBe(model.document.toString());
+    expect(owner.id).toBe(mock.id);
+    expect(owner.name).toBe(mock.name);
+    expect(owner.document.toString()).toBe(mock.document.toString());
   });
 
   it('should be possible to find an Owner by Document', async () => {
-    const model = repositoryOwnerModelFactory();
+    const mock = RepositoryOwnerModelMock();
 
-    await ownersReadRepository.create(model);
+    await ownersReadRepository.create(mock);
 
-    const owner = await ownersReadRepository.findByDocument(model.document);
+    const owner = await ownersReadRepository.findByDocument(mock.document);
 
     expect(owner).toBeTruthy();
-    expect(owner.id).toBe(model.id);
-    expect(owner.name).toBe(model.name);
-    expect(owner.document.toString()).toBe(model.document.toString());
+    expect(owner.id).toBe(mock.id);
+    expect(owner.name).toBe(mock.name);
+    expect(owner.document.toString()).toBe(mock.document.toString());
   });
 
   // TODO Write exception cases

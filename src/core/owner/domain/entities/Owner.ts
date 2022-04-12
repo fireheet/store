@@ -1,36 +1,27 @@
+/* eslint-disable import/no-cycle */
 import { Document } from '@core/shared/domain/value_objects';
-import {
-  InvalidNameException,
-  NullValuesException
-} from '@core/shared/data/contracts';
-import { OwnerConstants } from '@core/owner/config';
+import { Entity } from '@core/shared/domain/entity';
+import { OwnerValidatorFactory } from '../factories/validator/OwnerValidatorFactory';
+import { ValidationException } from '../../../shared/data/contracts/exceptions/ValidationException';
 
-export class Owner {
-  id!: string;
-
+export class Owner extends Entity {
   name!: string;
 
   document!: Document;
 
-  isEnabled = true;
+  constructor(props: Partial<Owner>) {
+    super('owner');
 
-  constructor(data: Partial<Owner>) {
-    Object.assign(this, data);
+    Object.assign(this, props);
 
     this.validateOwner();
+
+    if (this.validation.hasErrors()) {
+      throw new ValidationException(this.validation.messages());
+    }
   }
 
   private validateOwner() {
-    const nameMaxLength = OwnerConstants.NAME_MAX_LENGTH;
-
-    if (!this.name || !this.document) {
-      throw new NullValuesException();
-    }
-
-    if (this.name.length > nameMaxLength) {
-      throw new InvalidNameException(
-        `Owner name must be less than ${nameMaxLength} characters!`
-      );
-    }
+    OwnerValidatorFactory.create().validate(this);
   }
 }

@@ -1,5 +1,5 @@
 import { FakeOwnerWriteRepository } from '@core/owner/infra';
-import { OwnerMockFactory } from '@core/owner/data';
+import { RepositoryOwnerModelMock } from '@core/owner/data/sources/mocks/RepositoryOwnerModelMock';
 
 let ownersWriteRepository: FakeOwnerWriteRepository;
 
@@ -9,28 +9,24 @@ describe('FakeOwnerWriteRepository', () => {
   });
 
   it('should be possible to create an Repository Owner', async () => {
-    const model = OwnerMockFactory.makeOwnerModel();
+    const mock = RepositoryOwnerModelMock();
 
-    const owner = await ownersWriteRepository.create(model);
+    const owner = await ownersWriteRepository.create(mock);
     const storedOwner = ownersWriteRepository.owners[0];
 
     expect(owner).toBeTruthy();
     expect(ownersWriteRepository.owners).toHaveLength(1);
     expect(storedOwner.id).toBeDefined();
-    expect(storedOwner.name).toBe(model.name);
-    expect(storedOwner.document.toString()).toBe(model.document.toString());
-    expect(storedOwner.isEnabled).toBe(true);
+    expect(storedOwner.name).toBe(mock.name);
+    expect(storedOwner.document.toString()).toBe(mock.document.toString());
   });
 
   it('should be possible to update an Repository Owner', async () => {
-    const model = OwnerMockFactory.makeOwnerModel({ name: 'John' });
+    const repositoryOwner = await ownersWriteRepository.create(
+      RepositoryOwnerModelMock()
+    );
 
-    const repositoryOwner = await ownersWriteRepository.create(model);
-
-    const updateModel = OwnerMockFactory.makeRepositoryOwnerDTO({
-      ...repositoryOwner,
-      name: 'New'
-    });
+    const updateModel = RepositoryOwnerModelMock();
 
     const updateOwner = await ownersWriteRepository.update(updateModel);
     const storedOwner = ownersWriteRepository.owners[0];
@@ -40,13 +36,13 @@ describe('FakeOwnerWriteRepository', () => {
     expect(storedOwner.id).toBeDefined();
     expect(storedOwner.id).toBe(updateModel.id);
     expect(storedOwner.name).toBe(updateModel.name);
-    expect(storedOwner.name).not.toBe(model.name);
+    expect(storedOwner.name).not.toBe(repositoryOwner.name);
   });
 
   it('should be possible to enable an Repository Owner', async () => {
-    const model = OwnerMockFactory.makeOwnerModel();
+    const mock = RepositoryOwnerModelMock();
 
-    const owner = await ownersWriteRepository.create(model);
+    const owner = await ownersWriteRepository.create(mock);
 
     const enableOwner = await ownersWriteRepository.enable({ id: owner.id });
     const storedOwner = ownersWriteRepository.owners[0];
@@ -55,13 +51,12 @@ describe('FakeOwnerWriteRepository', () => {
     expect(ownersWriteRepository.owners).toHaveLength(1);
     expect(storedOwner.id).toBeDefined();
     expect(storedOwner.id).toBe(owner.id);
-    expect(storedOwner.isEnabled).toBe(true);
   });
 
   it('should be possible to disable an Repository Owner', async () => {
-    const model = OwnerMockFactory.makeOwnerModel();
+    const mock = RepositoryOwnerModelMock();
 
-    const owner = await ownersWriteRepository.create(model);
+    const owner = await ownersWriteRepository.create(mock);
 
     const disableOwner = await ownersWriteRepository.disable({
       id: owner.id
@@ -73,8 +68,7 @@ describe('FakeOwnerWriteRepository', () => {
     expect(ownersWriteRepository.owners).toHaveLength(1);
     expect(storedOwner.id).toBeDefined();
     expect(storedOwner.id).toBe(owner.id);
-    expect(storedOwner.isEnabled).toBe(false);
-    expect(storedOwner.disabled_at).toBeDefined();
+    expect(storedOwner.deleted_at).toBeDefined();
   });
 
   // TODO Write exception cases

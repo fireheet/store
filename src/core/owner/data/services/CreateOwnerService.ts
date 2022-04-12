@@ -1,9 +1,6 @@
 import { DocumentAlreadyExistsException } from '@core/shared/data/contracts';
-import { OwnerModel } from '@core/owner/data/models';
 import { inject, injectable } from 'inversify';
-import { DocumentType } from '@core/shared/domain/value_objects';
 import { CreateOwner } from '@core/owner/domain/usecases';
-import { DocumentModel } from '@core/shared/data/models/value_objects';
 import {
   OwnerReadRepository,
   OwnerWriteRepository
@@ -16,6 +13,7 @@ import {
   InputCreateOwnerDTO,
   OutputCreateOwnerDTO
 } from '@core/owner/domain/dtos';
+import { OwnerFactory } from '../../domain/factories';
 
 @injectable()
 export class CreateOwnerService implements CreateOwner {
@@ -31,18 +29,13 @@ export class CreateOwnerService implements CreateOwner {
     name,
     documentNumber
   }: InputCreateOwnerDTO): Promise<OutputCreateOwnerDTO> {
-    const document = new DocumentModel({
-      number: documentNumber,
-      type: DocumentType.CPF
-    });
-
-    const owner = new OwnerModel({
+    const owner = OwnerFactory.create({
       name,
-      document
+      documentNumber
     });
 
     const foundDocument = await this.ownerReadRepository.findByDocument(
-      document
+      owner.document
     );
 
     if (foundDocument) {

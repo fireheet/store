@@ -10,7 +10,7 @@ export class FastifyRouteAdapter {
       request: FastifyRequest,
       reply: FastifyReply
     ): Promise<FastifyReply> => {
-      if (!controller.create) {
+      if (!controller?.create) {
         return reply
           .code(InternalServerError.statusCode)
           .send(InternalServerError.data);

@@ -1,2 +1,1 @@
-export * from './RepositoryFields';
-export * from './RepositoryStatusFields';
+export * from './RepositoryProps';

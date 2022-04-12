@@ -1,11 +1,11 @@
 import { HttpConstants } from '@core/shared/config';
 import { Exception } from './Exception';
 
-export class NullValuesException extends Exception {
-  constructor() {
+export class ValidationException extends Exception {
+  constructor(message: string) {
     super({
-      name: 'NullValuesException',
-      message: 'Null values are not allowed!',
+      message,
+      name: 'ValidationException',
       statusCode: HttpConstants.BAD_REQUEST
     });
   }

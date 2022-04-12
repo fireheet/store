@@ -1,23 +1,25 @@
 /* eslint-disable @typescript-eslint/require-await */
 import { FastifyPluginAsync } from 'fastify';
 import { FastifyRouteAdapter } from '@main/modules/shared/adapters';
-import { OwnerController } from '@core/owner/presentation';
-import { inject, injectable } from 'inversify';
-import { OwnerTypes } from '@core/owner/config/types';
-import { OwnerRouteStrings } from '../config';
+import { OwnerViewModel } from '@core/owner/presentation';
+import { OWNER_CONTROLLER } from '@core/owner/config/types';
+import { AppContainer } from '@core/shared/config/inversify.config';
+import { CREATE_OWNER_ROUTE } from '../config';
+import { HttpController } from '../../../../core/shared/presentation';
+import { Exception } from '../../../../core/shared/data';
 
-@injectable()
 export class OwnerRoutes {
-  constructor(
-    @inject(OwnerTypes.OwnerController)
-    private readonly ownerController: OwnerController
-  ) {}
-
-  createOwnerRoute: FastifyPluginAsync = async (
+  static createOwnerRoute: FastifyPluginAsync = async (
     fastify,
     _opts
   ): Promise<void> => {
-    const createRoute = FastifyRouteAdapter.create(this.ownerController);
-    fastify.post(OwnerRouteStrings.CREATE_OWNER, createRoute);
+    const ownerController =
+      AppContainer.get<HttpController<OwnerViewModel | Exception>>(
+        OWNER_CONTROLLER
+      );
+
+    const createRoute = FastifyRouteAdapter.create(ownerController);
+
+    fastify.post(CREATE_OWNER_ROUTE, createRoute);
   };
 }

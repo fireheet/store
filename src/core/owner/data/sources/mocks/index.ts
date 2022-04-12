@@ -1,1 +1,1 @@
-export * from './OwnerMockFactory';
+export * from './RepositoryOwnerModelMock';

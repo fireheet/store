@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { Container } from 'inversify';
-import { OwnerContainer } from '@main/modules/owner/container';
+import { OwnerContainer } from '@core/owner/config/container';
 
 const AppContainer = new Container();
 

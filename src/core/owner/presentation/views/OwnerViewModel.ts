@@ -1,4 +1,4 @@
-import { OwnerModel } from '@core/owner/data';
-import { UnallowedViewFields } from '../../config';
-
-export type OwnerViewModel = Omit<OwnerModel, UnallowedViewFields>;
+export type OwnerViewModel = {
+  id: string;
+  name: string;
+};

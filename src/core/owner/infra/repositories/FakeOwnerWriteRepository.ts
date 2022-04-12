@@ -1,34 +1,27 @@
 /* eslint-disable @typescript-eslint/require-await */
 import { OwnerWriteRepository } from '@core/owner/data/contracts';
-import { OwnerModel } from '@core/owner/data/models';
-import {
-  DisableOwnerDTO,
-  EnableOwnerDTO,
-  OwnerMockFactory,
-  RepositoryOwnerDTO
-} from '@core/owner/data';
-
-const repositoryOwnerModelFactory = OwnerMockFactory.makeRepositoryOwnerDTO;
+import { DisableOwnerDTO, EnableOwnerDTO } from '@core/owner/data';
+import { OwnerModel, RepositoryOwnerModel } from '../../data/models';
 
 export class FakeOwnerWriteRepository implements OwnerWriteRepository {
-  owners: RepositoryOwnerDTO[] = [];
+  owners: RepositoryOwnerModel[] = [];
 
-  async create(owner: OwnerModel): Promise<RepositoryOwnerDTO> {
-    const newOwner = repositoryOwnerModelFactory(owner);
+  async create(owner: OwnerModel): Promise<RepositoryOwnerModel> {
+    const persistedOwner = new RepositoryOwnerModel({ ...owner });
 
-    this.owners.push(newOwner);
+    this.owners.push(persistedOwner);
 
-    return newOwner;
+    return persistedOwner;
   }
 
-  async update(owner: RepositoryOwnerDTO): Promise<boolean> {
+  async update(owner: RepositoryOwnerModel): Promise<boolean> {
     const existingOwnerIndex = this.findOwnerIndex(owner.id);
 
     if (existingOwnerIndex < 0) {
       return false;
     }
 
-    this.owners[existingOwnerIndex] = repositoryOwnerModelFactory(owner);
+    this.owners[existingOwnerIndex] = new RepositoryOwnerModel({ ...owner });
 
     return true;
   }
@@ -40,9 +33,7 @@ export class FakeOwnerWriteRepository implements OwnerWriteRepository {
       return false;
     }
 
-    this.owners[existingOwnerIndex].isEnabled = true;
-    this.owners[existingOwnerIndex].enabled_at = new Date();
-    this.owners[existingOwnerIndex].disabled_at = null;
+    this.owners[existingOwnerIndex].deleted_at = null;
 
     return true;
   }
@@ -54,8 +45,7 @@ export class FakeOwnerWriteRepository implements OwnerWriteRepository {
       return false;
     }
 
-    this.owners[existingOwnerIndex].isEnabled = false;
-    this.owners[existingOwnerIndex].disabled_at = new Date();
+    this.owners[existingOwnerIndex].deleted_at = new Date();
 
     return true;
   }

@@ -1,3 +1,3 @@
-import { Document } from '@core/shared/domain/value_objects/Document';
+import { Document } from '@core/shared/domain';
 
 export class DocumentModel extends Document {}

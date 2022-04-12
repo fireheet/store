@@ -10,8 +10,7 @@ export class OwnerPresenter {
   ): HttpResponse<OwnerViewModel> {
     const viewModel: OwnerViewModel = {
       id: outputDTO.id,
-      name: outputDTO.name,
-      isEnabled: outputDTO.isEnabled
+      name: outputDTO.name
     };
 
     return this.ownerHttpResponses.created(viewModel);

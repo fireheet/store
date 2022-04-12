@@ -1,7 +1,4 @@
-import {
-  InvalidDocumentException,
-  NullValuesException
-} from '@core/shared/data/contracts';
+import { InvalidDocumentException } from '@core/shared/data/contracts';
 import { DocumentType } from './enums';
 
 export class Document {
@@ -15,9 +12,9 @@ export class Document {
     this.validateDocument();
   }
 
-  validateDocument(): void {
+  private validateDocument(): void {
     if (!this.number || !this.type) {
-      throw new NullValuesException();
+      throw new Error();
     }
 
     if (!this.validateNumberByType()) {
@@ -27,43 +24,41 @@ export class Document {
     }
   }
 
-  validateNumberByType(): boolean {
+  private validateNumberByType(): boolean {
     switch (this.type) {
       case DocumentType.CPF:
         return this.validateCPF(this.number);
       case DocumentType.CNPJ:
-        return this.validateCPNJ(this.number);
+        return this.validateCNPJ(this.number);
       default:
         return false;
     }
   }
 
-  validateCPF(cpf: string): boolean {
-    if (cpf.length !== 11) return false;
-
+  private validateCPF(_cpf: string): boolean {
     return true;
   }
 
-  validateCPNJ(_cnpj: string): boolean {
+  private validateCNPJ(_cnpj: string): boolean {
     // TODO Implement CNPJ validation
 
     return true;
   }
 
-  formatDocumentNumber(): string {
+  public formatDocumentNumber(): string {
     // TODO Return formatted document number
 
-    return this.number;
+    return `${this.number}`;
   }
 
-  getDocumentValues(): Partial<Document> {
+  public getDocumentValues(): Partial<Document> {
     return {
       number: this.number,
       type: this.type
     };
   }
 
-  getDocumentTypeString(): string {
+  private getDocumentTypeString(): string {
     return this.type.toString();
   }
 

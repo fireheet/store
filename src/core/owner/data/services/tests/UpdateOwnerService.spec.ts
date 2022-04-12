@@ -1,36 +1,25 @@
-import { CreateOwner, UpdateOwner } from '@core/owner/domain/usecases';
+import { UpdateOwner } from '@core/owner/domain/usecases';
 import {
   FakeOwnerReadRepository,
   FakeOwnerWriteRepository
 } from '@core/owner/infra';
-import { OwnerMockFactory } from '@core/owner/data/sources';
 import {
   IDDoesNotExistException,
   InvalidNameException
 } from '@core/shared/data';
+import { RepositoryOwnerModelMock } from '../../sources/mocks/RepositoryOwnerModelMock';
 import { UpdateOwnerService } from '../UpdateOwnerService';
-import { CreateOwnerService } from '../CreateOwnerService';
 
-let createOwner: CreateOwner;
 let updateOwner: UpdateOwner;
 let ownersReadRepository: FakeOwnerReadRepository;
 let ownersWriteRepository: FakeOwnerWriteRepository;
-
-const createOwnerDto = OwnerMockFactory.makeInputCreateOwnerDTO;
-const updateOwnerDTO = OwnerMockFactory.makeInputUpdateOwnerDTO;
 
 describe('UpdateOwnerService', () => {
   beforeEach(async () => {
     ownersReadRepository = new FakeOwnerReadRepository();
     ownersWriteRepository = new FakeOwnerWriteRepository();
 
-    createOwner = new CreateOwnerService(
-      ownersReadRepository,
-      ownersWriteRepository
-    );
-
-    const createDto = createOwnerDto();
-    await createOwner.create(createDto);
+    await ownersReadRepository.create(RepositoryOwnerModelMock());
 
     updateOwner = new UpdateOwnerService(
       ownersReadRepository,
@@ -42,36 +31,31 @@ describe('UpdateOwnerService', () => {
     it("should be possible update an Owner's name", async () => {
       const createdOwner = ownersWriteRepository.owners[0];
 
-      const dto = updateOwnerDTO({ id: createdOwner.id, name: 'New' });
-      const owner = await updateOwner.update(dto);
+      const owner = await updateOwner.update({
+        id: createdOwner.id,
+        name: 'New'
+      });
 
       const updatedOwner = ownersWriteRepository.owners[0];
 
       expect(owner).toBeTruthy();
-      expect(updatedOwner.name).toBe(dto.name);
+      expect(updatedOwner.name).toBe('New');
     });
   });
 
   describe('Exception Cases', () => {
     it('should not be possible to update an non-existing Owner', async () => {
-      const dto = updateOwnerDTO({ id: 'non-existing-id' });
-
-      await expect(updateOwner.update(dto)).rejects.toBeInstanceOf(
-        IDDoesNotExistException
-      );
+      await expect(
+        updateOwner.update({ id: '1', name: 'New' })
+      ).rejects.toBeInstanceOf(IDDoesNotExistException);
     });
 
     it(`should not be possible to update an Owner's with more than 150 characters`, async () => {
       const createdOwner = ownersWriteRepository.owners[0];
 
-      const dto = updateOwnerDTO({
-        id: createdOwner.id,
-        name: 'a'.repeat(151)
-      });
-
-      await expect(updateOwner.update(dto)).rejects.toBeInstanceOf(
-        InvalidNameException
-      );
+      await expect(
+        updateOwner.update({ id: createdOwner.id, name: 'a'.repeat(151) })
+      ).rejects.toBeInstanceOf(InvalidNameException);
     });
   });
 });

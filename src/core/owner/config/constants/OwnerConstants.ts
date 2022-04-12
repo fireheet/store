@@ -1,5 +1,4 @@
-export const OwnerConstants = {
-  NAME_MAX_LENGTH: process.env.OWNER_NAME_MAX_LENGTH || 150
-};
-
-export type UnallowedViewFields = 'document';
+export const NAME_MAX_LENGTH: number = Number.parseInt(
+  process.env.OWNER_NAME_MAX_LENGTH || '150',
+  10
+);

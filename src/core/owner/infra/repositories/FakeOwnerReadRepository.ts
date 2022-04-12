@@ -1,27 +1,19 @@
 /* eslint-disable @typescript-eslint/require-await */
-import {
-  DisableOwnerDTO,
-  EnableOwnerDTO,
-  OwnerMockFactory,
-  RepositoryOwnerDTO
-} from '@core/owner/data';
+import { DisableOwnerDTO, EnableOwnerDTO } from '@core/owner/data/dtos';
 import { OwnerReadRepository } from '@core/owner/data/contracts';
-import { DocumentModel } from '@core/shared/data/models/value_objects';
-
-const repositoryOwnerDtoFactory = OwnerMockFactory.makeRepositoryOwnerDTO;
+import { RepositoryOwnerModel } from '@core/owner/data/models/RepositoryOwnerModel';
+import { DocumentModel, DocumentProps } from '@core/shared/data';
 
 export class FakeOwnerReadRepository implements OwnerReadRepository {
-  owners: RepositoryOwnerDTO[] = [];
+  owners: RepositoryOwnerModel[] = [];
 
-  async create(owner: RepositoryOwnerDTO): Promise<boolean> {
-    const newOwner = repositoryOwnerDtoFactory(owner);
-
-    this.owners.push(newOwner);
+  async create(owner: RepositoryOwnerModel): Promise<boolean> {
+    this.owners.push(owner);
 
     return true;
   }
 
-  async replace(owner: RepositoryOwnerDTO): Promise<boolean> {
+  async replace(owner: RepositoryOwnerModel): Promise<boolean> {
     const existingOwnerIndex = this.findOwnerIndex(owner.id);
 
     this.owners[existingOwnerIndex] = owner;
@@ -36,9 +28,7 @@ export class FakeOwnerReadRepository implements OwnerReadRepository {
       return false;
     }
 
-    this.owners[existingOwnerIndex].isEnabled = true;
-    this.owners[existingOwnerIndex].enabled_at = new Date();
-    this.owners[existingOwnerIndex].disabled_at = null;
+    this.owners[existingOwnerIndex].deleted_at = null;
 
     return true;
   }
@@ -50,21 +40,22 @@ export class FakeOwnerReadRepository implements OwnerReadRepository {
       return false;
     }
 
-    this.owners[existingOwnerIndex].isEnabled = false;
-    this.owners[existingOwnerIndex].disabled_at = new Date();
+    this.owners[existingOwnerIndex].deleted_at = new Date();
 
     return true;
   }
 
-  async findByID(id: string): Promise<RepositoryOwnerDTO> {
+  async findByID(id: string): Promise<RepositoryOwnerModel> {
     const existingOwnerIndex = this.findOwnerIndex(id);
 
     return this.owners[existingOwnerIndex];
   }
 
-  async findByDocument(document: DocumentModel): Promise<RepositoryOwnerDTO> {
+  async findByDocument(document: DocumentProps): Promise<RepositoryOwnerModel> {
+    const documentCheck = new DocumentModel(document);
+
     const existingOwnerIndex = this.owners.findIndex(foundOwner =>
-      foundOwner.document.isEqual(document)
+      foundOwner.document.isEqual(documentCheck)
     );
 
     return this.owners[existingOwnerIndex];

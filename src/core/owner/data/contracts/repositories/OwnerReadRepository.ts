@@ -1,15 +1,13 @@
-import {
-  DisableOwnerDTO,
-  EnableOwnerDTO,
-  RepositoryOwnerDTO
-} from '@core/owner/data/dtos';
-import { DocumentModel } from '@core/shared/data/models/value_objects';
+import { DisableOwnerDTO, EnableOwnerDTO } from '@core/owner/data/dtos';
+import { DocumentModel } from '@core/shared/data';
+import { OwnerModel } from '../../models/OwnerModel';
+import { RepositoryOwnerModel } from '../../models/RepositoryOwnerModel';
 
 export interface OwnerReadRepository {
-  create(owner: RepositoryOwnerDTO): Promise<boolean>;
-  replace(owner: RepositoryOwnerDTO): Promise<boolean>;
+  create(owner: OwnerModel): Promise<boolean>;
+  replace(owner: RepositoryOwnerModel): Promise<boolean>;
   enable(enableOwner: EnableOwnerDTO): Promise<boolean>;
   disable(disableOwner: DisableOwnerDTO): Promise<boolean>;
-  findByID(id: string): Promise<RepositoryOwnerDTO>;
-  findByDocument(document: DocumentModel): Promise<RepositoryOwnerDTO>;
+  findByID(id: string): Promise<RepositoryOwnerModel>;
+  findByDocument(document: DocumentModel): Promise<RepositoryOwnerModel>;
 }

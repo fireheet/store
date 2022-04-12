@@ -1,5 +1,3 @@
 const prefix = 'owner';
 
-export const OwnerRouteStrings = {
-  CREATE_OWNER: `${prefix}/`
-};
+export const CREATE_OWNER_ROUTE = `${prefix}/`;

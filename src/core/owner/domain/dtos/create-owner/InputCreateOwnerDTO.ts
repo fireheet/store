@@ -1,7 +1,7 @@
 /**
  * Input fields:
  * @name string
- * @documentNumber string
+ * @documentNumber number
  */
 export type InputCreateOwnerDTO = {
   name: string;

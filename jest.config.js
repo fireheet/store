@@ -2,7 +2,7 @@
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
-  setupFiles: ['./src/main/config/inversify.config.ts'],
+  setupFiles: ['./src/core/shared/config/inversify.config.ts'],
   moduleNameMapper: {
     '^@core/(.*)$': '<rootDir>/src/core/$1',
     '^@domain/(.*)$': '<rootDir>/src/core/domain/$1',

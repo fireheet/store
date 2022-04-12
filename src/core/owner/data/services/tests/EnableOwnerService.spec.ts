@@ -4,14 +4,12 @@ import {
 } from '@core/owner/infra';
 import { EnableOwner } from '@core/owner/domain';
 import { IDDoesNotExistException } from '@core/shared/data';
-import { OwnerMockFactory } from '../../sources';
 import { EnableOwnerService } from '../EnableOwnerService';
+import { RepositoryOwnerModelMock } from '../../sources/mocks/RepositoryOwnerModelMock';
 
 let enableOwner: EnableOwner;
 let ownersReadRepository: FakeOwnerReadRepository;
 let ownersWriteRepository: FakeOwnerWriteRepository;
-
-const createRepositoryOwner = OwnerMockFactory.makeRepositoryOwnerDTO;
 
 describe('EnableOwnerService', () => {
   beforeEach(async () => {
@@ -22,7 +20,7 @@ describe('EnableOwnerService', () => {
       ownersWriteRepository
     );
 
-    await ownersReadRepository.create(createRepositoryOwner());
+    await ownersReadRepository.create(RepositoryOwnerModelMock());
   });
 
   describe('Success Cases', () => {
