@@ -42,10 +42,10 @@ export class CreateOwnerService implements CreateOwner {
       throw new DocumentAlreadyExistsException();
     }
 
-    const repositoryOwnerDto = await this.ownerWriteRepository.create(owner);
+    const repositoryOwner = await this.ownerWriteRepository.create(owner);
 
-    await this.ownerReadRepository.create(repositoryOwnerDto);
+    await this.ownerReadRepository.create(repositoryOwner);
 
-    return repositoryOwnerDto;
+    return repositoryOwner;
   }
 }

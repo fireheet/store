@@ -4,11 +4,15 @@ import {
 } from '@core/owner/infra';
 import { CreateOwnerService } from '@core/owner/data';
 import { OwnerController } from '../OwnerController';
-import { CreateOwner } from '../../../domain';
+import { CreateOwner, ShowOwner, UpdateOwner } from '../../../domain';
 import { OwnerViewModel } from '../../views/OwnerViewModel';
+import { UpdateOwnerService } from '../../../data/services/UpdateOwnerService';
+import { ShowOwnerService } from '../../../data/services/ShowOwnerService';
 
 let ownerController: OwnerController;
 let createOwner: CreateOwner;
+let updateOwner: UpdateOwner;
+let showOwner: ShowOwner;
 let fakeOwnerReadRepository: FakeOwnerReadRepository;
 let fakeOwnerWriteRepository: FakeOwnerWriteRepository;
 
@@ -16,11 +20,20 @@ describe('OwnerController', () => {
   beforeEach(() => {
     fakeOwnerWriteRepository = new FakeOwnerWriteRepository();
     fakeOwnerReadRepository = new FakeOwnerReadRepository();
+
     createOwner = new CreateOwnerService(
       fakeOwnerReadRepository,
       fakeOwnerWriteRepository
     );
-    ownerController = new OwnerController(createOwner);
+
+    updateOwner = new UpdateOwnerService(
+      fakeOwnerReadRepository,
+      fakeOwnerWriteRepository
+    );
+
+    showOwner = new ShowOwnerService(fakeOwnerReadRepository);
+
+    ownerController = new OwnerController(createOwner, updateOwner, showOwner);
   });
 
   describe('create', () => {

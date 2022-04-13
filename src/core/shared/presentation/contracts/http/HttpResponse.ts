@@ -14,6 +14,13 @@ export const InternalServerError: HttpResponse = {
 };
 
 export class HttpResponses<T> {
+  ok(data: T): HttpResponse<T> {
+    return {
+      statusCode: 200,
+      data
+    };
+  }
+
   created(data: T): HttpResponse<T> {
     return {
       statusCode: 201,

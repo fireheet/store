@@ -11,6 +11,7 @@ import {
 } from '../../config/types';
 import { InputUpdateOwnerDTO } from '../../domain/dtos';
 import { RepositoryOwnerModel } from '../models';
+import { OutputUpdateOwnerDTO } from '../../domain/dtos/update-owner/OutputUpdateOwnerDTO';
 
 @injectable()
 export class UpdateOwnerService implements UpdateOwner {
@@ -22,20 +23,25 @@ export class UpdateOwnerService implements UpdateOwner {
     private readonly ownerWriteRepository: OwnerWriteRepository
   ) {}
 
-  async update({ id, name }: InputUpdateOwnerDTO): Promise<boolean> {
+  async update({
+    id,
+    name
+  }: InputUpdateOwnerDTO): Promise<OutputUpdateOwnerDTO> {
     const owner = await this.ownerReadRepository.findByID(id);
 
     if (!owner) {
       throw new IDDoesNotExistException();
     }
 
-    const updatedOwner = new RepositoryOwnerModel({
+    const repositoryOwner = new RepositoryOwnerModel({
       ...owner,
       name
     });
 
-    await this.ownerWriteRepository.update(updatedOwner);
+    await this.ownerWriteRepository.update(repositoryOwner);
 
-    return this.ownerReadRepository.replace(updatedOwner);
+    await this.ownerReadRepository.replace(repositoryOwner);
+
+    return repositoryOwner;
   }
 }
