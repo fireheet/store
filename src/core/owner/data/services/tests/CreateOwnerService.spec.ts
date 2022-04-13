@@ -2,7 +2,6 @@
 import { CreateOwner } from '@core/owner/domain/usecases';
 import {
   DocumentAlreadyExistsException,
-  InvalidDocumentException,
   ValidationException
 } from '@core/shared/data/contracts';
 import {
@@ -50,7 +49,7 @@ describe('CreateOwnerService', () => {
       await expect(invalidName).rejects.toBeInstanceOf(ValidationException);
       await expect(invalidName).rejects.toHaveProperty(
         'message',
-        'Name is required'
+        'name is a required field'
       );
 
       const invalidDocumentNumber = createOwner.create({
@@ -63,7 +62,7 @@ describe('CreateOwnerService', () => {
       );
       await expect(invalidDocumentNumber).rejects.toHaveProperty(
         'message',
-        'Document number is required'
+        'number must be at least 11 characters, number is a required field'
       );
     });
 
@@ -79,7 +78,24 @@ describe('CreateOwnerService', () => {
     it('should not be possible create an Owner with invalid document number', async () => {
       await expect(
         createOwner.create({ name: 'John Doe', documentNumber: '123' })
-      ).rejects.toBeInstanceOf(InvalidDocumentException);
+      ).rejects.toHaveProperty(
+        'message',
+        'number must be at least 11 characters'
+      );
+
+      await expect(
+        createOwner.create({ name: 'John Doe', documentNumber: '123456789012' })
+      ).rejects.toHaveProperty(
+        'message',
+        'document.number must be exactly 11 characters'
+      );
+
+      await expect(
+        createOwner.create({ name: 'John Doe', documentNumber: 'abcdefghijk' })
+      ).rejects.toHaveProperty(
+        'message',
+        'number must match the following: "/^[0-9]*$/"'
+      );
     });
 
     it('should not be possible to create an Owner with same Document', async () => {

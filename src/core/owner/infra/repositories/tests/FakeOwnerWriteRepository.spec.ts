@@ -26,7 +26,7 @@ describe('FakeOwnerWriteRepository', () => {
       RepositoryOwnerModelMock()
     );
 
-    const updateModel = RepositoryOwnerModelMock();
+    const updateModel = RepositoryOwnerModelMock({ name: 'New' });
 
     const updateOwner = await ownersWriteRepository.update(updateModel);
     const storedOwner = ownersWriteRepository.owners[0];

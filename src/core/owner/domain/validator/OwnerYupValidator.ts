@@ -1,7 +1,6 @@
 /* eslint-disable import/no-cycle */
 import * as yup from 'yup';
 import { NAME_MAX_LENGTH } from '@core/owner/config/constants';
-import { DocumentType } from '@core/shared/domain';
 import { Validator } from '@core/shared/data';
 import { Owner } from '../entities/Owner';
 
@@ -11,23 +10,13 @@ export class OwnerYupValidator implements Validator<Owner> {
       yup
         .object()
         .shape({
-          name: yup
-            .string()
-            .max(
-              NAME_MAX_LENGTH,
-              `Name must be ${NAME_MAX_LENGTH} characters or less`
-            )
-            .required('Name is required'),
-          document: yup.object().shape({
-            type: yup
-              .string()
-              .oneOf([DocumentType.CPF, DocumentType.CNPJ])
-              .required('Document type is required'),
+          name: yup.string().max(NAME_MAX_LENGTH).required(),
+          document: yup.object({
             number: yup
               .string()
-              .min(11)
-              .max(11)
-              .required('Document number is required')
+              .matches(/^[0-9]*$/)
+              .length(11)
+              .required()
           })
         })
         .validateSync(

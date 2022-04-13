@@ -1,3 +1,3 @@
-import { Phone } from '@core/shared/domain/value_objects/Phone';
+import { Phone } from '@core/shared/domain/value_object';
 
 export class PhoneModel extends Phone {}

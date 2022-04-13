@@ -1,14 +1,14 @@
-import { Document, DocumentType } from '@core/shared/domain/value_objects';
+/* eslint-disable import/no-cycle */
 import { OwnerProps } from '@core/owner/data/contracts/domain';
+import { DocumentFactory } from '../../../shared/domain/document/factories/DocumentFactory';
 import { Owner } from '../entities';
 
 export class OwnerFactory {
-  static create(ownerProps: OwnerProps): Owner {
-    const document = new Document({
-      number: ownerProps.documentNumber,
-      type: DocumentType.CPF
+  static create({ id, name, documentNumber }: OwnerProps): Owner {
+    const document = DocumentFactory.create({
+      number: documentNumber
     });
 
-    return new Owner({ ...ownerProps, document });
+    return new Owner({ id, name, document });
   }
 }

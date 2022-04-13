@@ -1,8 +1,8 @@
 /* eslint-disable import/no-cycle */
-import { Document } from '@core/shared/domain/value_objects';
+import { Document } from '@core/shared/domain/document';
 import { Entity } from '@core/shared/domain/entity';
-import { OwnerValidatorFactory } from '../factories/validator/OwnerValidatorFactory';
 import { ValidationException } from '../../../shared/data/contracts/exceptions/ValidationException';
+import { OwnerValidatorFactory } from '../factories';
 
 export class Owner extends Entity {
   name!: string;
@@ -10,14 +10,14 @@ export class Owner extends Entity {
   document!: Document;
 
   constructor(props: Partial<Owner>) {
-    super('owner');
+    super();
 
     Object.assign(this, props);
 
     this.validateOwner();
 
     if (this.validation.hasErrors()) {
-      throw new ValidationException(this.validation.messages());
+      throw new ValidationException(this.validation.messages('owner'));
     }
   }
 

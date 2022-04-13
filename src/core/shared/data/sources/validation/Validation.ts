@@ -4,13 +4,7 @@ export type ValidationErrorProps = {
 };
 
 export class Validation {
-  private context = '';
-
   private errors: ValidationErrorProps[] = [];
-
-  constructor(context: string) {
-    this.context = context;
-  }
 
   public hasErrors(): boolean {
     return this.errors.length > 0;
@@ -20,23 +14,21 @@ export class Validation {
     this.errors.push(error);
   }
 
-  public messages(): string {
+  public messages(context?: string): string {
     let message = '';
 
-    this.errors.forEach(error => {
-      if (error.context === this.context) {
-        message += `${error.message}, `;
-      }
-    });
+    if (context) {
+      this.errors.forEach(error => {
+        if (error.context === context) {
+          message += `${error.message}, `;
+        }
+      });
 
-    return message.slice(0, message.length - 2);
-  }
-
-  public allMessages(): string {
-    let message = '';
+      return message.slice(0, message.length - 2);
+    }
 
     this.errors.forEach(error => {
-      message += `${error.message}, `;
+      message += `${error.context}:${error.message}, `;
     });
 
     return message.slice(0, message.length - 2);

@@ -1,18 +1,24 @@
 import { DocumentModel } from '@core/shared/data';
-import { DocumentType } from '@core/shared/domain/value_objects';
-import { Validation } from '../../../../shared/data/sources';
+import { Validation } from '@core/shared/data/sources';
+import { DocumentType } from '@core/shared/domain/document/enums';
 import { RepositoryOwnerModel } from '../../models';
 
-export const RepositoryOwnerModelMock = () =>
+type MockOptions = {
+  id?: string;
+  name?: string;
+  documentNumber?: string;
+};
+
+export const RepositoryOwnerModelMock = (opts?: MockOptions) =>
   new RepositoryOwnerModel({
-    id: '1',
-    name: 'Test',
+    id: opts?.id || '1',
+    name: opts?.name || 'Test',
     document: new DocumentModel({
       type: DocumentType.CPF,
-      number: '12345678901'
+      number: opts?.documentNumber || '12345678901'
     }),
     created_at: new Date(),
     updated_at: new Date(),
     deleted_at: null,
-    validation: new Validation('owner')
+    validation: new Validation()
   });
