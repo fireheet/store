@@ -1,4 +1,7 @@
-import { HttpResponse, HttpResponses } from '@core/shared/presentation';
+import {
+  HttpResponse,
+  HttpResponses
+} from '@core/shared/presentation/contracts';
 import {
   OutputCreateOwnerDTO,
   OutputShowOwnerDTO

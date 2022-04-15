@@ -1,5 +1,5 @@
-import { FakeOwnerWriteRepository } from '@core/owner/infra';
-import { RepositoryOwnerModelMock } from '@core/owner/data/sources/mocks/RepositoryOwnerModelMock';
+import { FakeOwnerWriteRepository } from '@core/owner/infra/repositories';
+import { RepositoryOwnerModelMockFactory } from '@core/owner/data/sources';
 
 let ownersWriteRepository: FakeOwnerWriteRepository;
 
@@ -9,7 +9,7 @@ describe('FakeOwnerWriteRepository', () => {
   });
 
   it('should be possible to create an Repository Owner', async () => {
-    const mock = RepositoryOwnerModelMock();
+    const mock = RepositoryOwnerModelMockFactory();
 
     const owner = await ownersWriteRepository.create(mock);
     const storedOwner = ownersWriteRepository.owners[0];
@@ -23,10 +23,10 @@ describe('FakeOwnerWriteRepository', () => {
 
   it('should be possible to update an Repository Owner', async () => {
     const repositoryOwner = await ownersWriteRepository.create(
-      RepositoryOwnerModelMock()
+      RepositoryOwnerModelMockFactory()
     );
 
-    const updateModel = RepositoryOwnerModelMock({ name: 'New' });
+    const updateModel = RepositoryOwnerModelMockFactory({ name: 'New' });
 
     const updateOwner = await ownersWriteRepository.update(updateModel);
     const storedOwner = ownersWriteRepository.owners[0];
@@ -40,7 +40,7 @@ describe('FakeOwnerWriteRepository', () => {
   });
 
   it('should be possible to enable an Repository Owner', async () => {
-    const mock = RepositoryOwnerModelMock();
+    const mock = RepositoryOwnerModelMockFactory();
 
     const owner = await ownersWriteRepository.create(mock);
 
@@ -54,7 +54,7 @@ describe('FakeOwnerWriteRepository', () => {
   });
 
   it('should be possible to disable an Repository Owner', async () => {
-    const mock = RepositoryOwnerModelMock();
+    const mock = RepositoryOwnerModelMockFactory();
 
     const owner = await ownersWriteRepository.create(mock);
 

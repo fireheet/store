@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/require-await */
 import { OwnerWriteRepository } from '@core/owner/data/contracts';
-import { DisableOwnerDTO, EnableOwnerDTO } from '@core/owner/data';
+import { DisableOwnerDTO, EnableOwnerDTO } from '@core/owner/data/dtos';
 import { OwnerModel, RepositoryOwnerModel } from '../../data/models';
 
 export class FakeOwnerWriteRepository implements OwnerWriteRepository {

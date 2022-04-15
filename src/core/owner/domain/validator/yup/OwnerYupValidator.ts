@@ -1,8 +1,7 @@
-/* eslint-disable import/no-cycle */
 import * as yup from 'yup';
 import { NAME_MAX_LENGTH } from '@core/owner/config/constants';
-import { Validator } from '@core/shared/data';
-import { Owner } from '../entities/Owner';
+import { Validator } from '@core/shared/domain/contracts';
+import { Owner } from '../../entities';
 
 export class OwnerYupValidator implements Validator<Owner> {
   public validate(entity: Owner): void {

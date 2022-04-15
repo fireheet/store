@@ -11,7 +11,7 @@ import {
 import {
   IDDoesNotExistException,
   InvalidParameterException
-} from '@core/shared/data';
+} from '@core/shared/data/contracts';
 import { InputDisableOwnerDTO } from '@core/owner/domain/dtos/disable-owner';
 
 @injectable()

@@ -1,8 +1,12 @@
 /* eslint-disable @typescript-eslint/require-await */
 import { DisableOwnerDTO, EnableOwnerDTO } from '@core/owner/data/dtos';
 import { OwnerReadRepository } from '@core/owner/data/contracts';
-import { RepositoryOwnerModel } from '@core/owner/data/models/RepositoryOwnerModel';
-import { DocumentModel, DocumentProps } from '@core/shared/data';
+import { RepositoryOwnerModel } from '@core/owner/data/models';
+import { DocumentModel } from '@core/shared/data/models';
+import {
+  DocumentValidatorFactory,
+  DocumentProps
+} from '@core/shared/domain/value_objects';
 
 export class FakeOwnerReadRepository implements OwnerReadRepository {
   owners: RepositoryOwnerModel[] = [];
@@ -52,7 +56,10 @@ export class FakeOwnerReadRepository implements OwnerReadRepository {
   }
 
   async findByDocument(document: DocumentProps): Promise<RepositoryOwnerModel> {
-    const documentCheck = new DocumentModel(document);
+    const documentCheck = new DocumentModel(
+      document,
+      DocumentValidatorFactory.create()
+    );
 
     const existingOwnerIndex = this.owners.findIndex(foundOwner =>
       foundOwner.document.isEqual(documentCheck)

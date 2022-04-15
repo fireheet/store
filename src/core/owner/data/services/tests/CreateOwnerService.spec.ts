@@ -7,7 +7,7 @@ import {
 import {
   FakeOwnerReadRepository,
   FakeOwnerWriteRepository
-} from '@core/owner/infra';
+} from '@core/owner/infra/repositories';
 import { CreateOwnerService } from '../CreateOwnerService';
 
 let createOwner: CreateOwner;

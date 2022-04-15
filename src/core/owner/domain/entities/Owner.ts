@@ -1,15 +1,18 @@
-/* eslint-disable import/no-cycle */
-import { Document } from '@core/shared/domain/document';
+import { Document } from '@core/shared/domain/value_objects';
 import { Entity } from '@core/shared/domain/entity';
-import { ValidationException } from '../../../shared/data/contracts/exceptions/ValidationException';
-import { OwnerValidatorFactory } from '../factories';
+import { ValidationException } from '@core/shared/data/contracts';
+import { ValidatorNotAvailableException } from '@core/shared/data/contracts/exceptions';
+import { Validator } from '@core/shared/domain/contracts';
 
 export class Owner extends Entity {
   name!: string;
 
   document!: Document;
 
-  constructor(props: Partial<Owner>) {
+  constructor(
+    props: Partial<Owner>,
+    private readonly validator: Validator<Owner>
+  ) {
     super();
 
     Object.assign(this, props);
@@ -22,6 +25,9 @@ export class Owner extends Entity {
   }
 
   private validateOwner() {
-    OwnerValidatorFactory.create().validate(this);
+    if (!this.validator) {
+      throw new ValidatorNotAvailableException('Owner Validator not available');
+    }
+    this.validator.validate(this);
   }
 }

@@ -1,4 +1,4 @@
 export * from './AddressModel';
-export * from './DocumentModel';
+export * from './document';
 export * from './PhoneModel';
 export * from './ImageModel';

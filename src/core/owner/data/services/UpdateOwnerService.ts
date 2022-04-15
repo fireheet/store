@@ -4,7 +4,7 @@ import {
   OwnerReadRepository,
   OwnerWriteRepository
 } from '@core/owner/data/contracts';
-import { IDDoesNotExistException } from '@core/shared/data';
+import { IDDoesNotExistException } from '@core/shared/data/contracts';
 import {
   OWNER_READ_REPOSITORY,
   OWNER_WRITE_REPOSITORY

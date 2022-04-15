@@ -1,11 +1,11 @@
 import {
   FakeOwnerReadRepository,
   FakeOwnerWriteRepository
-} from '@core/owner/infra';
-import { EnableOwner } from '@core/owner/domain';
-import { IDDoesNotExistException } from '@core/shared/data';
+} from '@core/owner/infra/repositories';
+import { EnableOwner } from '@core/owner/domain/usecases';
+import { IDDoesNotExistException } from '@core/shared/data/contracts';
+import { RepositoryOwnerModelMockFactory } from '@core/owner/data/sources';
 import { EnableOwnerService } from '../EnableOwnerService';
-import { RepositoryOwnerModelMock } from '../../sources/mocks/RepositoryOwnerModelMock';
 
 let enableOwner: EnableOwner;
 let ownersReadRepository: FakeOwnerReadRepository;
@@ -20,7 +20,7 @@ describe('EnableOwnerService', () => {
       ownersWriteRepository
     );
 
-    await ownersReadRepository.create(RepositoryOwnerModelMock());
+    await ownersReadRepository.create(RepositoryOwnerModelMockFactory());
   });
 
   describe('Success Cases', () => {

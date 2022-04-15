@@ -4,7 +4,13 @@ import {
   OwnerReadRepository,
   OwnerWriteRepository
 } from '@core/owner/data/contracts/repositories';
-import { CreateOwnerService } from '@core/owner/data/services';
+import {
+  CreateOwnerService,
+  DisableOwnerService,
+  EnableOwnerService,
+  ShowOwnerService,
+  UpdateOwnerService
+} from '@core/owner/data/services';
 import {
   CreateOwner,
   DisableOwner,
@@ -19,21 +25,17 @@ import {
 import {
   CREATE_OWNER,
   UPDATE_OWNER,
-  OWNER_CONTROLLER,
   OWNER_READ_REPOSITORY,
   OWNER_WRITE_REPOSITORY,
   SHOW_OWNER,
   ENABLE_OWNER,
-  DISABLE_OWNER
+  DISABLE_OWNER,
+  OWNER_HTTP_CONTROLLER
 } from '@core/owner/config/types';
-import { OwnerController } from '@core/owner/presentation/controllers';
-import { HttpController } from '@core/shared/presentation';
-import { Exception } from '@core/shared/data';
-import { OwnerViewModel } from '@core/owner/presentation';
-import { UpdateOwnerService } from '../../data/services/UpdateOwnerService';
-import { ShowOwnerService } from '../../data/services/ShowOwnerService';
-import { EnableOwnerService } from '../../data/services/EnableOwnerService';
-import { DisableOwnerService } from '../../data/services/DisableOwnerService';
+import { HttpController } from '@core/shared/presentation/contracts';
+import { OwnerHttpControllerImplementation } from '@core/owner/presentation/controllers';
+import { OwnerViewModel } from '@core/owner/presentation/views';
+import { Exception } from '@core/shared/data/contracts/exceptions';
 
 export class OwnerContainer {
   static bindTo(container: Container): void {
@@ -52,7 +54,7 @@ export class OwnerContainer {
       .to(FakeOwnerWriteRepository);
 
     container
-      .bind<HttpController<OwnerViewModel | Exception>>(OWNER_CONTROLLER)
-      .to(OwnerController);
+      .bind<HttpController<OwnerViewModel | Exception>>(OWNER_HTTP_CONTROLLER)
+      .to(OwnerHttpControllerImplementation);
   }
 }

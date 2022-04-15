@@ -1,15 +1,12 @@
-import {
-  InputShowOwnerDTO,
-  OutputShowOwnerDTO,
-  ShowOwner
-} from '@core/owner/domain';
+import { InputShowOwnerDTO, OutputShowOwnerDTO } from '@core/owner/domain/dtos';
 import { inject } from 'inversify';
 import { OwnerReadRepository } from '@core/owner/data/contracts';
 import {
   IDDoesNotExistException,
   InvalidParameterException
-} from '@core/shared/data';
+} from '@core/shared/data/contracts';
 import { OWNER_READ_REPOSITORY } from '@core/owner/config/types';
+import { ShowOwner } from '../../domain/usecases';
 
 export class ShowOwnerService implements ShowOwner {
   constructor(

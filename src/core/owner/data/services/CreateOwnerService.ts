@@ -1,4 +1,4 @@
-import { DocumentAlreadyExistsException } from '@core/shared/data/contracts';
+import { DocumentAlreadyExistsException } from '@core/shared/data/contracts/exceptions';
 import { inject, injectable } from 'inversify';
 import { CreateOwner } from '@core/owner/domain/usecases';
 import {
@@ -13,7 +13,7 @@ import {
   InputCreateOwnerDTO,
   OutputCreateOwnerDTO
 } from '@core/owner/domain/dtos';
-import { OwnerFactory } from '../../domain/factories';
+import { OwnerFactory } from '@core/owner/domain/factories';
 
 @injectable()
 export class CreateOwnerService implements CreateOwner {

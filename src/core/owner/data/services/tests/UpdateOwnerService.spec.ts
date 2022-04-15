@@ -2,9 +2,9 @@ import { UpdateOwner } from '@core/owner/domain/usecases';
 import {
   FakeOwnerReadRepository,
   FakeOwnerWriteRepository
-} from '@core/owner/infra';
-import { IDDoesNotExistException } from '@core/shared/data';
-import { RepositoryOwnerModelMock } from '../../sources/mocks/RepositoryOwnerModelMock';
+} from '@core/owner/infra/repositories';
+import { IDDoesNotExistException } from '@core/shared/data/contracts';
+import { RepositoryOwnerModelMockFactory } from '@core/owner/data/sources';
 import { UpdateOwnerService } from '../UpdateOwnerService';
 
 let updateOwner: UpdateOwner;
@@ -16,8 +16,8 @@ describe('UpdateOwnerService', () => {
     ownersReadRepository = new FakeOwnerReadRepository();
     ownersWriteRepository = new FakeOwnerWriteRepository();
 
-    await ownersWriteRepository.create(RepositoryOwnerModelMock());
-    await ownersReadRepository.create(RepositoryOwnerModelMock());
+    await ownersWriteRepository.create(RepositoryOwnerModelMockFactory());
+    await ownersReadRepository.create(RepositoryOwnerModelMockFactory());
 
     updateOwner = new UpdateOwnerService(
       ownersReadRepository,

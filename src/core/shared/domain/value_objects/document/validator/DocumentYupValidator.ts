@@ -1,6 +1,5 @@
-/* eslint-disable import/no-cycle */
 import * as yup from 'yup';
-import { Validator } from '@core/shared/data';
+import { Validator } from '@core/shared/domain/contracts';
 import { Document } from '../Document';
 import { DocumentType } from '../enums';
 

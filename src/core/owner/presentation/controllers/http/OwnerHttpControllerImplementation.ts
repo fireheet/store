@@ -1,17 +1,13 @@
 import {
-  HttpController,
   HttpResponse,
   HttpRequest,
   ErrorResponse
-} from '@core/shared/presentation';
+} from '@core/shared/presentation/contracts';
 import {
-  CreateOwner,
   InputCreateOwnerDTO,
   InputShowOwnerDTO,
-  InputUpdateOwnerDTO,
-  ShowOwner,
-  UpdateOwner
-} from '@core/owner/domain';
+  InputUpdateOwnerDTO
+} from '@core/owner/domain/dtos';
 import { inject, injectable } from 'inversify';
 import { Exception } from '@core/shared/data/contracts/exceptions';
 
@@ -20,13 +16,19 @@ import {
   SHOW_OWNER,
   UPDATE_OWNER
 } from '@core/owner/config/types';
-import { OwnerPresenter } from '../presenters/OwnerPresenter';
-import { OwnerViewModel } from '../views';
+import {
+  CreateOwner,
+  ShowOwner,
+  UpdateOwner
+} from '@core/owner/domain/usecases';
+import { OwnerPresenter } from '../../presenters/OwnerPresenter';
+import { OwnerViewModel } from '../../views';
+import { OwnerHttpController } from '../../contracts';
+
+type ResponseType = HttpResponse<OwnerViewModel | Exception>;
 
 @injectable()
-export class OwnerController
-  implements HttpController<OwnerViewModel | Exception>
-{
+export class OwnerHttpControllerImplementation implements OwnerHttpController {
   constructor(
     @inject(CREATE_OWNER)
     private readonly createOwner: CreateOwner,
@@ -36,9 +38,7 @@ export class OwnerController
     private readonly showOwner: ShowOwner
   ) {}
 
-  async create(
-    request: HttpRequest
-  ): Promise<HttpResponse<OwnerViewModel | Exception>> {
+  async create(request: HttpRequest): Promise<ResponseType> {
     try {
       const inputDto = request.body as InputCreateOwnerDTO;
 
@@ -52,9 +52,7 @@ export class OwnerController
     }
   }
 
-  async update(
-    request: HttpRequest
-  ): Promise<HttpResponse<OwnerViewModel | Exception>> {
+  async update(request: HttpRequest): Promise<ResponseType> {
     try {
       const inputDto = request.body as InputUpdateOwnerDTO;
 
@@ -68,9 +66,7 @@ export class OwnerController
     }
   }
 
-  async show(
-    request: HttpRequest
-  ): Promise<HttpResponse<OwnerViewModel | Exception>> {
+  async show(request: HttpRequest): Promise<ResponseType> {
     try {
       const inputDto = request.body as InputShowOwnerDTO;
 

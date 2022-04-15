@@ -1,15 +1,19 @@
-/* eslint-disable import/no-cycle */
 import { ValidationException } from '@core/shared/data/contracts';
-import { ValueObject } from '../value_object/ValueObject';
+import { ValueObject } from '@core/shared/domain/value_objects/ValueObject';
+import { injectable } from 'inversify';
+import { Validator } from '@core/shared/domain/contracts';
 import { DocumentType } from './enums';
-import { DocumentValidatorFactory } from './factories/DocumentValidatorFactory';
 
+@injectable()
 export class Document extends ValueObject {
   number!: string;
 
   type!: DocumentType;
 
-  constructor(props: Partial<Document>) {
+  constructor(
+    props: Partial<Document>,
+    private readonly validator: Validator<Document>
+  ) {
     super();
 
     Object.assign(this, props);
@@ -22,7 +26,7 @@ export class Document extends ValueObject {
   }
 
   private validateDocument(): void {
-    DocumentValidatorFactory.create().validate(this);
+    this.validator.validate(this);
   }
 
   public static validateCPF(_cpf: string): boolean {

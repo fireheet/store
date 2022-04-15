@@ -1,8 +1,8 @@
-import { FakeOwnerReadRepository } from '@core/owner/infra';
-import { ShowOwner } from '@core/owner/domain';
-import { IDDoesNotExistException } from '@core/shared/data';
+import { FakeOwnerReadRepository } from '@core/owner/infra/repositories';
+import { ShowOwner } from '@core/owner/domain/usecases';
+import { IDDoesNotExistException } from '@core/shared/data/contracts';
+import { RepositoryOwnerModelMockFactory } from '@core/owner/data/sources';
 import { ShowOwnerService } from '../ShowOwnerService';
-import { RepositoryOwnerModelMock } from '../../sources/mocks/RepositoryOwnerModelMock';
 
 let showOwner: ShowOwner;
 let ownerReadRepository: FakeOwnerReadRepository;
@@ -12,7 +12,7 @@ describe('ShowOwnerService', () => {
     ownerReadRepository = new FakeOwnerReadRepository();
     showOwner = new ShowOwnerService(ownerReadRepository);
 
-    await ownerReadRepository.create(RepositoryOwnerModelMock());
+    await ownerReadRepository.create(RepositoryOwnerModelMockFactory());
   });
 
   describe('Success Cases', () => {

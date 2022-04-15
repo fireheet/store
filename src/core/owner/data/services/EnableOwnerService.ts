@@ -12,7 +12,7 @@ import { InputEnableOwnerDTO } from '@core/owner/domain/dtos/enable-owner';
 import {
   IDDoesNotExistException,
   InvalidParameterException
-} from '@core/shared/data';
+} from '@core/shared/data/contracts';
 
 @injectable()
 export class EnableOwnerService implements EnableOwner {
