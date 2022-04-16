@@ -32,10 +32,8 @@ import {
   DISABLE_OWNER,
   OWNER_HTTP_CONTROLLER
 } from '@core/owner/config/types';
-import { HttpController } from '@core/shared/presentation/contracts';
 import { OwnerHttpControllerImplementation } from '@core/owner/presentation/controllers';
-import { OwnerViewModel } from '@core/owner/presentation/views';
-import { Exception } from '@core/shared/data/contracts/exceptions';
+import { OwnerHttpController } from '@core/owner/presentation/contracts';
 
 export class OwnerContainer {
   static bindTo(container: Container): void {
@@ -54,7 +52,7 @@ export class OwnerContainer {
       .to(FakeOwnerWriteRepository);
 
     container
-      .bind<HttpController<OwnerViewModel | Exception>>(OWNER_HTTP_CONTROLLER)
+      .bind<OwnerHttpController>(OWNER_HTTP_CONTROLLER)
       .to(OwnerHttpControllerImplementation);
   }
 }

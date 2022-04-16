@@ -93,8 +93,8 @@ describe('OwnerHttpControllerImplementation', () => {
       expect(createFunction).toThrowError();
     });
 
-    it('should return an Http Response with status code 400 if any of the fields are empty', async () => {
-      // TODO implement this test
-    });
+    test.todo(
+      'should return an Http Response with status code 400 if any of the fields are empty'
+    );
   });
 });
