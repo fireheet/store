@@ -15,7 +15,7 @@ export class DocumentYupValidator implements Validator<Document> {
             .required(),
           number: yup
             .string()
-            .matches(/^[0-9]*$/)
+            .matches(/^[0-9]*$/, 'document number has invalid characters')
             .min(11)
             .max(14)
             .required()

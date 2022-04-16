@@ -9,7 +9,14 @@ export class OwnerYupValidator implements Validator<Owner> {
       yup
         .object()
         .shape({
-          name: yup.string().max(NAME_MAX_LENGTH).required(),
+          name: yup
+            .string()
+            .max(NAME_MAX_LENGTH)
+            .matches(
+              /^([a-zA-Z\s\W]+[^0-9!@#$%^&*()_+\-=\\[\]{};':"\\|,.<>\\/?])$/,
+              'name has invalid characters'
+            )
+            .required(),
           document: yup.object({
             number: yup
               .string()

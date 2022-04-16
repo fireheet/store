@@ -34,10 +34,8 @@ describe('UpdateOwnerService', () => {
         name: 'New'
       });
 
-      const updatedOwner = ownersWriteRepository.owners[0];
-
       expect(owner).toBeTruthy();
-      expect(updatedOwner.name).toBe('New');
+      expect(owner.name).toBe('New');
     });
   });
 

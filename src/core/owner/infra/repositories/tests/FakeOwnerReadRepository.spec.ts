@@ -4,7 +4,7 @@ import { RepositoryOwnerModelMockFactory } from '@core/owner/data/sources';
 let ownersReadRepository: FakeOwnerReadRepository;
 
 describe('FakeOwnerReadRepository', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     ownersReadRepository = new FakeOwnerReadRepository();
   });
 
@@ -22,10 +22,10 @@ describe('FakeOwnerReadRepository', () => {
   });
 
   it('should be possible to replace an Repository Owner', async () => {
+    const mock = RepositoryOwnerModelMockFactory();
+    await ownersReadRepository.create(mock);
     const updateModel = RepositoryOwnerModelMockFactory();
     updateModel.name = 'Test 2';
-
-    await ownersReadRepository.create(RepositoryOwnerModelMockFactory());
 
     const updateOwner = await ownersReadRepository.replace(updateModel);
     const storedOwner = ownersReadRepository.owners[0];
