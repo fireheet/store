@@ -4,20 +4,22 @@ import {
   FakeOwnerWriteRepository
 } from '@core/owner/infra/repositories';
 import { IDDoesNotExistException } from '@core/shared/data/contracts';
-import { RepositoryOwnerModelMockFactory } from '@core/owner/data/sources';
+import { RepositoryOwnerObjectMother } from '@core/owner/data/sources';
 import { UpdateOwnerService } from '../UpdateOwnerService';
 
 let updateOwner: UpdateOwner;
 let ownersReadRepository: FakeOwnerReadRepository;
 let ownersWriteRepository: FakeOwnerWriteRepository;
 
-describe('UpdateOwnerService', () => {
+describe('#UpdateOwnerService', () => {
   beforeEach(async () => {
     ownersReadRepository = new FakeOwnerReadRepository();
     ownersWriteRepository = new FakeOwnerWriteRepository();
 
-    await ownersWriteRepository.create(RepositoryOwnerModelMockFactory());
-    await ownersReadRepository.create(RepositoryOwnerModelMockFactory());
+    const repositoryOwner = RepositoryOwnerObjectMother.valid();
+
+    await ownersWriteRepository.create(repositoryOwner);
+    await ownersReadRepository.create(repositoryOwner);
 
     updateOwner = new UpdateOwnerService(
       ownersReadRepository,

@@ -1,27 +1,28 @@
 /* eslint-disable @typescript-eslint/require-await */
 import { OwnerWriteRepository } from '@core/owner/data/contracts';
 import { DisableOwnerDTO, EnableOwnerDTO } from '@core/owner/data/dtos';
-import { OwnerModel, RepositoryOwnerModel } from '../../data/models';
+import { OwnerModel } from '@core/owner/data/models';
+import { RepositoryOwner } from '@core/owner/data/entities';
 
 export class FakeOwnerWriteRepository implements OwnerWriteRepository {
-  owners: RepositoryOwnerModel[] = [];
+  owners: RepositoryOwner[] = [];
 
-  async create(owner: OwnerModel): Promise<RepositoryOwnerModel> {
-    const persistedOwner = new RepositoryOwnerModel({ ...owner });
+  async create(owner: OwnerModel): Promise<RepositoryOwner> {
+    const persistedOwner = new RepositoryOwner({ ...owner });
 
     this.owners.push(persistedOwner);
 
     return persistedOwner;
   }
 
-  async update(owner: RepositoryOwnerModel): Promise<boolean> {
+  async update(owner: RepositoryOwner): Promise<boolean> {
     const existingOwnerIndex = this.findOwnerIndex(owner.id);
 
     if (existingOwnerIndex < 0) {
       return false;
     }
 
-    this.owners[existingOwnerIndex] = new RepositoryOwnerModel({ ...owner });
+    this.owners[existingOwnerIndex] = new RepositoryOwner({ ...owner });
 
     return true;
   }

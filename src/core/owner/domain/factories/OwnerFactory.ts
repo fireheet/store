@@ -1,5 +1,6 @@
 import { OwnerProps } from '@core/owner/domain/types';
 import { DocumentFactory } from '@core/shared/domain/value_objects';
+import * as uuid from 'uuid';
 import { Owner } from '../entities';
 import { OwnerValidatorFactory } from './OwnerValidatorFactory';
 
@@ -9,6 +10,9 @@ export class OwnerFactory {
       number: documentNumber
     });
 
-    return new Owner({ ...owner, document }, OwnerValidatorFactory.create());
+    return new Owner(
+      { ...owner, document, id: uuid.v4() },
+      OwnerValidatorFactory.create()
+    );
   }
 }

@@ -4,10 +4,14 @@ import { Validation } from '@core/shared/data/sources';
 export abstract class Entity {
   protected _id!: string;
 
-  validation!: Validation;
+  #validation: Validation;
 
   constructor() {
-    this.validation = new Validation();
+    this.#validation = new Validation();
+  }
+
+  get validation(): Validation {
+    return this.#validation;
   }
 
   get id(): string {

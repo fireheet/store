@@ -7,8 +7,8 @@
     "start": "yarn build:ts && fastify start -l info dist/app.js",
     "build:ts": "tsc",
     "test": "jest --colors --noStackTrace --no-cache --runInBand ",
-    "test-coverage": "jest --colors --noStackTrace --no-cache --runInBand --coverage",
-    "test-watch": "jest --no-cache --runInBand --watch",
+    "test-cov": "jest --colors --noStackTrace --no-cache --runInBand --coverage",
+    "test-watch": "jest --no-cache --watch",
     "test-mutation": "yarn stryker run",
     "check-dependencies": "npm-check --strict -s -u",
     "lint": "eslint --fix --ignore-path .eslintignore --ext .js,.ts .",
@@ -24,6 +24,7 @@
     "@types/jest": "^27.4.1",
     "@types/module-alias": "^2.0.1",
     "@types/node": "^17.0.10",
+    "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.10.0",
     "@typescript-eslint/parser": "^5.10.0",
     "commitizen": "^4.2.4",
@@ -70,6 +71,7 @@
     "inversify": "^6.0.1",
     "module-alias": "^2.2.2",
     "reflect-metadata": "^0.1.13",
+    "uuid": "^8.3.2",
     "yup": "^0.32.11"
   },
   "config": {

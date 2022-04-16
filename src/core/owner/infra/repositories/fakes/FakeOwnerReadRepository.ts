@@ -1,23 +1,24 @@
 /* eslint-disable @typescript-eslint/require-await */
 import { DisableOwnerDTO, EnableOwnerDTO } from '@core/owner/data/dtos';
 import { OwnerReadRepository } from '@core/owner/data/contracts';
-import { RepositoryOwnerModel } from '@core/owner/data/models';
+import { RepositoryOwner } from '@core/owner/data/entities';
 import { DocumentModel } from '@core/shared/data/models';
 import {
   DocumentValidatorFactory,
-  DocumentProps
+  DocumentProps,
+  DocumentType
 } from '@core/shared/domain/value_objects';
 
 export class FakeOwnerReadRepository implements OwnerReadRepository {
-  owners: RepositoryOwnerModel[] = [];
+  owners: RepositoryOwner[] = [];
 
-  async create(owner: RepositoryOwnerModel): Promise<boolean> {
+  async create(owner: RepositoryOwner): Promise<boolean> {
     this.owners.push(owner);
 
     return true;
   }
 
-  async replace(owner: RepositoryOwnerModel): Promise<boolean> {
+  async replace(owner: RepositoryOwner): Promise<boolean> {
     const existingOwnerIndex = this.findOwnerIndex(owner.id);
 
     this.owners[existingOwnerIndex] = owner;
@@ -49,15 +50,15 @@ export class FakeOwnerReadRepository implements OwnerReadRepository {
     return true;
   }
 
-  async findByID(id: string): Promise<RepositoryOwnerModel> {
+  async findByID(id: string): Promise<RepositoryOwner> {
     const existingOwnerIndex = this.findOwnerIndex(id);
 
     return this.owners[existingOwnerIndex];
   }
 
-  async findByDocument(document: DocumentProps): Promise<RepositoryOwnerModel> {
+  async findByDocument(document: DocumentProps): Promise<RepositoryOwner> {
     const documentCheck = new DocumentModel(
-      document,
+      { number: document.number, type: DocumentType.CPF },
       DocumentValidatorFactory.create()
     );
 

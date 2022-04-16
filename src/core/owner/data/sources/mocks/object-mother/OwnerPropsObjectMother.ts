@@ -3,10 +3,6 @@ import { OwnerPropsDataBuilder } from '../data-builder';
 
 export class OwnerPropsObjectMother {
   static valid(): OwnerProps {
-    return OwnerPropsDataBuilder.props().withoutID().build();
-  }
-
-  static validWithID(): OwnerProps {
     return OwnerPropsDataBuilder.props().build();
   }
 

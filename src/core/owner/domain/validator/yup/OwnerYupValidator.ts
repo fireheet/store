@@ -9,6 +9,7 @@ export class OwnerYupValidator implements Validator<Owner> {
       yup
         .object()
         .shape({
+          id: yup.string().uuid('ID is not valid').required(),
           name: yup
             .string()
             .max(NAME_MAX_LENGTH)
@@ -27,6 +28,7 @@ export class OwnerYupValidator implements Validator<Owner> {
         })
         .validateSync(
           {
+            id: entity.id,
             name: entity.name,
             document: entity.document
           },

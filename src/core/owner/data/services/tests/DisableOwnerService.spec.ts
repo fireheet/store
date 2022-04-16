@@ -4,14 +4,14 @@ import {
 } from '@core/owner/infra/repositories';
 import { DisableOwner } from '@core/owner/domain/usecases';
 import { IDDoesNotExistException } from '@core/shared/data/contracts';
-import { RepositoryOwnerModelMockFactory } from '@core/owner/data/sources';
+import { RepositoryOwnerObjectMother } from '@core/owner/data/sources';
 import { DisableOwnerService } from '../DisableOwnerService';
 
 let disableOwner: DisableOwner;
 let ownersReadRepository: FakeOwnerReadRepository;
 let ownersWriteRepository: FakeOwnerWriteRepository;
 
-describe('DisableOwnerService', () => {
+describe('#DisableOwnerService', () => {
   beforeEach(async () => {
     ownersReadRepository = new FakeOwnerReadRepository();
     ownersWriteRepository = new FakeOwnerWriteRepository();
@@ -20,7 +20,7 @@ describe('DisableOwnerService', () => {
       ownersWriteRepository
     );
 
-    await ownersReadRepository.create(RepositoryOwnerModelMockFactory());
+    await ownersReadRepository.create(RepositoryOwnerObjectMother.valid());
   });
 
   describe('Success Cases', () => {
@@ -36,11 +36,9 @@ describe('DisableOwnerService', () => {
 
   describe('Exception Cases', () => {
     it('should not be possible to disable an Owner with an invalid ID', async () => {
-      const dto = { id: 'invalid' };
-
-      await expect(disableOwner.disable(dto)).rejects.toBeInstanceOf(
-        IDDoesNotExistException
-      );
+      await expect(
+        disableOwner.disable({ id: 'invalid' })
+      ).rejects.toBeInstanceOf(IDDoesNotExistException);
     });
   });
 });

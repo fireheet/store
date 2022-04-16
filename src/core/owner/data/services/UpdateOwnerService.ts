@@ -8,10 +8,12 @@ import { IDDoesNotExistException } from '@core/shared/data/contracts';
 import {
   OWNER_READ_REPOSITORY,
   OWNER_WRITE_REPOSITORY
-} from '../../config/types';
-import { InputUpdateOwnerDTO } from '../../domain/dtos';
-import { RepositoryOwnerModel } from '../models';
-import { OutputUpdateOwnerDTO } from '../../domain/dtos/update-owner/OutputUpdateOwnerDTO';
+} from '@core/owner/config/types';
+import {
+  OutputUpdateOwnerDTO,
+  InputUpdateOwnerDTO
+} from '@core/owner/domain/dtos';
+import { RepositoryOwner } from '../entities';
 
 @injectable()
 export class UpdateOwnerService implements UpdateOwner {
@@ -33,7 +35,7 @@ export class UpdateOwnerService implements UpdateOwner {
       throw new IDDoesNotExistException();
     }
 
-    const repositoryOwner = new RepositoryOwnerModel({
+    const repositoryOwner = new RepositoryOwner({
       ...owner,
       name
     });

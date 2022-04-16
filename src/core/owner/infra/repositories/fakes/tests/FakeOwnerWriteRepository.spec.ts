@@ -1,5 +1,5 @@
 import { FakeOwnerWriteRepository } from '@core/owner/infra/repositories';
-import { RepositoryOwnerModelMockFactory } from '@core/owner/data/sources';
+import { RepositoryOwnerObjectMother } from '@core/owner/data/sources';
 
 let ownersWriteRepository: FakeOwnerWriteRepository;
 
@@ -9,7 +9,7 @@ describe('FakeOwnerWriteRepository', () => {
   });
 
   it('should be possible to create an Repository Owner', async () => {
-    const mock = RepositoryOwnerModelMockFactory();
+    const mock = RepositoryOwnerObjectMother.valid();
 
     const owner = await ownersWriteRepository.create(mock);
     const storedOwner = ownersWriteRepository.owners[0];
@@ -22,11 +22,13 @@ describe('FakeOwnerWriteRepository', () => {
   });
 
   it('should be possible to update an Repository Owner', async () => {
-    const repositoryOwner = await ownersWriteRepository.create(
-      RepositoryOwnerModelMockFactory()
-    );
+    const owner = RepositoryOwnerObjectMother.valid();
 
-    const updateModel = RepositoryOwnerModelMockFactory({ name: 'New' });
+    ownersWriteRepository.owners.push(owner);
+
+    const updateModel = RepositoryOwnerObjectMother.valid();
+    updateModel.id = owner.id;
+    updateModel.name = 'New';
 
     const updateOwner = await ownersWriteRepository.update(updateModel);
     const storedOwner = ownersWriteRepository.owners[0];
@@ -36,13 +38,12 @@ describe('FakeOwnerWriteRepository', () => {
     expect(storedOwner.id).toBeDefined();
     expect(storedOwner.id).toBe(updateModel.id);
     expect(storedOwner.name).toBe(updateModel.name);
-    expect(storedOwner.name).not.toBe(repositoryOwner.name);
   });
 
   it('should be possible to enable an Repository Owner', async () => {
-    const mock = RepositoryOwnerModelMockFactory();
+    const owner = RepositoryOwnerObjectMother.valid();
 
-    const owner = await ownersWriteRepository.create(mock);
+    ownersWriteRepository.owners.push(owner);
 
     const enableOwner = await ownersWriteRepository.enable({ id: owner.id });
     const storedOwner = ownersWriteRepository.owners[0];
@@ -54,9 +55,9 @@ describe('FakeOwnerWriteRepository', () => {
   });
 
   it('should be possible to disable an Repository Owner', async () => {
-    const mock = RepositoryOwnerModelMockFactory();
+    const owner = RepositoryOwnerObjectMother.valid();
 
-    const owner = await ownersWriteRepository.create(mock);
+    ownersWriteRepository.owners.push(owner);
 
     const disableOwner = await ownersWriteRepository.disable({
       id: owner.id

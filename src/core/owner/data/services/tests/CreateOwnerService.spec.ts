@@ -14,7 +14,7 @@ let createOwner: CreateOwner;
 let ownersReadRepository: FakeOwnerReadRepository;
 let ownersWriteRepository: FakeOwnerWriteRepository;
 
-describe('CreateOwnerService', () => {
+describe('#CreateOwnerService', () => {
   beforeEach(() => {
     ownersReadRepository = new FakeOwnerReadRepository();
     ownersWriteRepository = new FakeOwnerWriteRepository();

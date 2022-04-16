@@ -4,14 +4,14 @@ import {
 } from '@core/owner/infra/repositories';
 import { EnableOwner } from '@core/owner/domain/usecases';
 import { IDDoesNotExistException } from '@core/shared/data/contracts';
-import { RepositoryOwnerModelMockFactory } from '@core/owner/data/sources';
+import { RepositoryOwnerObjectMother } from '@core/owner/data/sources';
 import { EnableOwnerService } from '../EnableOwnerService';
 
 let enableOwner: EnableOwner;
 let ownersReadRepository: FakeOwnerReadRepository;
 let ownersWriteRepository: FakeOwnerWriteRepository;
 
-describe('EnableOwnerService', () => {
+describe('#EnableOwnerService', () => {
   beforeEach(async () => {
     ownersReadRepository = new FakeOwnerReadRepository();
     ownersWriteRepository = new FakeOwnerWriteRepository();
@@ -20,15 +20,14 @@ describe('EnableOwnerService', () => {
       ownersWriteRepository
     );
 
-    await ownersReadRepository.create(RepositoryOwnerModelMockFactory());
+    await ownersReadRepository.create(RepositoryOwnerObjectMother.valid());
   });
 
   describe('Success Cases', () => {
     it('should be possible to enable an Owner with an valid ID', async () => {
       const owner = ownersReadRepository.owners[0];
 
-      const dto = { id: owner.id };
-      const result = await enableOwner.enable(dto);
+      const result = await enableOwner.enable({ id: owner.id });
 
       expect(result).toBeTruthy();
     });

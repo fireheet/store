@@ -9,11 +9,12 @@ export class Owner extends Entity {
 
   document!: Document;
 
-  constructor(
-    props: Partial<Owner>,
-    private readonly validator: Validator<Owner>
-  ) {
+  #validator: Validator<this>;
+
+  constructor(props: Partial<Owner>, validator: Validator<Owner>) {
     super();
+
+    this.#validator = validator;
 
     Object.assign(this, props);
 
@@ -25,9 +26,9 @@ export class Owner extends Entity {
   }
 
   private validateOwner() {
-    if (!this.validator) {
+    if (!this.#validator) {
       throw new ValidatorNotAvailableException('Owner Validator not available');
     }
-    this.validator.validate(this);
+    this.#validator.validate(this);
   }
 }

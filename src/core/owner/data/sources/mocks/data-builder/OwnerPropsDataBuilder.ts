@@ -1,11 +1,12 @@
 import { OwnerProps } from '@core/owner/domain/types';
+import * as uuid from 'uuid';
 
 export class OwnerPropsDataBuilder {
   #ownerData: OwnerProps;
 
   constructor() {
     this.#ownerData = {
-      id: '1',
+      id: uuid.v4(),
       name: 'John',
       documentNumber: '12345678901'
     };
