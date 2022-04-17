@@ -39,7 +39,7 @@ export class OwnerYupValidator implements Validator<Owner> {
     } catch (errors) {
       const e = errors as yup.ValidationError;
       e.errors.forEach(error => {
-        entity.validation.addError({
+        entity.notification.addError({
           context: 'owner',
           message: error
         });

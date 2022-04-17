@@ -1,10 +1,10 @@
 /* eslint-disable no-underscore-dangle */
-import { Validation } from '@core/shared/data/sources';
+import { Notification } from '@core/shared/domain/errors';
 
 export abstract class ValueObject {
-  validation!: Validation;
+  validation!: Notification;
 
   constructor() {
-    this.validation = new Validation();
+    this.validation = new Notification();
   }
 }

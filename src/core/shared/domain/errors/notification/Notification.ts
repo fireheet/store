@@ -1,16 +1,16 @@
-export type ValidationErrorProps = {
+export type NotificationErrorProps = {
   context: string;
   message: string;
 };
 
-export class Validation {
-  private errors: ValidationErrorProps[] = [];
+export class Notification {
+  private errors: NotificationErrorProps[] = [];
 
   public hasErrors(): boolean {
     return this.errors.length > 0;
   }
 
-  public addError(error: ValidationErrorProps) {
+  public addError(error: NotificationErrorProps) {
     this.errors.push(error);
   }
 

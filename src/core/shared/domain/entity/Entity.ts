@@ -1,17 +1,17 @@
 /* eslint-disable no-underscore-dangle */
-import { Validation } from '@core/shared/data/sources';
+import { Notification } from '@core/shared/domain/errors';
 
 export abstract class Entity {
   protected _id!: string;
 
-  #validation: Validation;
+  #notification: Notification;
 
   constructor() {
-    this.#validation = new Validation();
+    this.#notification = new Notification();
   }
 
-  get validation(): Validation {
-    return this.#validation;
+  get notification(): Notification {
+    return this.#notification;
   }
 
   get id(): string {

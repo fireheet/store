@@ -20,8 +20,8 @@ export class Owner extends Entity {
 
     this.validateOwner();
 
-    if (this.validation.hasErrors()) {
-      throw new ValidationException(this.validation.messages('owner'));
+    if (this.notification.hasErrors()) {
+      throw new ValidationException(this.notification.messages('owner'));
     }
   }
 
