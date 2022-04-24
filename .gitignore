@@ -89,6 +89,10 @@ typings/
 .nuxt
 dist
 
+# Ignore Stryker folders
+reports
+stryker-tmp
+
 # Gatsby files
 .cache/
 # Comment in the public line in if your project uses Gatsby and *not* Next.js
