@@ -1,4 +1,4 @@
-import { Phone } from '@core/shared/domain';
+import { Phone } from '@core/shared/domain/value_objects';
 
 export interface ChangeStorePhone {
   change: () => Promise<Phone>;

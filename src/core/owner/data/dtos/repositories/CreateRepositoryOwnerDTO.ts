@@ -1,4 +1,4 @@
-import { DocumentModel } from '@core/shared/data';
+import { DocumentModel } from '@core/shared/data/models';
 
 export type CreateRepositoryOwnerDTO = {
   name: string;

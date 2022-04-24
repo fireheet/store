@@ -9,7 +9,7 @@ module.exports = {
   testRunner: 'jest',
   coverageAnalysis: 'perTest',
   tempDirName: 'stryker-tmp',
-  ignorePatterns: ['dist', 'node_modules'],
+  ignorePatterns: ['dist', 'node_modules', 'src/core/meal', 'src/core/store'],
   checkers: ['typescript'],
   tsconfigFile: 'tsconfig.json'
 };
