@@ -11,6 +11,7 @@ export class Owner extends Entity {
 
   #validator: Validator<this>;
 
+  // Stryker disable next-line all
   constructor(props: Partial<Owner>, validator: Validator<Owner>) {
     super();
 
@@ -21,12 +22,14 @@ export class Owner extends Entity {
     this.validateOwner();
 
     if (this.notification.hasErrors()) {
+      /* istanbul ignore next */
       throw new ValidationException(this.notification.messages('owner'));
     }
   }
 
   private validateOwner() {
     if (!this.#validator) {
+      /* istanbul ignore next */
       throw new InvalidValidatorException('Owner Validator is invalid.');
     }
 

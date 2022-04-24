@@ -11,5 +11,13 @@ module.exports = {
   tempDirName: 'stryker-tmp',
   ignorePatterns: ['dist', 'node_modules', 'src/core/meal', 'src/core/store'],
   checkers: ['typescript'],
-  tsconfigFile: 'tsconfig.json'
+  tsconfigFile: 'tsconfig.json',
+  allowConsoleColors: true,
+  mutator: {
+    excludedMutations: ['']
+  },
+  jest: {
+    projectType: 'custom',
+    configFile: 'jest.config.js'
+  }
 };

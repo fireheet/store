@@ -1,7 +1,36 @@
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 module.exports = {
   preset: 'ts-jest',
-  clearMocks: true,
+  setupFiles: ['./src/core/shared/config/inversify.config.ts'],
+  collectCoverageFrom: [
+    'src/**/*.ts',
+    '!src/**/index.ts',
+    '!src/core/**/dtos/**/*.ts',
+    '!src/core/**/config/**/*.ts',
+    '!src/core/**/config/*.ts',
+    '!src/core/**/constants/**/*.ts',
+    '!src/core/**/constants/*.ts',
+    '!src/core/**/domain/usecases/**/*.ts',
+    '!src/core/**/data/models/**/*.ts',
+    '!src/core/**/data/models/*.ts',
+    '!src/core/**/enums/**/*.ts',
+    '!src/core/**/types/**/*.ts',
+    '!src/core/**/contracts/**/*.ts',
+    '!src/main/server.ts',
+    '!src/main/**/config/**/*.ts',
+    '!src/main/**/config/*.ts',
+    '!src/main/**/constants/**/*.ts',
+    '!src/main/**/constants/*.ts',
+    '!src/main/**/enums/**/*.ts',
+    '!src/main/**/types/**/*.ts',
+    '!src/main/routes/**/*.ts',
+    '!src/main/routes/*.ts'
+  ],
+  transform: {
+    '.(ts|tsx)': 'ts-jest'
+  },
+  testRegex: '(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$',
+  moduleFileExtensions: ['ts', 'tsx', 'js'],
   globals: {
     'ts-jest': {
       tsconfig: 'tsconfig.json'
@@ -16,7 +45,6 @@ module.exports = {
     '/requirements/',
     '/dist/'
   ],
-  setupFiles: ['./src/core/shared/config/inversify.config.ts'],
   moduleNameMapper: {
     '^@core/(.*)$': '<rootDir>/src/core/$1',
     '^@domain/(.*)$': '<rootDir>/src/core/domain/$1',
