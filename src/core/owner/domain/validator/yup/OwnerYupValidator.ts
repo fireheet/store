@@ -1,7 +1,8 @@
 import * as yup from 'yup';
-import { NAME_MAX_LENGTH } from '@core/owner/config/constants';
+import { NAME_MAX_LENGTH, NAME_REGEX } from '@core/owner/config/constants';
 import { Validator } from '@core/shared/domain/contracts';
-import { Owner } from '../../entities';
+import { DOCUMENT_NUMBER_REGEX } from '@core/shared/config/constants';
+import { Owner } from '@core/owner/domain/entities';
 
 export class OwnerYupValidator implements Validator<Owner> {
   public validate(entity: Owner): void {
@@ -9,22 +10,25 @@ export class OwnerYupValidator implements Validator<Owner> {
       yup
         .object()
         .shape({
-          id: yup.string().uuid('ID is not valid').required(),
+          id: yup.string().uuid('id is not valid').required(),
           name: yup
             .string()
             .max(NAME_MAX_LENGTH)
-            .matches(
-              /^([a-zA-Z\s\W]+[^0-9!@#$%^&*()_+\-=\\[\]{};':"\\|,.<>\\/?])$/,
-              'name has invalid characters'
-            )
+            .matches(NAME_REGEX, 'name has invalid characters')
             .required(),
-          document: yup.object({
-            number: yup
-              .string()
-              .matches(/^[0-9]*$/)
-              .length(11)
-              .required()
-          })
+          document: yup
+            .object({
+              number: yup
+                .string()
+                .matches(DOCUMENT_NUMBER_REGEX, 'document.number is invalid')
+                .length(11)
+                .required(),
+              type: yup
+                .string()
+                .oneOf(['CPF'], 'document.type must be CPF')
+                .required()
+            })
+            .required()
         })
         .validateSync(
           {

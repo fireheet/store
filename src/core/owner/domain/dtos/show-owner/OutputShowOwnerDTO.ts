@@ -1,3 +1,3 @@
-import { RepositoryOwnerModel } from '@core/owner/data/models';
+import { RepositoryOwner } from '@core/owner/data/entities';
 
-export type OutputShowOwnerDTO = RepositoryOwnerModel;
+export type OutputShowOwnerDTO = RepositoryOwner;

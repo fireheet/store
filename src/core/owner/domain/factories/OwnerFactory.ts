@@ -11,7 +11,7 @@ export class OwnerFactory {
     });
 
     return new Owner(
-      { ...owner, document, id: uuid.v4() },
+      { id: uuid.v4(), ...owner, document },
       OwnerValidatorFactory.create()
     );
   }

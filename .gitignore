@@ -1,5 +1,8 @@
 ## Project specific
 
+# others
+todo.md
+
 # dotenv environment variables file
 .env
 .env.test

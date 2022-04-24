@@ -1,3 +1,4 @@
+import { ValidationException } from '@core/shared/data/contracts';
 import { Document } from '../Document';
 import { DocumentType } from '../enums';
 import { DocumentProps } from '../types/DocumentProps';
@@ -5,6 +6,10 @@ import { DocumentValidatorFactory } from './DocumentValidatorFactory';
 
 export class DocumentFactory {
   static create({ number }: DocumentProps): Document {
+    if (!number) {
+      throw new ValidationException('document number is required');
+    }
+
     if (number.length === 11) {
       return new Document(
         {

@@ -7,15 +7,14 @@ import { OwnerHttpController } from '@core/owner/presentation/contracts';
 import { CREATE_OWNER_ROUTE } from '../config';
 
 export class OwnerRoutes {
+  static #ownerController: OwnerHttpController =
+    AppContainer.get<OwnerHttpController>(OWNER_HTTP_CONTROLLER);
+
   static createOwnerRoute: FastifyPluginAsync = async (
     fastify,
     _opts
   ): Promise<void> => {
-    const ownerController = AppContainer.get<OwnerHttpController>(
-      OWNER_HTTP_CONTROLLER
-    );
-
-    const createRoute = FastifyRouteAdapter.create(ownerController);
+    const createRoute = FastifyRouteAdapter.create(this.#ownerController);
 
     fastify.post(CREATE_OWNER_ROUTE, createRoute);
   };

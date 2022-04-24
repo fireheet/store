@@ -3,7 +3,7 @@ import { OwnerPropsDataBuilder } from '../data-builder';
 
 export class OwnerPropsObjectMother {
   static valid(): OwnerProps {
-    return OwnerPropsDataBuilder.props().build();
+    return OwnerPropsDataBuilder.props().valid().build();
   }
 
   static withoutID(): OwnerProps {

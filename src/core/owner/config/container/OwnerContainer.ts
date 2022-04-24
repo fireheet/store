@@ -5,12 +5,12 @@ import {
   OwnerWriteRepository
 } from '@core/owner/data/contracts/repositories';
 import {
-  CreateOwnerService,
-  DisableOwnerService,
-  EnableOwnerService,
-  ShowOwnerService,
-  UpdateOwnerService
-} from '@core/owner/data/services';
+  CreateOwnerUseCase,
+  DisableOwnerUseCase,
+  EnableOwnerUseCase,
+  ShowOwnerUseCase,
+  UpdateOwnerUseCase
+} from '@core/owner/data/usecases';
 import {
   CreateOwner,
   DisableOwner,
@@ -37,11 +37,11 @@ import { OwnerHttpController } from '@core/owner/presentation/contracts';
 
 export class OwnerContainer {
   static bindTo(container: Container): void {
-    container.bind<CreateOwner>(CREATE_OWNER).to(CreateOwnerService);
-    container.bind<UpdateOwner>(UPDATE_OWNER).to(UpdateOwnerService);
-    container.bind<ShowOwner>(SHOW_OWNER).to(ShowOwnerService);
-    container.bind<EnableOwner>(ENABLE_OWNER).to(EnableOwnerService);
-    container.bind<DisableOwner>(DISABLE_OWNER).to(DisableOwnerService);
+    container.bind<CreateOwner>(CREATE_OWNER).to(CreateOwnerUseCase);
+    container.bind<UpdateOwner>(UPDATE_OWNER).to(UpdateOwnerUseCase);
+    container.bind<ShowOwner>(SHOW_OWNER).to(ShowOwnerUseCase);
+    container.bind<EnableOwner>(ENABLE_OWNER).to(EnableOwnerUseCase);
+    container.bind<DisableOwner>(DISABLE_OWNER).to(DisableOwnerUseCase);
 
     container
       .bind<OwnerReadRepository>(OWNER_READ_REPOSITORY)

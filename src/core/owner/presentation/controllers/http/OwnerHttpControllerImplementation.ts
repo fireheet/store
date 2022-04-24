@@ -21,9 +21,9 @@ import {
   ShowOwner,
   UpdateOwner
 } from '@core/owner/domain/usecases';
-import { OwnerPresenter } from '../../presenters/OwnerPresenter';
-import { OwnerViewModel } from '../../views';
-import { OwnerHttpController } from '../../contracts';
+import { OwnerPresenter } from '@core/owner/presentation/presenters';
+import { OwnerViewModel } from '@core/owner/presentation/views';
+import { OwnerHttpController } from '@core/owner/presentation/contracts';
 
 type ResponseType = HttpResponse<OwnerViewModel | Exception>;
 
@@ -44,7 +44,7 @@ export class OwnerHttpControllerImplementation implements OwnerHttpController {
 
       const outputDto = await this.createOwner.create(inputDto);
 
-      return OwnerPresenter.ownerCreatedResponse(outputDto);
+      return OwnerPresenter.createResponse(outputDto);
     } catch (err) {
       const error = err as Exception;
 
@@ -58,7 +58,7 @@ export class OwnerHttpControllerImplementation implements OwnerHttpController {
 
       const outputDto = await this.updateOwner.update(inputDto);
 
-      return OwnerPresenter.ownerUpdatedResponse(outputDto);
+      return OwnerPresenter.updateResponse(outputDto);
     } catch (err) {
       const error = err as Exception;
 
@@ -72,7 +72,7 @@ export class OwnerHttpControllerImplementation implements OwnerHttpController {
 
       const outputDto = await this.showOwner.show(inputDto);
 
-      return OwnerPresenter.ownerShowedResponse(outputDto);
+      return OwnerPresenter.showResponse(outputDto);
     } catch (err) {
       const error = err as Exception;
 

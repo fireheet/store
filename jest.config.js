@@ -2,10 +2,20 @@
 module.exports = {
   preset: 'ts-jest',
   clearMocks: true,
-  passWithNoTests: false,
+  globals: {
+    'ts-jest': {
+      tsconfig: 'tsconfig.json'
+    }
+  },
   coverageProvider: 'v8',
   testEnvironment: 'node',
   maxWorkers: '50%',
+  testPathIgnorePatterns: [
+    '/.strykerTmp/',
+    '/node_modules/',
+    '/requirements/',
+    '/dist/'
+  ],
   setupFiles: ['./src/core/shared/config/inversify.config.ts'],
   moduleNameMapper: {
     '^@core/(.*)$': '<rootDir>/src/core/$1',

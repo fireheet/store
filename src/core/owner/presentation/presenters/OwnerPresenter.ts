@@ -14,7 +14,9 @@ const kHttpResponseOk = Symbol.for('okResponse');
 export class OwnerPresenter {
   private static ownerHttpResponses = new HttpResponses<OwnerViewModel>();
 
-  static ownerCreatedResponse(
+  private static ownerStatusHttpResponses = new HttpResponses<string>();
+
+  static createResponse(
     outputDTO: OutputCreateOwnerDTO
   ): HttpResponse<OwnerViewModel> {
     const viewModel: OwnerViewModel = {
@@ -25,16 +27,24 @@ export class OwnerPresenter {
     return this.ownerHttpResponses.created(viewModel);
   }
 
-  static ownerUpdatedResponse(
+  static updateResponse(
     outputDTO: OutputUpdateOwnerDTO
   ): HttpResponse<OwnerViewModel> {
     return this[kHttpResponseOk](outputDTO);
   }
 
-  static ownerShowedResponse(
+  static showResponse(
     outputDTO: OutputShowOwnerDTO
   ): HttpResponse<OwnerViewModel> {
     return this[kHttpResponseOk](outputDTO);
+  }
+
+  static enableResponse(id: string): HttpResponse<string> {
+    return this.ownerStatusHttpResponses.ok(`Owner ${id} enabled`);
+  }
+
+  static disableResponse(id: string): HttpResponse<string> {
+    return this.ownerStatusHttpResponses.ok(`Owner ${id} disabled`);
   }
 
   static [kHttpResponseOk](

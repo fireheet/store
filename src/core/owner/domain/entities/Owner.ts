@@ -1,7 +1,7 @@
 import { Document } from '@core/shared/domain/value_objects';
 import { Entity } from '@core/shared/domain/entity';
 import { ValidationException } from '@core/shared/data/contracts';
-import { ValidatorNotAvailableException } from '@core/shared/data/contracts/exceptions';
+import { InvalidValidatorException } from '@core/shared/data/contracts/exceptions';
 import { Validator } from '@core/shared/domain/contracts';
 
 export class Owner extends Entity {
@@ -27,8 +27,9 @@ export class Owner extends Entity {
 
   private validateOwner() {
     if (!this.#validator) {
-      throw new ValidatorNotAvailableException('Owner Validator not available');
+      throw new InvalidValidatorException('Owner Validator is invalid.');
     }
+
     this.#validator.validate(this);
   }
 }

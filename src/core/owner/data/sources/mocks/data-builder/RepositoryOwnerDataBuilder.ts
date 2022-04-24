@@ -20,6 +20,10 @@ export class RepositoryOwnerDataBuilder {
     return new RepositoryOwnerDataBuilder();
   }
 
+  valid(): RepositoryOwnerDataBuilder {
+    return this;
+  }
+
   disabled(): RepositoryOwnerDataBuilder {
     this.#repositoryOwnerData.deleted_at = new Date();
 

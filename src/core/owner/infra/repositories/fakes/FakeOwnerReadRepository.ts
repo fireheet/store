@@ -33,7 +33,7 @@ export class FakeOwnerReadRepository implements OwnerReadRepository {
       return false;
     }
 
-    this.owners[existingOwnerIndex].deleted_at = null;
+    this.owners[existingOwnerIndex].deleted_at = undefined;
 
     return true;
   }

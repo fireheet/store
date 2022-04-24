@@ -34,7 +34,7 @@ export class FakeOwnerWriteRepository implements OwnerWriteRepository {
       return false;
     }
 
-    this.owners[existingOwnerIndex].deleted_at = null;
+    this.owners[existingOwnerIndex].deleted_at = undefined;
 
     return true;
   }
