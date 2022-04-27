@@ -3,7 +3,10 @@ import {
   FakeOwnerWriteRepository
 } from '@core/owner/infra/repositories';
 import { DisableOwner } from '@core/owner/domain/usecases';
-import { IDDoesNotExistException } from '@core/shared/data/contracts';
+import {
+  IDDoesNotExistException,
+  InvalidParameterException
+} from '@core/shared/data/contracts';
 import { RepositoryOwnerObjectMother } from '@core/owner/data/sources';
 import { DisableOwnerUseCase } from '..';
 
@@ -35,10 +38,18 @@ describe('#DisableOwnerUseCase', () => {
   });
 
   describe('Exception Cases', () => {
-    it('should not be possible to disable an Owner with an invalid ID', async () => {
+    it('should not be possible to disable an Owner with an invalid id', async () => {
       await expect(
         disableOwner.disable({ id: 'invalid' })
       ).rejects.toBeInstanceOf(IDDoesNotExistException);
+    });
+
+    it('should not be possible to disable an Owner with no id', async () => {
+      await expect(
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        disableOwner.disable({ id: undefined })
+      ).rejects.toBeInstanceOf(InvalidParameterException);
     });
   });
 });

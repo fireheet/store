@@ -114,4 +114,22 @@ describe('#OwnerYupValidator', () => {
       'document.type must be CPF'
     );
   });
+
+  test('validate Owner with invalid data should add errors to notification', () => {
+    const owner = OwnerObjectMother.invalidDocumentType();
+
+    const addError = jest.spyOn(owner.notification, 'addError');
+
+    ownerValidator.validate(owner);
+
+    expect(addError).toHaveBeenCalled();
+    expect(addError).toHaveBeenCalledWith({
+      context: 'owner',
+      message: 'document.type must be CPF'
+    });
+    expect(owner.notification.hasErrors()).toBeTruthy();
+    expect(owner.notification.messages('owner')).toStrictEqual(
+      'document.type must be CPF'
+    );
+  });
 });

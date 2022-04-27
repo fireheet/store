@@ -3,7 +3,10 @@ import {
   FakeOwnerWriteRepository
 } from '@core/owner/infra/repositories';
 import { EnableOwner } from '@core/owner/domain/usecases';
-import { IDDoesNotExistException } from '@core/shared/data/contracts';
+import {
+  IDDoesNotExistException,
+  InvalidParameterException
+} from '@core/shared/data/contracts';
 import { RepositoryOwnerObjectMother } from '@core/owner/data/sources';
 import { EnableOwnerUseCase } from '..';
 
@@ -40,6 +43,14 @@ describe('#EnableOwnerUseCase', () => {
       await expect(enableOwner.enable(dto)).rejects.toBeInstanceOf(
         IDDoesNotExistException
       );
+    });
+
+    it('should not be possible to enable an Owner with no id', async () => {
+      await expect(
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        enableOwner.enable({ id: undefined })
+      ).rejects.toBeInstanceOf(InvalidParameterException);
     });
   });
 });

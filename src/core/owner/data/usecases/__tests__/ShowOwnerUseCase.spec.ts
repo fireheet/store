@@ -1,6 +1,9 @@
 import { FakeOwnerReadRepository } from '@core/owner/infra/repositories';
 import { ShowOwner } from '@core/owner/domain/usecases';
-import { IDDoesNotExistException } from '@core/shared/data/contracts';
+import {
+  IDDoesNotExistException,
+  InvalidParameterException
+} from '@core/shared/data/contracts';
 import { RepositoryOwnerObjectMother } from '@core/owner/data/sources';
 import { ShowOwnerUseCase } from '..';
 
@@ -36,6 +39,14 @@ describe('#ShowOwnerUseCase', () => {
       await expect(showOwner.show({ id: 'invalid' })).rejects.toBeInstanceOf(
         IDDoesNotExistException
       );
+    });
+
+    it('should not be possible to enable an Owner with no id', async () => {
+      await expect(
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        showOwner.show({ id: undefined })
+      ).rejects.toBeInstanceOf(InvalidParameterException);
     });
   });
 });
