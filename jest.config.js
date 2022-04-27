@@ -40,7 +40,7 @@ module.exports = {
   testEnvironment: 'node',
   maxWorkers: '50%',
   testPathIgnorePatterns: [
-    '/.strykerTmp/',
+    '/stryker-tmp/',
     '/node_modules/',
     '/requirements/',
     '/dist/'
