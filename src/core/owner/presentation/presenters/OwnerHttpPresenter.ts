@@ -11,7 +11,7 @@ import { OutputUpdateOwnerDTO } from '../../domain/dtos/update-owner/OutputUpdat
 
 const kHttpResponseOk = Symbol.for('okResponse');
 
-export class OwnerPresenter {
+export class OwnerHttpPresenter {
   private static ownerHttpResponses = new HttpResponses<OwnerViewModel>();
 
   private static ownerStatusHttpResponses = new HttpResponses<string>();

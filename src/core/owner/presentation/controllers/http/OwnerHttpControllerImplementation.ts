@@ -1,5 +1,4 @@
 import {
-  HttpResponse,
   HttpRequest,
   ErrorResponse
 } from '@core/shared/presentation/contracts';
@@ -21,11 +20,11 @@ import {
   ShowOwner,
   UpdateOwner
 } from '@core/owner/domain/usecases';
-import { OwnerPresenter } from '@core/owner/presentation/presenters';
-import { OwnerViewModel } from '@core/owner/presentation/views';
-import { OwnerHttpController } from '@core/owner/presentation/contracts';
-
-type ResponseType = HttpResponse<OwnerViewModel | Exception>;
+import { OwnerHttpPresenter } from '@core/owner/presentation/presenters';
+import {
+  OwnerHttpControllerResponse,
+  OwnerHttpController
+} from '@core/owner/presentation/contracts';
 
 @injectable()
 export class OwnerHttpControllerImplementation implements OwnerHttpController {
@@ -38,13 +37,13 @@ export class OwnerHttpControllerImplementation implements OwnerHttpController {
     private readonly showOwner: ShowOwner
   ) {}
 
-  async create(request: HttpRequest): Promise<ResponseType> {
+  async create(request: HttpRequest): Promise<OwnerHttpControllerResponse> {
     try {
       const inputDto = request.body as InputCreateOwnerDTO;
 
       const outputDto = await this.createOwner.create(inputDto);
 
-      return OwnerPresenter.createResponse(outputDto);
+      return OwnerHttpPresenter.createResponse(outputDto);
     } catch (err) {
       const error = err as Exception;
 
@@ -52,13 +51,13 @@ export class OwnerHttpControllerImplementation implements OwnerHttpController {
     }
   }
 
-  async update(request: HttpRequest): Promise<ResponseType> {
+  async update(request: HttpRequest): Promise<OwnerHttpControllerResponse> {
     try {
       const inputDto = request.body as InputUpdateOwnerDTO;
 
       const outputDto = await this.updateOwner.update(inputDto);
 
-      return OwnerPresenter.updateResponse(outputDto);
+      return OwnerHttpPresenter.updateResponse(outputDto);
     } catch (err) {
       const error = err as Exception;
 
@@ -66,13 +65,13 @@ export class OwnerHttpControllerImplementation implements OwnerHttpController {
     }
   }
 
-  async show(request: HttpRequest): Promise<ResponseType> {
+  async show(request: HttpRequest): Promise<OwnerHttpControllerResponse> {
     try {
       const inputDto = request.body as InputShowOwnerDTO;
 
       const outputDto = await this.showOwner.show(inputDto);
 
-      return OwnerPresenter.showResponse(outputDto);
+      return OwnerHttpPresenter.showResponse(outputDto);
     } catch (err) {
       const error = err as Exception;
 
