@@ -1,6 +1,6 @@
 import * as uuid from 'uuid';
+import { DocumentFactory } from '@core/shared/domain/value_objects';
 import { RepositoryOwnerFactory } from '..';
-import { DocumentFactory } from '../../../../../../shared/domain/value_objects';
 
 describe('#RepositoryOwnerFactory', () => {
   test('create a Repository Owner', () => {
@@ -14,7 +14,8 @@ describe('#RepositoryOwnerFactory', () => {
     expect(repositoryOwner.id).toBeDefined();
     expect(repositoryOwner.name).toBe('John');
     expect(repositoryOwner.document.number).toBe('12345678901');
+    expect(repositoryOwner.created_at).toBeDefined();
+    expect(repositoryOwner.updated_at).toBeDefined();
+    expect(repositoryOwner.deleted_at).toBeUndefined();
   });
-
-  test.todo('create a Repository Owner with update, create and delete dates');
 });
