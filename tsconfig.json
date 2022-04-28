@@ -29,5 +29,11 @@
     "noEmitOnError": true,
     "alwaysStrict": true,
   },
+  "include": [
+    "src/**/*",
+    "package.json",
+    "LICENSE",
+    "README.md"
+  ],
   "exclude": ["node_modules", "test", "dist", "stryker-tmp", "stryker-tmp/**/*"],
 }

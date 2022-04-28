@@ -4,7 +4,6 @@ module.exports = {
   setupFiles: ['./src/core/shared/config/inversify.config.ts'],
   collectCoverageFrom: [
     'src/**/*.ts',
-    '!stryker-tmp',
     '!src/**/index.ts',
     '!src/core/**/dtos/**/*.ts',
     '!src/core/**/config/**/*.ts',
@@ -39,9 +38,8 @@ module.exports = {
   },
   coverageProvider: 'v8',
   testEnvironment: 'node',
-  maxWorkers: '50%',
+  maxWorkers: '80%',
   testPathIgnorePatterns: [
-    '/stryker-tmp/',
     '/node_modules/',
     '/requirements/',
     '/dist/'

@@ -1,2 +1,5 @@
 node_modules
 dist
+jest.config.js
+jest.stryker.config.js
+stryker.conf.js
