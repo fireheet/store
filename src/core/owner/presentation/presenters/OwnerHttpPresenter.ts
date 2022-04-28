@@ -40,17 +40,18 @@ export class OwnerHttpPresenter {
   }
 
   static enableResponse(id: string): HttpResponse<string> {
-    return this.ownerStatusHttpResponses.ok(`Owner ${id} enabled`);
+    return this.ownerStatusHttpResponses.ok(`Owner ${id} enabled.`);
   }
 
   static disableResponse(id: string): HttpResponse<string> {
-    return this.ownerStatusHttpResponses.ok(`Owner ${id} disabled`);
+    return this.ownerStatusHttpResponses.ok(`Owner ${id} disabled.`);
   }
 
-  static [kHttpResponseOk](
-    outputDTO: OwnerViewModel
-  ): HttpResponse<OwnerViewModel> {
-    const viewModel: OwnerViewModel = { ...outputDTO };
+  static [kHttpResponseOk]({
+    id,
+    name
+  }: OwnerViewModel): HttpResponse<OwnerViewModel> {
+    const viewModel: OwnerViewModel = { id, name };
 
     return this.ownerHttpResponses.ok(viewModel);
   }

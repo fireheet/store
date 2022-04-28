@@ -1,4 +1,5 @@
 import { Exception } from '@core/shared/data/contracts';
+import { HttpConstants } from '@core/shared/config/constants/http';
 
 export type HttpResponse<T = unknown> = {
   statusCode: number;
@@ -6,7 +7,7 @@ export type HttpResponse<T = unknown> = {
 };
 
 export const InternalServerError: HttpResponse = {
-  statusCode: 500,
+  statusCode: HttpConstants.INTERNAL_SERVER_ERROR,
   data: new Exception({
     message: 'An internal error occurred, please try again!!',
     name: 'Internal Server Error'
@@ -16,14 +17,14 @@ export const InternalServerError: HttpResponse = {
 export class HttpResponses<T> {
   ok(data: T): HttpResponse<T> {
     return {
-      statusCode: 200,
+      statusCode: HttpConstants.OK,
       data
     };
   }
 
   created(data: T): HttpResponse<T> {
     return {
-      statusCode: 201,
+      statusCode: HttpConstants.CREATED,
       data
     };
   }
