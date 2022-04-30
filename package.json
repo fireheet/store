@@ -21,8 +21,8 @@
   "scripts": {
     "start": "yarn build:ts && fastify start -l info dist/app.js",
     "build:ts": "tsc",
-    "test": "jest --colors --no-cache --maxWorkers=\"80%\" --maxConcurrency=\"10\"",
-    "test:cov": "jest --colors --noStackTrace --maxWorkers=\"80%\" --maxConcurrency=\"10\" --no-cache --coverage",
+    "test": "jest --config=jest.config.js --colors --no-cache",
+    "test:cov": "jest --config=jest.config.js --colors --no-cache --coverage",
     "test:mut": "yarn stryker run",
     "test:ci": "jest --colors --ci --noStackTrace --runInBand",
     "test:cov:ci": "jest --colors --ci --noStackTrace --runInBand --coverage",

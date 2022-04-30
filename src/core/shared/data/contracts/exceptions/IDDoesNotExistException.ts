@@ -5,7 +5,7 @@ export class IDDoesNotExistException extends Exception {
   constructor() {
     super({
       name: 'IDDoesNotExistException',
-      message: 'ID does not exist!',
+      message: 'id does not exist!',
       statusCode: HttpConstants.BAD_REQUEST
     });
   }

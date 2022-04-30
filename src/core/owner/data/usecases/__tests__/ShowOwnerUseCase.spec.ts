@@ -1,28 +1,26 @@
 import { FakeOwnerReadRepository } from '@core/owner/infra/repositories';
 import { ShowOwner } from '@core/owner/domain/usecases';
-import {
-  IDDoesNotExistException,
-  InvalidParameterException
-} from '@core/shared/data/contracts';
+import { IDDoesNotExistException } from '@core/shared/data/contracts';
 import { RepositoryOwnerObjectMother } from '@core/owner/data/sources';
 import { ShowOwnerUseCase } from '..';
+import { OwnerReadRepository } from '../../contracts';
 
 let showOwner: ShowOwner;
-let ownerReadRepository: FakeOwnerReadRepository;
+let fakeOwnersReadRepository: OwnerReadRepository;
 
 describe('#ShowOwnerUseCase', () => {
-  beforeEach(async () => {
-    ownerReadRepository = new FakeOwnerReadRepository();
-    showOwner = new ShowOwnerUseCase(ownerReadRepository);
-
-    await ownerReadRepository.create(RepositoryOwnerObjectMother.valid());
+  beforeEach(() => {
+    fakeOwnersReadRepository = new FakeOwnerReadRepository();
+    showOwner = new ShowOwnerUseCase(fakeOwnersReadRepository);
   });
 
-  describe('Success Cases', () => {
+  describe('#ShowOwnerUseCase - Success Cases', () => {
     it('should be possible to show an Owner with an valid ID', async () => {
-      const owner = ownerReadRepository.owners[0];
+      const owner = RepositoryOwnerObjectMother.valid();
 
-      const findOwner = jest.spyOn(ownerReadRepository, 'findByID');
+      await fakeOwnersReadRepository.create(owner);
+
+      const findOwner = jest.spyOn(fakeOwnersReadRepository, 'findByID');
 
       const result = await showOwner.show({ id: owner.id });
 
@@ -34,19 +32,29 @@ describe('#ShowOwnerUseCase', () => {
     });
   });
 
-  describe('Exception Cases', () => {
+  describe('#ShowOwnerUseCase - Exception Cases', () => {
     it('should not be possible to show an Owner with an invalid ID', async () => {
+      await fakeOwnersReadRepository.create(
+        RepositoryOwnerObjectMother.valid()
+      );
+
       await expect(showOwner.show({ id: 'invalid' })).rejects.toBeInstanceOf(
         IDDoesNotExistException
       );
     });
 
     it('should not be possible to enable an Owner with no id', async () => {
-      await expect(
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        showOwner.show({ id: undefined })
-      ).rejects.toBeInstanceOf(InvalidParameterException);
+      const dto = { id: '1234' };
+
+      Reflect.deleteProperty(dto, 'id');
+
+      await expect(showOwner.show(dto)).rejects.toThrowError(
+        'id does not exist!'
+      );
+
+      await expect(showOwner.show(dto)).rejects.toThrow(
+        new IDDoesNotExistException()
+      );
     });
   });
 });

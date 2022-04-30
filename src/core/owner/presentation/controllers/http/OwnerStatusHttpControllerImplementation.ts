@@ -28,11 +28,11 @@ export class OwnerStatusHttpControllerImplementation
     private readonly disableOwner: DisableOwner
   ) {}
 
-  async update(
-    request: HttpRequest
-  ): Promise<OwnerStatusHttpControllerResponse> {
+  async update({
+    body
+  }: HttpRequest): Promise<OwnerStatusHttpControllerResponse> {
     try {
-      const { id } = request.body as InputEnableOwnerDTO;
+      const { id } = body as InputEnableOwnerDTO;
 
       await this.enableOwner.enable({ id });
 
@@ -44,11 +44,11 @@ export class OwnerStatusHttpControllerImplementation
     }
   }
 
-  async delete(
-    request: HttpRequest
-  ): Promise<OwnerStatusHttpControllerResponse> {
+  async delete({
+    body
+  }: HttpRequest): Promise<OwnerStatusHttpControllerResponse> {
     try {
-      const { id } = request.body as InputDisableOwnerDTO;
+      const { id } = body as InputDisableOwnerDTO;
 
       await this.disableOwner.disable({ id });
 

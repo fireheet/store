@@ -3,32 +3,33 @@ import {
   FakeOwnerWriteRepository
 } from '@core/owner/infra/repositories';
 import { DisableOwner } from '@core/owner/domain/usecases';
-import {
-  IDDoesNotExistException,
-  InvalidParameterException
-} from '@core/shared/data/contracts';
+import { IDDoesNotExistException } from '@core/shared/data/contracts';
 import { RepositoryOwnerObjectMother } from '@core/owner/data/sources';
+import {
+  OwnerReadRepository,
+  OwnerWriteRepository
+} from '@core/owner/data/contracts';
 import { DisableOwnerUseCase } from '..';
 
 let disableOwner: DisableOwner;
-let ownersReadRepository: FakeOwnerReadRepository;
-let ownersWriteRepository: FakeOwnerWriteRepository;
+let fakeOwnersReadRepository: OwnerReadRepository;
+let fakeOwnersWriteRepository: OwnerWriteRepository;
 
 describe('#DisableOwnerUseCase', () => {
-  beforeEach(async () => {
-    ownersReadRepository = new FakeOwnerReadRepository();
-    ownersWriteRepository = new FakeOwnerWriteRepository();
+  beforeEach(() => {
+    fakeOwnersReadRepository = new FakeOwnerReadRepository();
+    fakeOwnersWriteRepository = new FakeOwnerWriteRepository();
     disableOwner = new DisableOwnerUseCase(
-      ownersReadRepository,
-      ownersWriteRepository
+      fakeOwnersReadRepository,
+      fakeOwnersWriteRepository
     );
-
-    await ownersReadRepository.create(RepositoryOwnerObjectMother.valid());
   });
 
-  describe('Success Cases', () => {
+  describe('#DisableOwnerUseCase - Success Cases', () => {
     it('should be possible to disable an Owner with an valid ID', async () => {
-      const owner = ownersReadRepository.owners[0];
+      const owner = RepositoryOwnerObjectMother.valid();
+
+      await fakeOwnersReadRepository.create(owner);
 
       const dto = { id: owner.id };
       const result = await disableOwner.disable(dto);
@@ -37,19 +38,28 @@ describe('#DisableOwnerUseCase', () => {
     });
   });
 
-  describe('Exception Cases', () => {
+  describe('#DisableOwnerUseCase - Exception Cases', () => {
     it('should not be possible to disable an Owner with an invalid id', async () => {
+      await fakeOwnersReadRepository.create(
+        RepositoryOwnerObjectMother.valid()
+      );
       await expect(
         disableOwner.disable({ id: 'invalid' })
       ).rejects.toBeInstanceOf(IDDoesNotExistException);
     });
 
     it('should not be possible to disable an Owner with no id', async () => {
-      await expect(
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        disableOwner.disable({ id: undefined })
-      ).rejects.toBeInstanceOf(InvalidParameterException);
+      const dto = { id: '1234' };
+
+      Reflect.deleteProperty(dto, 'id');
+
+      await expect(disableOwner.disable(dto)).rejects.toThrowError(
+        'id does not exist!'
+      );
+
+      await expect(disableOwner.disable(dto)).rejects.toThrow(
+        new IDDoesNotExistException()
+      );
     });
   });
 });

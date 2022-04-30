@@ -8,10 +8,7 @@ import {
   OWNER_READ_REPOSITORY,
   OWNER_WRITE_REPOSITORY
 } from '@core/owner/config/types';
-import {
-  IDDoesNotExistException,
-  InvalidParameterException
-} from '@core/shared/data/contracts';
+import { IDDoesNotExistException } from '@core/shared/data/contracts';
 import { InputDisableOwnerDTO } from '@core/owner/domain/dtos';
 
 @injectable()
@@ -25,10 +22,6 @@ export class DisableOwnerUseCase implements DisableOwner {
   ) {}
 
   async disable({ id }: InputDisableOwnerDTO): Promise<boolean> {
-    if (!id) {
-      throw new InvalidParameterException('id');
-    }
-
     const owner = await this.ownerReadRepository.findByID(id);
 
     if (!owner) {

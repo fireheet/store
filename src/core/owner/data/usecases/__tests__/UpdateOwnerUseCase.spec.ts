@@ -6,33 +6,31 @@ import {
 import { IDDoesNotExistException } from '@core/shared/data/contracts';
 import { RepositoryOwnerObjectMother } from '@core/owner/data/sources';
 import { UpdateOwnerUseCase } from '..';
+import { OwnerReadRepository, OwnerWriteRepository } from '../../contracts';
 
 let updateOwner: UpdateOwner;
-let ownersReadRepository: FakeOwnerReadRepository;
-let ownersWriteRepository: FakeOwnerWriteRepository;
+let fakeOwnersReadRepository: OwnerReadRepository;
+let fakeOwnersWriteRepository: OwnerWriteRepository;
 
 describe('#UpdateOwnerUseCase', () => {
-  beforeEach(async () => {
-    ownersReadRepository = new FakeOwnerReadRepository();
-    ownersWriteRepository = new FakeOwnerWriteRepository();
-
-    const repositoryOwner = RepositoryOwnerObjectMother.valid();
-
-    await ownersWriteRepository.create(repositoryOwner);
-    await ownersReadRepository.create(repositoryOwner);
+  beforeEach(() => {
+    fakeOwnersReadRepository = new FakeOwnerReadRepository();
+    fakeOwnersWriteRepository = new FakeOwnerWriteRepository();
 
     updateOwner = new UpdateOwnerUseCase(
-      ownersReadRepository,
-      ownersWriteRepository
+      fakeOwnersReadRepository,
+      fakeOwnersWriteRepository
     );
   });
 
-  describe('Success Cases', () => {
+  describe('#UpdateOwnerUseCase - Success Cases', () => {
     it("should be possible update an Owner's name", async () => {
-      const createdOwner = ownersWriteRepository.owners[0];
+      const repositoryOwner = RepositoryOwnerObjectMother.valid();
+      await fakeOwnersWriteRepository.create(repositoryOwner);
+      await fakeOwnersReadRepository.create(repositoryOwner);
 
       const owner = await updateOwner.update({
-        id: createdOwner.id,
+        id: repositoryOwner.id,
         name: 'New'
       });
 
@@ -41,7 +39,7 @@ describe('#UpdateOwnerUseCase', () => {
     });
   });
 
-  describe('Exception Cases', () => {
+  describe('#UpdateOwnerUseCase - Exception Cases', () => {
     it('should not be possible to update an non-existing Owner', async () => {
       await expect(
         updateOwner.update({ id: 'invalid', name: 'New' })
@@ -49,10 +47,12 @@ describe('#UpdateOwnerUseCase', () => {
     });
 
     it(`should not be possible to update an Owner's name with more than 150 characters`, async () => {
-      const createdOwner = ownersWriteRepository.owners[0];
+      const repositoryOwner = RepositoryOwnerObjectMother.valid();
+      await fakeOwnersWriteRepository.create(repositoryOwner);
+      await fakeOwnersReadRepository.create(repositoryOwner);
 
       await expect(
-        updateOwner.update({ id: createdOwner.id, name: 'a'.repeat(151) })
+        updateOwner.update({ id: repositoryOwner.id, name: 'a'.repeat(151) })
       ).rejects.toHaveProperty(
         'message',
         'name must be at most 150 characters'

@@ -55,4 +55,8 @@ export class Document extends ValueObject {
   public isEqual(document: Document): boolean {
     return this.toString() === document.toString();
   }
+
+  public isEqualCPF(documentNumber: string): boolean {
+    return this.number === documentNumber;
+  }
 }

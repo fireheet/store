@@ -1,54 +1,70 @@
 /* eslint-disable @typescript-eslint/require-await */
 import { OwnerWriteRepository } from '@core/owner/data/contracts';
-import { DisableOwnerDTO, EnableOwnerDTO } from '@core/owner/data/dtos';
-import { OwnerModel } from '@core/owner/data/models';
-import { RepositoryOwner } from '@core/owner/data/entities';
+import {
+  CreateRepositoryOwnerDTO,
+  DisableOwnerDTO,
+  EnableOwnerDTO,
+  UpdateRepositoryOwnerDTO
+} from '@core/owner/data/dtos';
+import {
+  RepositoryOwner,
+  RepositoryOwnerFactory
+} from '@core/owner/data/entities';
+import { OwnerFactory } from '@core/owner/domain/factories';
 
 export class FakeOwnerWriteRepository implements OwnerWriteRepository {
   owners: RepositoryOwner[] = [];
 
-  async create(owner: OwnerModel): Promise<RepositoryOwner> {
-    const persistedOwner = new RepositoryOwner({ ...owner });
+  create({
+    name,
+    document
+  }: CreateRepositoryOwnerDTO): Promise<RepositoryOwner> {
+    const persistedOwner = RepositoryOwnerFactory.create(
+      OwnerFactory.create({
+        name,
+        documentNumber: document.number
+      })
+    );
 
     this.owners.push(persistedOwner);
 
-    return persistedOwner;
+    return Promise.resolve(persistedOwner);
   }
 
-  async update(owner: RepositoryOwner): Promise<boolean> {
-    const existingOwnerIndex = this.findOwnerIndex(owner.id);
+  update({ id, name }: UpdateRepositoryOwnerDTO): Promise<boolean> {
+    const existingOwnerIndex = this.findOwnerIndex(id);
 
     if (existingOwnerIndex < 0) {
-      return false;
+      return Promise.resolve(false);
     }
 
-    this.owners[existingOwnerIndex] = new RepositoryOwner({ ...owner });
+    this.owners[existingOwnerIndex].name = name;
 
-    return true;
+    return Promise.resolve(true);
   }
 
-  async enable(enableOwner: EnableOwnerDTO): Promise<boolean> {
-    const existingOwnerIndex = this.findOwnerIndex(enableOwner.id);
+  enable({ id }: EnableOwnerDTO): Promise<boolean> {
+    const existingOwnerIndex = this.findOwnerIndex(id);
 
     if (existingOwnerIndex < 0) {
-      return false;
+      return Promise.resolve(false);
     }
 
     this.owners[existingOwnerIndex].deleted_at = undefined;
 
-    return true;
+    return Promise.resolve(true);
   }
 
-  async disable(disableOwner: DisableOwnerDTO): Promise<boolean> {
-    const existingOwnerIndex = this.findOwnerIndex(disableOwner.id);
+  disable({ id }: DisableOwnerDTO): Promise<boolean> {
+    const existingOwnerIndex = this.findOwnerIndex(id);
 
     if (existingOwnerIndex < 0) {
-      return false;
+      return Promise.resolve(false);
     }
 
     this.owners[existingOwnerIndex].deleted_at = new Date();
 
-    return true;
+    return Promise.resolve(true);
   }
 
   private findOwnerIndex(id: string): number {

@@ -33,7 +33,7 @@
     "src/**/*",
     "package.json",
     "LICENSE",
-    "README.md"
+    "README.md",
   ],
-  "exclude": ["node_modules", "test", "dist", "stryker-tmp", "stryker-tmp/**/*"],
+  "exclude": ["node_modules", "dist", "stryker-tmp", "stryker-tmp/**/*"],
 }

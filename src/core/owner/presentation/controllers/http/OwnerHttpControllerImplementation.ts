@@ -37,9 +37,9 @@ export class OwnerHttpControllerImplementation implements OwnerHttpController {
     private readonly showOwner: ShowOwner
   ) {}
 
-  async create(request: HttpRequest): Promise<OwnerHttpControllerResponse> {
+  async create({ body }: HttpRequest): Promise<OwnerHttpControllerResponse> {
     try {
-      const inputDto = request.body as InputCreateOwnerDTO;
+      const inputDto = body as InputCreateOwnerDTO;
 
       const outputDto = await this.createOwner.create(inputDto);
 
@@ -51,9 +51,9 @@ export class OwnerHttpControllerImplementation implements OwnerHttpController {
     }
   }
 
-  async update(request: HttpRequest): Promise<OwnerHttpControllerResponse> {
+  async update({ body }: HttpRequest): Promise<OwnerHttpControllerResponse> {
     try {
-      const inputDto = request.body as InputUpdateOwnerDTO;
+      const inputDto = body as InputUpdateOwnerDTO;
 
       const outputDto = await this.updateOwner.update(inputDto);
 
@@ -65,9 +65,9 @@ export class OwnerHttpControllerImplementation implements OwnerHttpController {
     }
   }
 
-  async show(request: HttpRequest): Promise<OwnerHttpControllerResponse> {
+  async show({ body }: HttpRequest): Promise<OwnerHttpControllerResponse> {
     try {
-      const inputDto = request.body as InputShowOwnerDTO;
+      const inputDto = body as InputShowOwnerDTO;
 
       const outputDto = await this.showOwner.show(inputDto);
 
