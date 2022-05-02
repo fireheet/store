@@ -15,18 +15,22 @@ export class Owner extends Entity {
   constructor(props: Partial<Owner>, validator: Validator<Owner>) {
     super();
 
-    if (!validator) {
-      throw new InvalidValidatorException('Owner Validator is invalid.');
-    }
+    Object.assign(this, props);
 
     this.#validator = validator;
 
-    Object.assign(this, props);
-
-    this.#validator.validate(this);
+    this.#validateOwner();
 
     if (this.notification.hasErrors()) {
       throw new ValidationException(this.notification.messages('owner'));
     }
+  }
+
+  #validateOwner() {
+    if (!this.#validator) {
+      throw new InvalidValidatorException('Owner Validator is invalid.');
+    }
+
+    this.#validator.validate(this);
   }
 }

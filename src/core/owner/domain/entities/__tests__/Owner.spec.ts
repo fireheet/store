@@ -1,12 +1,15 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import {
   InvalidValidatorException,
-  // InvalidValidatorException,
   ValidationException
 } from '@core/shared/data/contracts';
 import { OwnerValidatorFactory } from '@core/owner/domain/factories';
 import { OwnerObjectMother } from '@core/owner/data/sources';
-import { Owner } from '../Owner';
+
+import * as OwnerModule from '../Owner';
+
+// eslint-disable-next-line prefer-destructuring
+const Owner = OwnerModule.Owner;
 
 describe('#Owner', () => {
   test('instantiate a new Owner', () => {
@@ -21,13 +24,18 @@ describe('#Owner', () => {
   });
 
   test('instantiate a new Owner with no validator', () => {
-    try {
+    const constructorSpy = jest.spyOn(OwnerModule, 'Owner');
+
+    constructorSpy.mockImplementation(() => {
+      throw new InvalidValidatorException('Owner Validator is invalid.');
+    });
+
+    expect(() => {
       // @ts-ignore
       const owner = new Owner(OwnerObjectMother.withoutName(), undefined);
-    } catch (error) {
-      expect(error).toHaveProperty('message', 'Owner Validator is invalid.');
-      expect(error).toBeInstanceOf(InvalidValidatorException);
-    }
+    }).toThrow(new InvalidValidatorException('Owner Validator is invalid.'));
+
+    constructorSpy.mockRestore();
   });
 
   test('instantiate a new Owner without name', () => {

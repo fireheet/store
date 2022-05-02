@@ -67,7 +67,7 @@ export class FakeOwnerWriteRepository implements OwnerWriteRepository {
     return Promise.resolve(true);
   }
 
-  private findOwnerIndex(id: string): number {
+  findOwnerIndex(id: string): number {
     return this.owners.findIndex(foundOwner => foundOwner.id === id);
   }
 }

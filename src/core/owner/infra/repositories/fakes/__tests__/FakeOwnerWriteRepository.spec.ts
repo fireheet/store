@@ -34,6 +34,14 @@ describe('#FakeOwnerWriteRepository', () => {
       document: dto.document
     });
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const findIndexSpy = jest.spyOn(ownersWriteRepository, 'findOwnerIndex');
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const returnSpy = jest.spyOn(ownersWriteRepository, 'update');
+
     const updateModel = RepositoryOwnerObjectMother.valid();
     updateModel.id = owner.id;
     updateModel.name = 'Test';
@@ -41,11 +49,17 @@ describe('#FakeOwnerWriteRepository', () => {
     const updateOwner = await ownersWriteRepository.update(updateModel);
 
     expect(updateOwner).toBeTruthy();
+    expect(findIndexSpy).toHaveBeenCalled();
+    expect(findIndexSpy).toHaveReturnedWith(0);
+    expect(returnSpy).toHaveReturnedWith(Promise.resolve(true));
   });
 
   it('should not be possible to update an Repository Owner if it does not exist', async () => {
     const updateModel = RepositoryOwnerObjectMother.valid();
-    const updateOwner = await ownersWriteRepository.update(updateModel);
+    const updateOwner = await ownersWriteRepository.update({
+      id: updateModel.id,
+      name: updateModel.name
+    });
 
     expect(updateOwner).toBeFalsy();
   });
