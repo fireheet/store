@@ -1,5 +1,5 @@
 import { OwnerProps } from '@core/owner/domain/types';
-import { DocumentFactory } from '@core/shared/domain/value_objects';
+import { DocumentFactory } from '@core/shared/domain/value-objects';
 import * as uuid from 'uuid';
 import { Owner } from '../entities';
 import { OwnerValidatorFactory } from './OwnerValidatorFactory';

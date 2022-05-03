@@ -4,7 +4,7 @@ import { DocumentModel } from '@core/shared/data/models';
 import {
   DocumentType,
   DocumentValidatorFactory
-} from '@core/shared/domain/value_objects';
+} from '@core/shared/domain/value-objects';
 import { OwnerReadRepository } from '@core/owner/data/contracts';
 
 let ownersReadRepository: OwnerReadRepository;
@@ -91,6 +91,9 @@ describe('#FakeOwnerReadRepository', () => {
     const foundOwner = await ownersReadRepository.findByID(owner.id);
 
     expect(foundOwner).toBeTruthy();
+
+    if (!foundOwner) return;
+
     expect(foundOwner.id).toBe(owner.id);
     expect(foundOwner.name).toBe(owner.name);
     expect(foundOwner.document.toString()).toBe(owner.document.toString());
@@ -111,6 +114,9 @@ describe('#FakeOwnerReadRepository', () => {
     );
 
     expect(foundOwner).toBeTruthy();
+
+    if (!foundOwner) return;
+
     expect(foundOwner.id).toBe(owner.id);
     expect(foundOwner.name).toBe(owner.name);
     expect(foundOwner.document.toString()).toBe(owner.document.toString());

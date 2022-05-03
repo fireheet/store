@@ -1,5 +1,4 @@
 export * from './DocumentAlreadyExistsException';
-export * from './InvalidDocumentException';
 export * from './ValidationException';
 export * from './IDDoesNotExistException';
 export * from './Exception';

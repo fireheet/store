@@ -1,8 +1,4 @@
-import {
-  DocumentFactory,
-  DocumentType
-} from '@core/shared/domain/value_objects';
-import * as uuid from 'uuid';
+import { Document, DocumentType } from '@core/shared/domain/value-objects';
 import { Owner } from '@core/owner/domain/entities';
 import { OwnerValidatorFactory } from '@core/owner/domain/factories';
 
@@ -12,9 +8,19 @@ export class OwnerDataBuilder {
   constructor() {
     this.#ownerData = new Owner(
       {
-        id: uuid.v4(),
+        id: '0df95189-856d-4e8b-9b4f-2a802dd80b3c',
         name: 'John',
-        document: DocumentFactory.create({ number: '12345678901' })
+        document: new Document(
+          {
+            number: '12345678901',
+            type: DocumentType.CPF
+          },
+          {
+            validate: () => {
+              return true;
+            }
+          }
+        )
       },
       OwnerValidatorFactory.create()
     );

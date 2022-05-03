@@ -25,11 +25,6 @@ export class OwnerPropsDataBuilder {
     return this;
   }
 
-  invalidID(): OwnerPropsDataBuilder {
-    this.#ownerData.id = 'invalid';
-    return this;
-  }
-
   withoutName(): OwnerPropsDataBuilder {
     Reflect.deleteProperty(this.#ownerData, 'name');
     return this;

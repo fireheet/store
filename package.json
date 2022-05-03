@@ -25,7 +25,7 @@
     "test:cov": "jest --config=jest.config.js --colors --no-cache --coverage",
     "test:mut": "yarn stryker run",
     "test:ci": "jest --colors --ci --noStackTrace --runInBand",
-    "test:cov:ci": "jest --colors --ci --noStackTrace --runInBand --coverage",
+    "test:cov:ci": "jest --no-cache --coverage --ci --runInBand",
     "test:watch": "jest --colors --no-cache --watch",
     "check-dep": "npm-check --strict -s -u",
     "lint": "eslint --fix --ignore-path .eslintignore --ext .js,.ts .",

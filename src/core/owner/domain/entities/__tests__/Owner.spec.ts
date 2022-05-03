@@ -13,17 +13,16 @@ const Owner = OwnerModule.Owner;
 
 describe('#Owner', () => {
   test('instantiate a new Owner', () => {
-    const owner = new Owner(
-      OwnerObjectMother.valid(),
-      OwnerValidatorFactory.create()
-    );
+    const { notification, ...ownerData } = OwnerObjectMother.valid();
+
+    const owner = new Owner(ownerData, OwnerValidatorFactory.create());
 
     expect(owner).toBeDefined();
     expect(owner).toBeInstanceOf(Owner);
     expect(owner.notification.hasErrors()).toBeFalsy();
   });
 
-  test('instantiate a new Owner with no validator', () => {
+  test('instantiate a new Owner without validator', () => {
     const constructorSpy = jest.spyOn(OwnerModule, 'Owner');
 
     constructorSpy.mockImplementation(() => {
@@ -31,30 +30,30 @@ describe('#Owner', () => {
     });
 
     expect(() => {
+      const { notification, ...ownerData } = OwnerObjectMother.valid();
+
       // @ts-ignore
-      const owner = new Owner(OwnerObjectMother.withoutName(), undefined);
+      const owner = new Owner(ownerData, undefined);
     }).toThrow(new InvalidValidatorException('Owner Validator is invalid.'));
 
     constructorSpy.mockRestore();
   });
 
   test('instantiate a new Owner without name', () => {
+    const { notification, ...ownerData } = OwnerObjectMother.withoutName();
+
     expect(() => {
       // @ts-ignore
-      const owner = new Owner(
-        OwnerObjectMother.withoutName(),
-        OwnerValidatorFactory.create()
-      );
+      const owner = new Owner(ownerData, OwnerValidatorFactory.create());
     }).toThrowError(ValidationException);
   });
 
   test('instantiate a new Owner without document', () => {
+    const { notification, ...ownerData } = OwnerObjectMother.withoutDocument();
+
     expect(() => {
       // @ts-ignore
-      const owner = new Owner(
-        OwnerObjectMother.withoutDocument(),
-        OwnerValidatorFactory.create()
-      );
+      const owner = new Owner(ownerData, OwnerValidatorFactory.create());
     }).toThrow(ValidationException);
   });
 });

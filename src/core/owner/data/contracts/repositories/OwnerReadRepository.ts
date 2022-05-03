@@ -8,6 +8,6 @@ export interface OwnerReadRepository {
   replace(owner: RepositoryOwner): Promise<boolean>;
   enable(enableOwner: EnableOwnerDTO): Promise<boolean>;
   disable(disableOwner: DisableOwnerDTO): Promise<boolean>;
-  findByID(id: string): Promise<RepositoryOwner>;
-  findByDocument(document: DocumentModel): Promise<RepositoryOwner>;
+  findByID(id: string): Promise<RepositoryOwner | undefined>;
+  findByDocument(document: DocumentModel): Promise<RepositoryOwner | undefined>;
 }

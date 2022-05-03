@@ -2,9 +2,9 @@
 import { Notification } from '@core/shared/domain/errors';
 
 export abstract class ValueObject {
-  validation!: Notification;
+  notification!: Notification;
 
   constructor() {
-    this.validation = new Notification();
+    this.notification = new Notification();
   }
 }

@@ -1,6 +1,7 @@
 import { CreateOwner } from '@core/owner/domain/usecases';
 import {
   DocumentAlreadyExistsException,
+  InvalidParameterException,
   ValidationException
 } from '@core/shared/data/contracts';
 import {
@@ -35,7 +36,7 @@ describe('#CreateOwnerUseCase', () => {
     const props = OwnerPropsObjectMother.valid();
     const owner = await createOwner.create(props);
 
-    const { number } = owner.document.getDocumentValues();
+    const { number } = owner.document.getDocument();
 
     expect(owner).toBeTruthy();
     expect(owner.name).toBe(props.name);
@@ -68,11 +69,11 @@ describe('#CreateOwnerUseCase', () => {
     );
 
     await expect(blankDocumentNumber).rejects.toBeInstanceOf(
-      ValidationException
+      InvalidParameterException
     );
     await expect(blankDocumentNumber).rejects.toHaveProperty(
       'message',
-      'document number is required'
+      'Parameter document number is invalid!'
     );
 
     const invalidDocumentNumber = createOwner.create(
@@ -94,23 +95,32 @@ describe('#CreateOwnerUseCase', () => {
     ).rejects.toBeInstanceOf(ValidationException);
   });
 
-  it('should not be possible to create an Owner with same Document', async () => {
+  it('should not be possible to create an Owner with same Document', () => {
     const owner = RepositoryOwnerObjectMother.valid();
-    await fakeOwnersWriteRepository.create(owner);
-    await fakeOwnersReadRepository.create(owner);
-
-    await expect(
-      createOwner.create({
-        name: owner.name,
-        documentNumber: owner.document.number
+    fakeOwnersWriteRepository
+      .create(owner)
+      .then(() => {
+        fakeOwnersReadRepository
+          .create(owner)
+          .then(() => {
+            createOwner
+              .create({
+                name: 'John Doe',
+                documentNumber: owner.document.number
+              })
+              .then()
+              .catch(error => {
+                expect(error).toBeInstanceOf(DocumentAlreadyExistsException);
+                expect(error).toHaveProperty(
+                  'message',
+                  'Document already exists!'
+                );
+              });
+          })
+          // eslint-disable-next-line @typescript-eslint/no-empty-function
+          .catch(() => {});
       })
-    ).rejects.toThrowError('Document already exits');
-
-    await expect(
-      createOwner.create({
-        name: 'new',
-        documentNumber: '12345678901'
-      })
-    ).rejects.toThrow(new DocumentAlreadyExistsException());
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      .catch(() => {});
   });
 });

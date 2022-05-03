@@ -26,13 +26,8 @@ describe('#FakeOwnerWriteRepository', () => {
     expect(owner.document.toString()).toBe(dto.document.toString());
   });
 
-  it('should be possible to update an Repository Owner', async () => {
+  it('should be possible to update an Repository Owner', () => {
     const dto = OwnerObjectMother.valid();
-
-    const owner = await ownersWriteRepository.create({
-      name: dto.name,
-      document: dto.document
-    });
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -42,16 +37,29 @@ describe('#FakeOwnerWriteRepository', () => {
     // @ts-ignore
     const returnSpy = jest.spyOn(ownersWriteRepository, 'update');
 
-    const updateModel = RepositoryOwnerObjectMother.valid();
-    updateModel.id = owner.id;
-    updateModel.name = 'Test';
+    ownersWriteRepository
+      .create({
+        name: dto.name,
+        document: dto.document
+      })
+      .then(createdOwner => {
+        const updateModel = RepositoryOwnerObjectMother.valid();
+        updateModel.id = createdOwner.id;
+        updateModel.name = 'John Doe';
 
-    const updateOwner = await ownersWriteRepository.update(updateModel);
-
-    expect(updateOwner).toBeTruthy();
-    expect(findIndexSpy).toHaveBeenCalled();
-    expect(findIndexSpy).toHaveReturnedWith(0);
-    expect(returnSpy).toHaveReturnedWith(Promise.resolve(true));
+        ownersWriteRepository
+          .update(updateModel)
+          .then(updatedOwner => {
+            expect(updatedOwner).toBeTruthy();
+            expect(findIndexSpy).toHaveBeenCalled();
+            expect(findIndexSpy).toHaveReturnedWith(0);
+            expect(returnSpy).toHaveReturnedWith(Promise.resolve(true));
+          })
+          // eslint-disable-next-line @typescript-eslint/no-empty-function
+          .catch(() => {});
+      })
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      .catch(() => {});
   });
 
   it('should not be possible to update an Repository Owner if it does not exist', async () => {

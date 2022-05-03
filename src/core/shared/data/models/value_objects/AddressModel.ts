@@ -1,3 +1,3 @@
-import { Address } from '@core/shared/domain/value_objects';
+import { Address } from '@core/shared/domain/value-objects';
 
 export class AddressModel extends Address {}

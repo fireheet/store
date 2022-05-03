@@ -59,10 +59,8 @@ describe('Notification', () => {
       message: 'test error2'
     });
 
-    expect(notification.messages()).toContain(
+    expect(notification.messages()).toStrictEqual(
       'test:test error, test2:test error2'
     );
   });
-
-  test.todo('create tests for hasErrors');
 });

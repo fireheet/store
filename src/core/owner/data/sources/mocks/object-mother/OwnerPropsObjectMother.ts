@@ -10,10 +10,6 @@ export class OwnerPropsObjectMother {
     return OwnerPropsDataBuilder.props().withoutID().build();
   }
 
-  static invalidID(): OwnerProps {
-    return OwnerPropsDataBuilder.props().invalidID().build();
-  }
-
   static withoutName(): OwnerProps {
     return OwnerPropsDataBuilder.props().withoutName().build();
   }

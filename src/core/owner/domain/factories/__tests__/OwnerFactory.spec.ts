@@ -20,7 +20,7 @@ describe('#OwnerFactory', () => {
   test('create a new Owner with no document number', () => {
     expect(() => {
       OwnerFactory.create(OwnerPropsObjectMother.withoutDocumentNumber());
-    }).toThrow('document number is required');
+    }).toThrow('Parameter document number is invalid!');
   });
 
   test('create a new Owner without existing id', () => {

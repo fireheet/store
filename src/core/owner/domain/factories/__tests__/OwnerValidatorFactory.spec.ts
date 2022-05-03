@@ -1,7 +1,7 @@
 import { OwnerYupValidator } from '../../validator';
 import { OwnerValidatorFactory } from '..';
 
-describe('#OwnerFactory', () => {
+describe('#OwnerValidatorFactory', () => {
   test('create a new Owner Validator', () => {
     const validator = OwnerValidatorFactory.create();
 

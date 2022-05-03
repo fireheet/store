@@ -1,4 +1,4 @@
-import { Document } from '@core/shared/domain/value_objects';
+import { Document } from '@core/shared/domain/value-objects';
 import { Entity } from '@core/shared/domain/entity';
 import { ValidationException } from '@core/shared/data/contracts';
 import { InvalidValidatorException } from '@core/shared/data/contracts/exceptions';
@@ -9,15 +9,14 @@ export class Owner extends Entity {
 
   document!: Document;
 
-  #validator: Validator<this>;
-
   // Stryker disable next-line all
-  constructor(props: Partial<Owner>, validator: Validator<Owner>) {
+  constructor(
+    props: Partial<Owner>,
+    private readonly validator: Validator<Owner>
+  ) {
     super();
 
     Object.assign(this, props);
-
-    this.#validator = validator;
 
     this.#validateOwner();
 
@@ -27,10 +26,12 @@ export class Owner extends Entity {
   }
 
   #validateOwner() {
-    if (!this.#validator) {
+    /* istanbul ignore next */
+    if (!this.validator) {
+      /* istanbul ignore next */
       throw new InvalidValidatorException('Owner Validator is invalid.');
     }
 
-    this.#validator.validate(this);
+    this.validator.validate(this);
   }
 }

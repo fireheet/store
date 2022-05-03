@@ -1,5 +1,5 @@
 import * as uuid from 'uuid';
-import { DocumentFactory } from '@core/shared/domain/value_objects';
+import { DocumentFactory } from '@core/shared/domain/value-objects';
 import { RepositoryOwnerFactory } from '..';
 
 describe('#RepositoryOwnerFactory', () => {

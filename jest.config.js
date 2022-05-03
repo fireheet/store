@@ -2,6 +2,11 @@
 module.exports = {
   preset: 'ts-jest',
   setupFiles: ['./src/core/shared/config/inversify.config.ts'],
+  testTimeout: 1000,
+  slowTestThreshold: 0.500,
+  testRegex: '(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$',
+  moduleFileExtensions: ['ts', 'tsx', 'js'],
+  maxWorkers: '50%',
   collectCoverageFrom: [
     'src/**/*.ts',
     '!stryker-tmp',
@@ -29,16 +34,6 @@ module.exports = {
     '!src/main/routes/**/*.ts',
     '!src/main/routes/*.ts'
   ],
-  testRegex: '(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$',
-  moduleFileExtensions: ['ts', 'tsx', 'js'],
-  globals: {
-    'ts-jest': {
-      tsconfig: 'tsconfig.json'
-    }
-  },
-  coverageProvider: 'v8',
-  testEnvironment: 'node',
-  maxWorkers: '50%',
   testPathIgnorePatterns: [
     '/stryker-tmp/',
     '/node_modules/',

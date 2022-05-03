@@ -32,7 +32,7 @@ export class DocumentYupValidator implements Validator<Document> {
     } catch (errors) {
       const e = errors as yup.ValidationError;
       e.errors.forEach(error => {
-        entity.validation.addError({
+        entity.notification.addError({
           context: 'document',
           message: error
         });
