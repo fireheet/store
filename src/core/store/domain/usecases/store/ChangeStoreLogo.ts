@@ -1,4 +1,4 @@
-import { Image } from '@core/shared/domain/value_objects';
+import { Image } from '@core/shared/domain/value-objects';
 
 export interface ChangeStoreLogo {
   change: () => Promise<Image>;
