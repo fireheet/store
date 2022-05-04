@@ -6,6 +6,7 @@ module.exports = {
   slowTestThreshold: 0.500,
   testRegex: '(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$',
   moduleFileExtensions: ['ts', 'tsx', 'js'],
+  testFailureExitCode: 0,
   maxWorkers: '50%',
   collectCoverageFrom: [
     'src/**/*.ts',
