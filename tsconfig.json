@@ -17,12 +17,7 @@
     "incremental": true,
     "paths": {
       "@core/*": ["core/*"],
-      "@domain/*": ["core/domain/*"],
-      "@data/*": ["core/data/*"],
-      "@presentation/*": ["core/presentation/*"],
-      "@infra/*": ["core/infra/*"],
       "@main/*": ["main/*"],
-      "@constants/*": ["core/config/constants/*"],
       "@config/*": ["core/config/*"],
     },
     "esModuleInterop": true,
@@ -31,6 +26,14 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noImplicitOverride": true,
-    "noEmitOnError": true
-  }
+    "noEmitOnError": true,
+    "alwaysStrict": true,
+  },
+  "include": [
+    "src/**/*",
+    "package.json",
+    "LICENSE",
+    "README.md",
+  ],
+  "exclude": ["node_modules", "dist", "stryker-tmp", "stryker-tmp/**/*"],
 }

@@ -1,0 +1,17 @@
+{
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#184052",
+    "titleBar.activeBackground": "#245e79",
+    "titleBar.activeForeground": "#FDFBFE",
+    "statusBar.background": "#245e79",
+    "statusBar.border": "#4097c0",
+    "statusBarItem.remoteBackground": "#2e80a7"
+  },
+  "cSpell.words": [
+    "abcdefghijk",
+    "autoload",
+    "CNPJ",
+    "CPNJ",
+    "eslintignore"
+  ]
+}
