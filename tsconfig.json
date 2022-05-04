@@ -35,5 +35,5 @@
     "LICENSE",
     "README.md",
   ],
-  "exclude": ["node_modules", "dist", "stryker-tmp", "stryker-tmp/**/*"],
+  "exclude": ["node_modules", "dist", "stryker-tmp"],
 }

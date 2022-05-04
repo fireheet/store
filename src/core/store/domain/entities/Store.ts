@@ -1,4 +1,4 @@
-import { Address, Document, Phone } from '@core/shared/domain/value_objects';
+import { Address, Document, Phone } from '@core/shared/domain/value-objects';
 import { StoreConstants } from '@core/store/config';
 import { Availability } from '../value_objects/Availability';
 

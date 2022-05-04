@@ -1,5 +1,5 @@
 import { Store } from '@core/store/domain/entities';
-import { Image } from '@core/shared/domain/value_objects';
+import { Image } from '@core/shared/domain/value-objects';
 import { MealConstants } from '../../config';
 
 export class Meal {
