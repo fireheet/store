@@ -54,6 +54,7 @@ export class Document extends ValueObject {
   /**
    * @returns this instance document number
    */
+  /* istanbul ignore next */
   public getNumber(): string {
     return this.number;
   }
@@ -61,6 +62,7 @@ export class Document extends ValueObject {
   /**
    * @returns this instance document type
    */
+  /* istanbul ignore next */
   public getType(): string {
     return this.type.toString();
   }
