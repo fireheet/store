@@ -9,13 +9,25 @@ module.exports = {
   testRunner: 'jest',
   coverageAnalysis: 'perTest',
   tempDirName: 'stryker-tmp',
-  ignorePatterns: ['dist', 'node_modules', 'src/core/meal', 'src/core/store'],
+  mutate: [
+    'src/core/**/*.ts',
+    '!src/**/config/**/*.ts',
+    '!src/**/dtos/**/*.ts',
+    '!src/**/types/**/*.ts',
+    '!src/**/sources/**/*.ts',
+    '!src/**/models/**/*.ts',
+    '!src/**/contracts/**/*.ts',
+    '!src/**/views/**/*.ts',
+    '!src/**/__tests__/*.spec.ts',
+  ],
+  ignorePatterns: [
+    'dist', 
+    'node_modules',
+    'src/core/meal', 
+    'src/core/store'],
   checkers: ['typescript'],
   tsconfigFile: 'tsconfig.json',
   allowConsoleColors: true,
-  mutator: {
-    excludedMutations: ['']
-  },
   jest: {
     projectType: 'custom',
     configFile: 'jest.stryker.config.js'
