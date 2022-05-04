@@ -16,7 +16,7 @@
   "homepage": "https://github.com/fireheet/store-service/#README.md",
   "author": "carlyfss",
   "engines": {
-    "node": "^14.18.2"
+    "node": "16.14.2"
   },
   "scripts": {
     "start": "yarn build:ts && fastify start -l info dist/app.js",
@@ -24,8 +24,7 @@
     "test": "jest --config=jest.config.js --colors --no-cache",
     "test:cov": "jest --config=jest.config.js --colors --no-cache --coverage",
     "test:mut": "yarn stryker run",
-    "test:ci": "jest --colors --ci --noStackTrace --runInBand",
-    "test:cov:ci": "jest --no-cache --coverage --ci --runInBand",
+    "test:ci": "jest --ci --coverage --no-cache --runInBand",
     "test:watch": "jest --colors --no-cache --watch",
     "check-dep": "npm-check --strict -s -u",
     "lint": "eslint --fix --ignore-path .eslintignore --ext .js,.ts .",
