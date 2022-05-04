@@ -1,11 +1,11 @@
 {
-  "name": "users",
-  "version": "0.0.1",
+  "name": "@fireheet/store-service",
+  "version": "0.1.0-alpha",
   "description": "",
   "main": "src/main/server.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/fireheet/store-service.git"
+  "repository": "git://github.com/fireheet/store-service.git",
+  "publishConfig": {
+    "registry":"https://npm.pkg.github.com"
   },
   "keywords": [
     "typescript"
