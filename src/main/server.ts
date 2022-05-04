@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/require-await */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable no-void */
 import 'module-alias/register';
@@ -12,6 +13,7 @@ const app: FastifyPluginAsync<AppOptions> = async (
   fastify: FastifyInstance,
   opts: Partial<AutoloadPluginOptions>
 ): Promise<void> => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   fastify.register(cors);
 
   // Do not touch the following lines
