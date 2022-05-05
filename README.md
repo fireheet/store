@@ -1,11 +1,10 @@
-[![node](https://img.shields.io/badge/node-16.14.2-green)]() [![typescript](https://img.shields.io/badge/typescript-4.5.5-blue)]()
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=fireheet_store-service&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=fireheet_store-service) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=fireheet_store-service&metric=coverage)](https://sonarcloud.io/summary/new_code?id=fireheet_store-service) [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=fireheet_store-service&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=fireheet_store-service)
+[![node](https://img.shields.io/badge/node-16.14.2-green)]() [![typescript](https://img.shields.io/badge/typescript-4.5.5-blue)]() [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=fireheet_store-service&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=fireheet_store-service) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=fireheet_store-service&metric=coverage)](https://sonarcloud.io/summary/new_code?id=fireheet_store-service) [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=fireheet_store-service&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=fireheet_store-service)
 
 # 🏬Store Service *[WIP]* [![SemVer](https://img.shields.io/github/v/release/fireheet/store-service?include_prereleases)](https://github.com/fireheet/store-service/releases/tag/v0.1.0-alpha) [![License](https://img.shields.io/github/license/fireheet/store-service)](https://github.com/fireheet/store-service/blob/main/LICENSE)
 
 ## Project Status
 
-This project is still under development, and it's at a very early stage. The documentation it's also under development and it will be updated accordingly.
+This project is still under development, and it's in a very early stage.
 
 This is one of the Microservices that will compose the **Munnchy App** . *(Will reveal more details soon...)*
 
