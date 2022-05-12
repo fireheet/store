@@ -1,8 +1,9 @@
 /* eslint-disable no-underscore-dangle */
 import { Notification } from '@core/shared/domain/errors';
+import { UUID } from '../value-objects/uuid/UUID';
 
 export abstract class Entity {
-  protected _id!: string;
+  protected _id!: UUID;
 
   #notification: Notification;
 
@@ -14,11 +15,11 @@ export abstract class Entity {
     return this.#notification;
   }
 
-  get id(): string {
+  get id(): UUID {
     return this._id;
   }
 
-  set id(id: string) {
+  set id(id: UUID) {
     this._id = id;
   }
 }

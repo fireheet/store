@@ -68,7 +68,7 @@ export class Document extends ValueObject {
   }
 
   public override toString(): string {
-    return `${this.type},${this.number}`;
+    return `${this.type};${this.number}`;
   }
 
   /**
