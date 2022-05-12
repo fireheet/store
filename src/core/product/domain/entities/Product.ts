@@ -1,8 +1,7 @@
 import { Image } from '@core/shared/domain/value-objects';
 import { Entity } from '@core/shared/domain/entity';
 import { UUID } from '@core/shared/domain/value-objects/uuid/UUID';
-import { ProductName } from '../value-objects/product-name/ProductName';
-import { Price } from '../value-objects/price';
+import { ProductName, Price } from '../value-objects';
 
 export class Product extends Entity {
   ownerId!: UUID;
