@@ -6,7 +6,7 @@ import { ValueObject } from '@core/shared/domain/value-objects/ValueObject';
 import { Validator } from '@core/shared/domain/contracts';
 
 export class Price extends ValueObject {
-  value!: string;
+  value!: number;
 
   constructor(
     props: Partial<Price>,
