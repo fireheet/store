@@ -24,7 +24,6 @@ describe('#Document', () => {
 
     expect(document.number).toStrictEqual('12345678901');
     expect(document.type).toStrictEqual('CPF');
-    expect(document.notification).toBeDefined();
   });
 
   test('instantiate a new Document without validator', () => {

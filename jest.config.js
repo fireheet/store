@@ -39,7 +39,7 @@ module.exports = {
     '/stryker-tmp/',
     '/node_modules/',
     '/requirements/',
-    '/dist/'
+    '/dist/',
   ],
   moduleNameMapper: {
     '^@core/(.*)$': '<rootDir>/src/core/$1',

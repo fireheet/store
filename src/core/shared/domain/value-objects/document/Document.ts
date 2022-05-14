@@ -1,10 +1,8 @@
-import {
-  InvalidValidatorException,
-  ValidationException
-} from '@core/shared/data/contracts';
+import { InvalidValidatorException } from '@core/shared/data/contracts';
 import { ValueObject } from '@core/shared/domain/value-objects/ValueObject';
 import { Validator } from '@core/shared/domain/contracts';
 import { DocumentType } from './enums';
+import { Entity } from '../../entity';
 
 export class Document extends ValueObject {
   number!: string;
@@ -12,18 +10,15 @@ export class Document extends ValueObject {
   type!: DocumentType;
 
   constructor(
+    entity: Entity,
     props: Partial<Document>,
     private readonly validator: Validator<Document>
   ) {
-    super();
+    super(entity);
 
     Object.assign(this, props);
 
     this.#validateDocument();
-
-    if (this.notification.hasErrors()) {
-      throw new ValidationException(this.notification.messages('document'));
-    }
   }
 
   #validateDocument(): void {

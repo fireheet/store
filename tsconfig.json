@@ -27,6 +27,7 @@
     "noImplicitReturns": true,
     "noImplicitOverride": true,
     "noEmitOnError": true,
+    "noEmitHelpers": false,
     "alwaysStrict": true,
   },
   "include": [

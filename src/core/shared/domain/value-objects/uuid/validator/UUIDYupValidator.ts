@@ -1,9 +1,14 @@
 import * as yup from 'yup';
 import { Validator } from '@core/shared/domain/contracts';
+import { Notification } from '@core/shared/domain/errors';
 import { UUID } from '../UUID';
 
 export class UUIDYupValidator implements Validator<UUID> {
-  public validate(entity: UUID): void {
+  /**
+   * @param object UUID string to validate
+   * @param notification Notification object from parent entity
+   */
+  public validate(object: UUID, notification: Notification): void {
     try {
       yup
         .object()
@@ -13,8 +18,8 @@ export class UUIDYupValidator implements Validator<UUID> {
         })
         .validateSync(
           {
-            uuid: entity.id,
-            version: entity.version
+            uuid: object.id,
+            version: object.version
           },
           {
             abortEarly: false
@@ -23,7 +28,7 @@ export class UUIDYupValidator implements Validator<UUID> {
     } catch (errors) {
       const e = errors as yup.ValidationError;
       e.errors.forEach(error => {
-        entity.notification.addError({
+        notification.addError({
           context: 'uuid',
           message: error
         });
