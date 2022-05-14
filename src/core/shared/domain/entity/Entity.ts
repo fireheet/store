@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import { Notification } from '@core/shared/domain/errors';
-import { UUID } from '../value-objects/uuid/UUID';
+import { UUID } from '../value-objects/uuid';
 
 export abstract class Entity {
   protected _id!: UUID;

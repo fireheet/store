@@ -1,14 +1,10 @@
-import { InvalidParameterException } from '@core/shared/data/contracts';
+import { Entity } from '@core/shared/domain/entity';
 import { ProductName } from '..';
-import { ProductNameProps } from '../types/ProductNameProps';
+import { ProductNameProps } from '../types';
 import { ProductNameValidatorFactory } from './ProductNameValidatorFactory';
 
 export class ProductNameFactory {
-  static create({ name }: ProductNameProps): ProductName {
-    if (!name) {
-      throw new InvalidParameterException('product name');
-    }
-
-    return new ProductName({ name }, ProductNameValidatorFactory.create());
+  static create(props: ProductNameProps, entity: Entity): ProductName {
+    return new ProductName(entity, props, ProductNameValidatorFactory.create());
   }
 }

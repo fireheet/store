@@ -1,26 +1,21 @@
-import {
-  InvalidValidatorException,
-  ValidationException
-} from '@core/shared/data/contracts';
+import { InvalidValidatorException } from '@core/shared/data/contracts';
 import { ValueObject } from '@core/shared/domain/value-objects/ValueObject';
 import { Validator } from '@core/shared/domain/contracts';
+import { Entity } from '@core/shared/domain/entity';
 
 export class Price extends ValueObject {
   value!: number;
 
   constructor(
+    entity: Entity,
     props: Partial<Price>,
     private readonly validator: Validator<Price>
   ) {
-    super();
+    super(entity);
 
     Object.assign(this, props);
 
     this.#validatePrice();
-
-    if (this.notification.hasErrors()) {
-      throw new ValidationException(this.notification.messages('price'));
-    }
   }
 
   #validatePrice(): void {

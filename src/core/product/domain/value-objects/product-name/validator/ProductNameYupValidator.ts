@@ -3,7 +3,7 @@ import { Validator } from '@core/shared/domain/contracts';
 import { ProductName } from '..';
 
 export class ProductNameYupValidator implements Validator<ProductName> {
-  public validate(entity: ProductName): void {
+  public validate(object: ProductName): void {
     try {
       yup
         .object()
@@ -12,7 +12,7 @@ export class ProductNameYupValidator implements Validator<ProductName> {
         })
         .validateSync(
           {
-            name: entity.name
+            name: object.name
           },
           {
             abortEarly: false
@@ -21,7 +21,7 @@ export class ProductNameYupValidator implements Validator<ProductName> {
     } catch (errors) {
       const e = errors as yup.ValidationError;
       e.errors.forEach(error => {
-        entity.notification.addError({
+        object.entity.notification.addError({
           context: 'product-name',
           message: error
         });

@@ -1,10 +1,9 @@
-/* eslint-disable no-underscore-dangle */
-import { Notification } from '@core/shared/domain/errors';
+import { Entity } from '../entity/Entity';
 
 export abstract class ValueObject {
-  notification!: Notification;
+  entity!: Entity;
 
-  constructor() {
-    this.notification = new Notification();
+  constructor(entity: Entity) {
+    this.entity = entity;
   }
 }
